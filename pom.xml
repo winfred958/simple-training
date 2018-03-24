@@ -1,0 +1,157 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.winfred.simple-training</groupId>
+	<artifactId>training</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>training</name>
+	<modules>
+		<module>training-pojo</module>
+		<module>training-design-pattern</module>
+	</modules>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+		<java.version>1.8</java.version>
+
+		<lombok.version>1.16.18</lombok.version>
+		<alibaba.fastjson.version>1.2.34</alibaba.fastjson.version>
+		<jedis.client.version>2.8.2</jedis.client.version>
+		<swagger.version>2.8.0</swagger.version>
+
+		<!-- commons -->
+		<commons-lang3.version>3.7</commons-lang3.version>
+
+		<!-- WEB -->
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+
+		<!-- logging -->
+		<slf4j.version>1.7.25</slf4j.version>
+
+		<!-- spring -->
+		<spring.version>5.0.3.RELEASE</spring.version>
+		<jackson-databind.version>2.9.4</jackson-databind.version>
+
+		<!-- spring boot -->
+		<spring.boot.version>1.5.10.RELEASE</spring.boot.version>
+		<mybatis-spring-boot-starter.version>1.3.5</mybatis-spring-boot-starter.version>
+		<spring.cloud.version>1.3.4.RELEASE</spring.cloud.version>
+		<spring-boot-maven-plugin.version>1.5.9.RELEASE</spring-boot-maven-plugin.version>
+		<springloaded.version>1.2.8.RELEASE</springloaded.version>
+		<mybatis-spring-boot-starter.version>1.3.1</mybatis-spring-boot-starter.version>
+
+		<!-- spring-data-commons -->
+		<spring-data-commons.version>2.0.3.RELEASE</spring-data-commons.version>
+
+		<!-- DB -->
+		<mysql.connection.version>5.1.44</mysql.connection.version>
+		<alibaba.druid.version>1.1.6</alibaba.druid.version>
+
+		<mybatis.version>3.4.4</mybatis.version>
+		<mybatis-spring.version>1.3.1</mybatis-spring.version>
+
+		<maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
+		<maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+
+		<maxmind.geoip2.version>2.9.0</maxmind.geoip2.version>
+
+		<httpclient.version>4.5.3</httpclient.version>
+
+	</properties>
+
+
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
+			</resource>
+			<resource>
+				<directory>${basedir}/src/main/resources</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<!-- 资源文件拷贝插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>${maven-resources-plugin.version}</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<warName>log-collect</warName>
+						<webResources>
+							<resource>
+								<directory>src/main/webapp/WEB-INF</directory>
+								<targetPath>WEB-INF</targetPath>
+							</resource>
+						</webResources>
+					</configuration>
+				</plugin>
+				<!-- tomcat插件 <plugin> <groupId>org.apache.tomcat.maven</groupId> <artifactId>tomcat7-maven-plugin</artifactId> 
+					<configuration> <port>8086</port> <path>/</path> </configuration> </plugin> -->
+
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot-maven-plugin.version}</version>
+					<dependencies>
+						<dependency>
+							<groupId>org.springframework</groupId>
+							<artifactId>springloaded</artifactId>
+							<version>${springloaded.version}</version>
+						</dependency>
+					</dependencies>
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+							<configuration>
+								<classifier>exec</classifier>
+							</configuration>
+						</execution>
+					</executions>
+					<configuration>
+						<fork>true</fork>
+						<addResources>true</addResources>
+						<mainClass>com.yamibuy.tracking.rest.app.StrackFrontApplication</mainClass>
+						<!-- 指定监听端口号 -->
+						<jvmArguments>-Xdebug
+							-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8888
+						</jvmArguments>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>
