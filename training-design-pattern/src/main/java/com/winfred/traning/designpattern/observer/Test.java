@@ -9,12 +9,14 @@ public class Test {
 	public static void main(String[] args) {
 		Observer observer1 = new ObserverOne();
 		Observer observer2 = new ObserverTwo();
+		Observer observer3 = new ObserverThr();
 
 		ObservableleImp observable = new ObservableleImp();
 
 
 		observable.addObserver(observer1);
 		observable.addObserver(observer2);
+		observable.addObserver(observer3);
 
 		observable.doAction(new TestEntity("1"));
 		observable.doAction(new TestEntity("2"));

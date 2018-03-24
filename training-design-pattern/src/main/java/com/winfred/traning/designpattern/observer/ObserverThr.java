@@ -5,11 +5,11 @@ import java.util.Observer;
 
 import com.alibaba.fastjson.JSON;
 
-public class ObserverTwo implements Observer {
+public class ObserverThr implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(o.countObservers() + " | Observer-2: " + JSON.toJSONString(arg));
+		System.out.println(o.countObservers() + " | Observer-3: " + JSON.toJSONString(arg));
 	}
 
 }
