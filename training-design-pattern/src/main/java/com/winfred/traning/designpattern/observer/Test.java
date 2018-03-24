@@ -11,7 +11,7 @@ public class Test {
 		Observer observer2 = new ObserverTwo();
 		Observer observer3 = new ObserverThr();
 
-		ObservableleImp observable = new ObservableleImp();
+		ObservableImp observable = new ObservableImp();
 
 
 		observable.addObserver(observer1);
