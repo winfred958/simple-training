@@ -1,9 +1,9 @@
 package com.winfred.traning.designpattern.observer;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Observer;
 
-import lombok.Data;
-import lombok.Getter;
 
 public class Test {
 
@@ -27,6 +27,17 @@ public class Test {
 		observable.doAction(new TestEntity("3"));
 		observable.doAction(new TestEntity("4"));
 		observable.doAction(new TestEntity("5"));
+		
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar calendar = Calendar.getInstance();
+		int total = 60;
+		for (int i = 0; i < total; i++) {
+			calendar.add(Calendar.DAY_OF_MONTH, -1);
+			System.out.println(
+					"spark-submit       --class com.yamibuy.datamining.etl.ec.branch.SearchModel       --master yarn           --deploy-mode cluster           --driver-memory 6g       --num-executors 40       --executor-memory 2g       --executor-cores 4       --conf spark.sql.warehouse.dir=hdfs://yamicdh5/user/yamipro/spark/warehouse       --files /etc/hive/conf/hive-site.xml       --jars /opt/cm/share/cmf/lib/mysql-connector-java.jar     /home/yamipro/git_dir/bi-engine/data-etl/target/data-etl.jar "
+							+ simpleDateFormat.format(calendar.getTime()));
+		}
+		
 	}
 
 	static class TestEntity {

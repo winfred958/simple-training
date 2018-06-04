@@ -9,6 +9,12 @@
 	<artifactId>training-design-pattern</artifactId>
 
 	<dependencies>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
 		<!-- 引入 lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
