@@ -175,7 +175,6 @@
 					<configuration>
 						<fork>true</fork>
 						<addResources>true</addResources>
-						<mainClass>com.yamibuy.tracking.rest.app.StrackFrontApplication</mainClass>
 						<!-- 指定监听端口号 -->
 						<jvmArguments>-Xdebug
 							-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8888
