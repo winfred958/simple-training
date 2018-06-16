@@ -10,9 +10,10 @@ import com.winfred.traning.designpattern.behavioral.observer.SubscriberOne;
 import com.winfred.traning.designpattern.behavioral.observer.SubscriberTwo;
 import com.winfred.traning.designpattern.behavioral.observer.base.Publisher;
 import com.winfred.traning.designpattern.behavioral.observer.entity.Message;
+import com.winfred.traning.designpattern.behavioral.proxy.jdk.MyInvocationHandler;
+import com.winfred.traning.designpattern.behavioral.proxy.jdk.UserService;
+import com.winfred.traning.designpattern.behavioral.proxy.jdk.UserServiceImpl;
 import org.junit.Test;
-
-import java.util.Observer;
 
 
 public class BehavioralTest {
@@ -47,5 +48,20 @@ public class BehavioralTest {
         publisher.pub(new Message("你好"));
         System.out.println("==");
         publisher.pub(new Message("123"));
+    }
+
+    @Test
+    public void proxyTest() {
+        UserService userService = new UserServiceImpl();
+        MyInvocationHandler myInvocationHandler = new MyInvocationHandler(userService);
+
+        UserService proxy = (UserService) myInvocationHandler.getProxy();
+
+        proxy.testBefore();
+        System.out.println("=====================");
+        proxy.testAfter();
+        System.out.println("=====================");
+        proxy.testAround();
+        System.out.println("=====================");
     }
 }
