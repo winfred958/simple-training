@@ -51,7 +51,8 @@ public class BehavioralTest {
     }
 
     @Test
-    public void proxyTest() {
+    public void jdkProxyTest() {
+        // jdk proxy 只支持被代理的对象必须要实现接口
         UserService userService = new UserServiceImpl();
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler(userService);
 

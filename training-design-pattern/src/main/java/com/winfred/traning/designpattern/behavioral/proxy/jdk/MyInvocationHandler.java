@@ -21,36 +21,36 @@ public class MyInvocationHandler implements InvocationHandler {
         this.target = target;
     }
 
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Object result = null;
-        if (null != method.getAnnotation(TestBefore.class)) {
-            before();
-            result = method.invoke(target, args);
-        } else if (null != method.getAnnotation(TestAfter.class)) {
-            result = method.invoke(target, args);
-            after();
-        } else if (null != method.getAnnotation(TestAround.class)){
-            before();
-            result = method.invoke(target, args);
-            after();
-        } else {
-            before();
-            result = method.invoke(target, args);
-            after();
-        }
-        return result;
-    }
-
     public Object getProxy() {
         return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), target.getClass().getInterfaces(), this);
     }
 
-    private void before() {
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Object result;
+        if (null != method.getAnnotation(TestBefore.class)) {
+            before(args);
+            result = method.invoke(target, args);
+        } else if (null != method.getAnnotation(TestAfter.class)) {
+            result = method.invoke(target, args);
+            after(args);
+        } else if (null != method.getAnnotation(TestAround.class)) {
+            before(args);
+            result = method.invoke(target, args);
+            after(args);
+        } else {
+            before(args);
+            result = method.invoke(target, args);
+            after(args);
+        }
+        return result;
+    }
+
+    private void before(Object[] args) {
         System.out.println(String.format("%s : %s", this.getClass().getName(), " --- before ---"));
     }
 
-    private void after() {
+    private void after(Object[] args) {
         System.out.println(String.format("%s : %s", this.getClass().getName(), " --- after ---"));
     }
 
