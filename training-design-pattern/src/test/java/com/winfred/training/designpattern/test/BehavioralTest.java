@@ -1,18 +1,18 @@
 package com.winfred.training.designpattern.test;
 
-import com.winfred.traning.designpattern.behavioral.chain.HtmlFilter;
-import com.winfred.traning.designpattern.behavioral.chain.TermFilter;
-import com.winfred.traning.designpattern.behavioral.chain.base.FilterChain;
-import com.winfred.traning.designpattern.behavioral.chain.base.FilterChainImpl;
-import com.winfred.traning.designpattern.behavioral.chain.entity.Request;
-import com.winfred.traning.designpattern.behavioral.chain.entity.Response;
-import com.winfred.traning.designpattern.behavioral.observer.SubscriberOne;
-import com.winfred.traning.designpattern.behavioral.observer.SubscriberTwo;
-import com.winfred.traning.designpattern.behavioral.observer.base.Publisher;
-import com.winfred.traning.designpattern.behavioral.observer.entity.Message;
-import com.winfred.traning.designpattern.behavioral.proxy.jdk.MyInvocationHandler;
-import com.winfred.traning.designpattern.behavioral.proxy.jdk.UserService;
-import com.winfred.traning.designpattern.behavioral.proxy.jdk.UserServiceImpl;
+import com.winfred.training.designpattern.behavioral.chain.HtmlFilter;
+import com.winfred.training.designpattern.behavioral.chain.TermFilter;
+import com.winfred.training.designpattern.behavioral.chain.base.FilterChain;
+import com.winfred.training.designpattern.behavioral.chain.base.FilterChainImpl;
+import com.winfred.training.designpattern.behavioral.chain.entity.Request;
+import com.winfred.training.designpattern.behavioral.chain.entity.Response;
+import com.winfred.training.designpattern.behavioral.observer.SubscriberOne;
+import com.winfred.training.designpattern.behavioral.observer.SubscriberTwo;
+import com.winfred.training.designpattern.behavioral.observer.base.Publisher;
+import com.winfred.training.designpattern.behavioral.observer.entity.Message;
+import com.winfred.training.designpattern.behavioral.proxy.jdk.MyInvocationHandler;
+import com.winfred.training.designpattern.behavioral.proxy.jdk.UserService;
+import com.winfred.training.designpattern.behavioral.proxy.jdk.UserServiceImpl;
 import org.junit.Test;
 
 
