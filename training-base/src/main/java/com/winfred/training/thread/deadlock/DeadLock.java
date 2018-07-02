@@ -1,5 +1,14 @@
 package com.winfred.training.thread.deadlock;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.ThreadInfo;
+import java.lang.management.ThreadMXBean;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class DeadLock {
 
 //    Found one Java-level deadlock:
@@ -64,6 +73,34 @@ public class DeadLock {
         thread1.start();
         thread2.start();
 
+//        try {
+//            thread1.join();
+//            thread2.join();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        // 每隔10s 检测一次该jvm 死锁
+        scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                System.out.println("================ WARNING ==================== " + simpleDateFormat.format(Calendar.getInstance().getTime()));
+
+                ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+                // 获取死锁线程
+                long[] pids = threadMXBean.findDeadlockedThreads();
+                ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(pids);
+                for (ThreadInfo threadInfo : threadInfos) {
+                    System.out.println("deadlock thread: " + threadInfo.getThreadName());
+                }
+            }
+        }, 10L, 10L, TimeUnit.SECONDS);
+
+
     }
+
+
 }
 
