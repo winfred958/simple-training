@@ -89,9 +89,9 @@ public class DeadLock {
                 System.out.println("================ WARNING ==================== " + simpleDateFormat.format(Calendar.getInstance().getTime()));
 
                 ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-                // 获取死锁线程
-                long[] pids = threadMXBean.findDeadlockedThreads();
-                ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(pids);
+                // 获取死锁线程thread id
+                long[] tids = threadMXBean.findDeadlockedThreads();
+                ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(tids);
                 for (ThreadInfo threadInfo : threadInfos) {
                     System.out.println("deadlock thread: " + threadInfo.getThreadName());
                 }
