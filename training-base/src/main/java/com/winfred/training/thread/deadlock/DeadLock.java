@@ -93,7 +93,10 @@ public class DeadLock {
                 long[] tids = threadMXBean.findDeadlockedThreads();
                 ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(tids);
                 for (ThreadInfo threadInfo : threadInfos) {
-                    System.out.println("deadlock thread: " + threadInfo.getThreadName());
+                    System.out.println("deadlock thread :: " + threadInfo.getThreadName() +
+                            " :: " + threadInfo.getLockName() +
+                            " | " + threadInfo.getThreadId() +
+                            " | " + threadInfo.getLockOwnerName());
                 }
             }
         }, 10L, 10L, TimeUnit.SECONDS);
