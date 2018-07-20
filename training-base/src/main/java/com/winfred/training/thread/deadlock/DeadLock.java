@@ -100,10 +100,6 @@ public class DeadLock {
                 }
             }
         }, 10L, 10L, TimeUnit.SECONDS);
-
-
     }
-
-
 }
 

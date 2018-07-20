@@ -1,6 +1,7 @@
 package com.winfred.training.designpattern.behavioral.proxy.jdk;
 
 public class UserServiceImpl implements UserService {
+
     @Override
     public void testBefore() {
         System.out.println(String.format("%s : %s", this.getClass().getName(), "testBefore"));

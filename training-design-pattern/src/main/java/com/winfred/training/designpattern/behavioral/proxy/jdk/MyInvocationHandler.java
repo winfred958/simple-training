@@ -39,9 +39,7 @@ public class MyInvocationHandler implements InvocationHandler {
             result = method.invoke(target, args);
             after(args);
         } else {
-            before(args);
             result = method.invoke(target, args);
-            after(args);
         }
         return result;
     }
