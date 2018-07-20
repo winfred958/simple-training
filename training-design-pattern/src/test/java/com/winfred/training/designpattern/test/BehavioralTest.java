@@ -10,6 +10,7 @@ import com.winfred.training.designpattern.behavioral.observer.SubscriberOne;
 import com.winfred.training.designpattern.behavioral.observer.SubscriberTwo;
 import com.winfred.training.designpattern.behavioral.observer.base.Publisher;
 import com.winfred.training.designpattern.behavioral.observer.entity.Message;
+import com.winfred.training.designpattern.behavioral.proxy.cglib.CGLibProxy;
 import com.winfred.training.designpattern.behavioral.proxy.jdk.MyInvocationHandler;
 import com.winfred.training.designpattern.behavioral.proxy.jdk.UserService;
 import com.winfred.training.designpattern.behavioral.proxy.jdk.UserServiceImpl;
@@ -64,5 +65,14 @@ public class BehavioralTest {
         System.out.println("=====================");
         proxy.testAround();
         System.out.println("=====================");
+    }
+
+    @Test
+    public void cglibProxyTest(){
+
+        CGLibProxy cgLibProxy = new CGLibProxy();
+        com.winfred.training.designpattern.behavioral.proxy.cglib.UserService userService = (com.winfred.training.designpattern.behavioral.proxy.cglib.UserService)cgLibProxy.createProxyObject(new com.winfred.training.designpattern.behavioral.proxy.cglib.UserServiceImpl());
+
+        userService.testAround();
     }
 }
