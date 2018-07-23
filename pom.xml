@@ -11,6 +11,7 @@
         <module>training-base</module>
         <module>training-design-pattern</module>
         <module>training-spring</module>
+        <module>training-netty</module>
     </modules>
 
 
