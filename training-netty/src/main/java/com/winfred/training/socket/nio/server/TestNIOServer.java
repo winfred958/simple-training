@@ -38,11 +38,12 @@ public class TestNIOServer {
             while (iterator.hasNext()) {
                 SelectionKey selectionKey = iterator.next();
 
-                if (selectionKey.isAcceptable()) {
+                if (selectionKey.isConnectable()) {
+                    myProtocol.handleConnect(selectionKey);
+                } else if (selectionKey.isAcceptable()) {
                     myProtocol.handleAccept(selectionKey);
                 } else if (selectionKey.isReadable()) {
                     myProtocol.handleRead(selectionKey);
-                    selector.wakeup();
                 } else if (selectionKey.isWritable()) {
                     myProtocol.handleWrite(selectionKey);
                 }

@@ -9,6 +9,7 @@ public interface MyServerProtocol {
         System.out.println(String.format("服务端 - 收到: %s", str));
     }
 
+    void handleConnect(SelectionKey key) throws IOException;
     /**
      * 处理客户端连接
      *
