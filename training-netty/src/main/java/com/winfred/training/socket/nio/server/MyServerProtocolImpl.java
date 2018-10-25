@@ -57,6 +57,8 @@ public class MyServerProtocolImpl implements MyServerProtocol {
         this.serverPrint(receivedString);
 
         if (StringUtils.isBlank(receivedString)) {
+            byteBuffer.clear();
+            socketChannel.write(Charset.defaultCharset().encode(String.format("已经收到: %s", receivedString)));
             key.cancel();
             socketChannel.close();
             return;
