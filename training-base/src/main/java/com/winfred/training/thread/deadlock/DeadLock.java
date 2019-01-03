@@ -1,8 +1,6 @@
 package com.winfred.training.thread.deadlock;
 
-import java.lang.management.ManagementFactory;
-import java.lang.management.ThreadInfo;
-import java.lang.management.ThreadMXBean;
+import java.lang.management.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.Executors;
@@ -93,13 +91,40 @@ public class DeadLock {
                 long[] tids = threadMXBean.findDeadlockedThreads();
                 ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(tids);
                 for (ThreadInfo threadInfo : threadInfos) {
+
                     System.out.println("deadlock thread :: " + threadInfo.getThreadName() +
-                            " :: " + threadInfo.getLockName() +
-                            " | " + threadInfo.getThreadId() +
-                            " | " + threadInfo.getLockOwnerName());
+                            " :: lockName=" + threadInfo.getLockName() +
+                            " | ThreadId=" + threadInfo.getThreadId() +
+                            " | LockOwnerId=" + threadInfo.getLockOwnerId() +
+                            " | LockOwnerName=" + threadInfo.getLockOwnerName());
                 }
+
+//                showMemoryInfo();
+
             }
         }, 10L, 10L, TimeUnit.SECONDS);
+    }
+
+
+    public static void showMemoryInfo() {
+        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
+        MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
+
+        System.out.println(
+                "heapMemoryUsage max " + heapMemoryUsage.getMax() +
+                        "\nheapMemoryUsage init " + heapMemoryUsage.getInit() +
+                        "\nheapMemoryUsage used " + heapMemoryUsage.getUsed()
+        );
+
+        MemoryUsage nonHeapMemoryUsage = memoryMXBean.getNonHeapMemoryUsage();
+        nonHeapMemoryUsage.getMax();
+        nonHeapMemoryUsage.getInit();
+        nonHeapMemoryUsage.getUsed();
+        System.out.println(
+                "nonHeapMemoryUsage max " + nonHeapMemoryUsage.getMax() +
+                        "\nnonHeapMemoryUsage init " + nonHeapMemoryUsage.getInit() +
+                        "\nnonHeapMemoryUsage used " + nonHeapMemoryUsage.getUsed()
+        );
     }
 }
 
