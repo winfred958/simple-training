@@ -14,25 +14,22 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     Logger log = LoggerFactory.getLogger(EchoServerHandler.class);
 
-//    @Override
-//    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-//        super.channelUnregistered(ctx);
-//    }
-//
-//    @Override
-//    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-//        super.channelActive(ctx);
-//    }
-//
-//    @Override
-//    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-//        super.channelInactive(ctx);
-//    }
+
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info("客户端断开连接");
+        ctx.close();
+    }
+
+    @Override
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        log.info("客户端建立连接");
+    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         log.info("request: {}", msg);
-        ctx.write(msg);
+        ctx.writeAndFlush(msg);
     }
 
     @Override

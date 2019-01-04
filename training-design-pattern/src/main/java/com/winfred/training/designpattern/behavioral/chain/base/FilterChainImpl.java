@@ -1,13 +1,12 @@
 package com.winfred.training.designpattern.behavioral.chain.base;
 
+import com.winfred.training.designpattern.behavioral.chain.entity.Request;
+import com.winfred.training.designpattern.behavioral.chain.entity.Response;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import com.winfred.training.designpattern.behavioral.chain.entity.Response;
-import com.winfred.training.designpattern.behavioral.chain.entity.Request;
-
-import lombok.Data;
 
 @Data
 public class FilterChainImpl implements FilterChain {

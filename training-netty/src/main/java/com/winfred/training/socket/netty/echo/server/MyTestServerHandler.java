@@ -19,12 +19,12 @@ public class MyTestServerHandler extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) throws Exception {
         ChannelPipeline channelPipeline = socketChannel.pipeline();
-        channelPipeline.addLast("echo", new EchoServerHandler());
+        channelPipeline.addLast("echo-server", new EchoServerHandler());
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("MyTestServerHandler channelActive" );
+        log.info("MyTestServerHandler channelActive");
         super.channelActive(ctx);
     }
 }

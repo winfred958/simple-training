@@ -1,7 +1,7 @@
 package com.winfred.training.designpattern.behavioral.chain.base;
 
-import com.winfred.training.designpattern.behavioral.chain.entity.Response;
 import com.winfred.training.designpattern.behavioral.chain.entity.Request;
+import com.winfred.training.designpattern.behavioral.chain.entity.Response;
 
 public interface FilterChain {
 

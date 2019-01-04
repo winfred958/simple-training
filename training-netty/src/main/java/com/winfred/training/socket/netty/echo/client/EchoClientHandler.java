@@ -12,6 +12,7 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     String message = "hello";
 
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
 
@@ -21,7 +22,7 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("response: msg = [" + msg + "]");
+        log.info("response: {}", msg);
         ctx.write(msg);
     }
 

@@ -68,10 +68,10 @@ public class BehavioralTest {
     }
 
     @Test
-    public void cglibProxyTest(){
+    public void cglibProxyTest() {
 
         CGLibProxy cgLibProxy = new CGLibProxy();
-        com.winfred.training.designpattern.behavioral.proxy.cglib.UserService userService = (com.winfred.training.designpattern.behavioral.proxy.cglib.UserService)cgLibProxy.createProxyObject(new com.winfred.training.designpattern.behavioral.proxy.cglib.UserServiceImpl());
+        com.winfred.training.designpattern.behavioral.proxy.cglib.UserService userService = (com.winfred.training.designpattern.behavioral.proxy.cglib.UserService) cgLibProxy.createProxyObject(new com.winfred.training.designpattern.behavioral.proxy.cglib.UserServiceImpl());
 
         userService.testAround();
     }

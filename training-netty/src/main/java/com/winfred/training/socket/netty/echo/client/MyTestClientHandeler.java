@@ -1,8 +1,8 @@
 package com.winfred.training.socket.netty.echo.client;
 
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.channel.ChannelInitializer;
 
 public class MyTestClientHandeler extends ChannelInitializer<SocketChannel> {
 
