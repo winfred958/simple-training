@@ -1,7 +1,9 @@
-package com.winfred.training.socket.netty.server;
+package com.winfred.training.socket.netty.echo.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * echo channel handler
@@ -10,29 +12,32 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
-    @Override
-    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-        super.channelUnregistered(ctx);
-    }
+    Logger log = LoggerFactory.getLogger(EchoServerHandler.class);
 
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
-    }
-
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
-    }
+//    @Override
+//    public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+//        super.channelUnregistered(ctx);
+//    }
+//
+//    @Override
+//    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+//        super.channelActive(ctx);
+//    }
+//
+//    @Override
+//    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+//        super.channelInactive(ctx);
+//    }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        log.info("request: {}", msg);
         ctx.write(msg);
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        super.channelReadComplete(ctx);
+        ctx.flush();
     }
 
     @Override

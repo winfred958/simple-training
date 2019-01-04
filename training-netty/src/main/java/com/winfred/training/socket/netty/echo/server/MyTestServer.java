@@ -1,9 +1,8 @@
-package com.winfred.training.socket.netty.server;
+package com.winfred.training.socket.netty.echo.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
@@ -37,15 +36,19 @@ public class MyTestServer {
         serverBootstrap.group(parentEventLoop, childEventLoop)
                 .channel(NioServerSocketChannel.class)
                 .handler(new LoggingHandler(LogLevel.INFO))
-                .childOption(ChannelOption.TCP_NODELAY, true)
-                .childAttr(AttributeKey.newInstance("childAttr"), "ttttttttt")
+                .option(ChannelOption.SO_BACKLOG, 100)
                 .childHandler(new MyTestServerHandler());
 
         try {
             ChannelFuture channelFuture = serverBootstrap.bind(this.port).sync();
-            channelFuture.await();
+//            channelFuture.await();
+            channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
+        } finally {
+            parentEventLoop.shutdownGracefully();
+            childEventLoop.shutdownGracefully();
+
         }
 
     }
