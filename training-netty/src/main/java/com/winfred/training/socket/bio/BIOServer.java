@@ -1,5 +1,6 @@
 package com.winfred.training.socket.bio;
 
+import com.winfred.training.core.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -11,14 +12,13 @@ import java.net.Socket;
 public class BIOServer {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(6666);
-
-        new Thread(() -> {
+        ThreadPoolUtil.doExecutor(() -> {
             while (true) {
                 // 1. 阻塞获取新连接
                 try {
                     Socket socket = serverSocket.accept();
                     // 2. 每一个新连接都启动一个线程处理
-                    new Thread(() -> {
+                    ThreadPoolUtil.doExecutor(() -> {
                         try {
                             byte[] data = new byte[4096];
                             InputStream inputStream = socket.getInputStream();
@@ -33,11 +33,11 @@ public class BIOServer {
                             log.error("socket close ", e);
                         }
 
-                    }).start();
+                    });
                 } catch (IOException e) {
                     log.error("", e);
                 }
             }
-        }).start();
+        });
     }
 }

@@ -1,5 +1,6 @@
 package com.winfred.training.socket.bio;
 
+import com.winfred.training.core.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -13,8 +14,7 @@ public class BIOClient {
     public static void main(String[] args) {
         String ip = "127.0.0.1";
         int port = 6666;
-
-        new Thread(() -> {
+        ThreadPoolUtil.doExecutor(() -> {
             try {
                 Socket socket = new Socket(ip, port);
                 while (true) {
@@ -32,6 +32,6 @@ public class BIOClient {
             } catch (InterruptedException e) {
                 log.error("sleep InterruptedException ", e);
             }
-        }).start();
+        });
     }
 }
