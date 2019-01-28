@@ -41,7 +41,6 @@ public class MyTestServer {
 
         try {
             ChannelFuture channelFuture = serverBootstrap.bind(this.port).sync();
-//            channelFuture.await();
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

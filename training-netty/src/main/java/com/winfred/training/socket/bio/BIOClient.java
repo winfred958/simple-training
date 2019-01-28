@@ -1,12 +1,14 @@
 package com.winfred.training.socket.bio;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.logging.SimpleFormatter;
 
+@Slf4j
 public class BIOClient {
     public static void main(String[] args) {
         String ip = "127.0.0.1";
@@ -22,13 +24,13 @@ public class BIOClient {
                     String msg = simpleDateFormat.format(calendar.getTime()) + ": hello";
                     outputStream.write(msg.getBytes());
                     outputStream.flush();
-                    System.out.println("send -> : " + msg);
+                    log.info("send   : {}", msg);
                     Thread.sleep(2000);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("socket close ", e);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                log.error("sleep InterruptedException ", e);
             }
         }).start();
     }

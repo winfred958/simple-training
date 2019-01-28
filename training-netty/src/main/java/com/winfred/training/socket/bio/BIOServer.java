@@ -1,10 +1,13 @@
 package com.winfred.training.socket.bio;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+@Slf4j
 public class BIOServer {
     public static void main(String[] args) throws IOException {
         ServerSocket serverSocket = new ServerSocket(6666);
@@ -22,16 +25,17 @@ public class BIOServer {
                             while (true) {
                                 int len;
                                 while ((len = inputStream.read(data)) != -1) {
-                                    System.out.println(new String(data, 0, len));
+                                    String msg = new String(data, 0, len);
+                                    log.info("accept: {}", msg);
                                 }
                             }
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            log.error("socket close ", e);
                         }
 
                     }).start();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    log.error("", e);
                 }
             }
         }).start();
