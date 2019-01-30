@@ -32,7 +32,7 @@ public class BIOServer {
                         } catch (IOException e) {
                             log.error("socket close ", e);
                         }
-
+                        log.info("1 个子线程消亡 {}", Thread.currentThread().getName());
                     });
                 } catch (IOException e) {
                     log.error("", e);
