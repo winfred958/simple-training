@@ -2,6 +2,7 @@ package com.winfred.training.socket.netty.echo.server;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,9 +11,8 @@ import org.slf4j.LoggerFactory;
  *
  * @author kevin
  */
+@Slf4j
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
-
-    Logger log = LoggerFactory.getLogger(EchoServerHandler.class);
 
 
     @Override

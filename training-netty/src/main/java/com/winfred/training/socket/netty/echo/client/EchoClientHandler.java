@@ -2,13 +2,10 @@ package com.winfred.training.socket.netty.echo.client;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
-
+@Slf4j
 public class EchoClientHandler extends ChannelInboundHandlerAdapter {
-
-    Logger log = LoggerFactory.getLogger(EchoClientHandler.class);
 
     String message = "hello";
 

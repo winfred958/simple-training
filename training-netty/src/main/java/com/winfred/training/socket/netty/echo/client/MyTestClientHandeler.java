@@ -3,7 +3,9 @@ package com.winfred.training.socket.netty.echo.client;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MyTestClientHandeler extends ChannelInitializer<SocketChannel> {
 
     @Override
