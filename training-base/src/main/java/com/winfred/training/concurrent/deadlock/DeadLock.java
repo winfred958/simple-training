@@ -1,4 +1,4 @@
-package com.winfred.training.thread.deadlock;
+package com.winfred.training.concurrent.deadlock;
 
 import java.lang.management.*;
 import java.text.SimpleDateFormat;
