@@ -24,7 +24,7 @@ public final class ThreadPoolUtil {
 
                     @Override
                     public Thread newThread(Runnable r) {
-                        Thread thread = new Thread(r, "udf-thread-pool-" + tid.getAndDecrement());
+                        Thread thread = new Thread(r, "ud-thread-pool-" + tid.getAndDecrement());
                         return thread;
                     }
                 }
