@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(
         scanBasePackages = {
-                "com.winfred.spring.config"
+                "com.winfred.spring.config",
+                "com.winfred.spring.service"
         }
 )
 public class TrainingApplication {
