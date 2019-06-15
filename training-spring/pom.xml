@@ -17,6 +17,9 @@
 
         <!-- web -->
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+
+        <!-- others -->
+        <zookeeper.version>3.5.5</zookeeper.version>
     </properties>
 
     <dependencyManagement>
@@ -133,6 +136,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
             <version>${spring.boot.version}</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.apache.zookeeper</groupId>
+            <artifactId>zookeeper</artifactId>
+            <version>${zookeeper.version}</version>
         </dependency>
 
     </dependencies>
