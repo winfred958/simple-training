@@ -1,4 +1,4 @@
-package com.winfred.training.neo4j.remote.ogm;
+package com.winfred.training.neo4j.remote.ogm.common;
 
 import com.winfred.training.neo4j.remote.ogm.entity.ItemEntity;
 import org.neo4j.ogm.config.Configuration;
@@ -41,6 +41,7 @@ public class GraphDatabaseOgmSessionFactory {
 
 
         ItemEntity entity = session.load(ItemEntity.class, itemEntity.getItemNumber());
+
 
         return null;
     }
