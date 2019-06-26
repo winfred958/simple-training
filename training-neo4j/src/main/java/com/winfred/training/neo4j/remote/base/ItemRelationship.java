@@ -1,4 +1,4 @@
-package com.winfred.training.neo4j.remote;
+package com.winfred.training.neo4j.remote.base;
 
 import org.neo4j.graphdb.RelationshipType;
 
