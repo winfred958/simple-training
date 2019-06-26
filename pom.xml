@@ -12,6 +12,7 @@
         <module>training-design-pattern</module>
         <module>training-spring</module>
         <module>training-netty</module>
+        <module>training-neo4j</module>
     </modules>
 
 
@@ -101,6 +102,17 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-etcd</artifactId>
                 <version>2.23.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.neo4j</groupId>
+                <artifactId>neo4j</artifactId>
+                <version>3.5.6</version>
+            </dependency>
+            <dependency>
+                <groupId>org.neo4j.driver</groupId>
+                <artifactId>neo4j-java-driver</artifactId>
+                <version>1.7.5</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/cglib/cglib -->
