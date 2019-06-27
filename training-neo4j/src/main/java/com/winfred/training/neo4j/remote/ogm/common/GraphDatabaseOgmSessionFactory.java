@@ -13,14 +13,11 @@ public class GraphDatabaseOgmSessionFactory {
     private static class Single {
         public static Configuration getConfiguration() {
             URL url = Thread.currentThread().getContextClassLoader().getResource("neo4j-ogm.properties");
-            Configuration configuration = new Configuration
+            return new Configuration
                     .Builder(new FileConfigurationSource(String.valueOf(url)))
-                    .uri("bolt://localhost:7687")
-                    .credentials("neo4j", "123456")
                     .connectionLivenessCheckTimeout(2000)
                     .connectionPoolSize(150)
                     .build();
-            return configuration;
         }
 
 

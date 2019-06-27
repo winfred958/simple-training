@@ -19,6 +19,11 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
     private static Session session = GraphDatabaseOgmSessionFactory.getInstance().openSession();
 
     @Override
+    public Iterator<T> loadAll() {
+        return session.loadAll(getEntityType()).iterator();
+    }
+
+    @Override
     public Iterator<T> loadAll(Collection<T> collection) {
         return loadAll(collection, DEPTH_LIST);
     }
@@ -26,6 +31,8 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
     @Override
     public Iterator<T> loadAll(Collection<T> collection, int depth) {
         Collection<T> tCollection = session.loadAll(collection, depth);
+
+
         return tCollection.iterator();
     }
 
@@ -46,6 +53,7 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
         if (id == null) {
             return null;
         }
+
         return session.load(getEntityType(), id, depth);
     }
 

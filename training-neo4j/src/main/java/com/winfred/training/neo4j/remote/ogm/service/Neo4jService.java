@@ -5,6 +5,8 @@ import java.util.Iterator;
 
 public interface Neo4jService<T> {
 
+    Iterator<T> loadAll();
+
     Iterator<T> loadAll(Collection<T> collection);
 
     Iterator<T> loadAll(Collection<T> collection, int depth);
