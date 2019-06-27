@@ -11,6 +11,8 @@ public interface Neo4jService<T> {
 
     T load(T t);
 
+    T load(T t, int depth);
+
     void delete(T t);
 
     T createOrUpdate(T t);
