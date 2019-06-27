@@ -13,8 +13,6 @@ public class GraphDatabaseOgmSessionFactory {
             ClasspathConfigurationSource classpathConfigurationSource = new ClasspathConfigurationSource("neo4j-ogm.properties");
             return new Configuration
                     .Builder(classpathConfigurationSource)
-                    .connectionLivenessCheckTimeout(2000)
-                    .connectionPoolSize(150)
                     .build();
         }
 
