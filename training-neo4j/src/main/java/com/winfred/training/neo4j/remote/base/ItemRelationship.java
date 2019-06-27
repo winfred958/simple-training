@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class ItemRelationship implements RelationshipType {
 
+    Long id;
     private String name;
     private AtomicLong count;
 

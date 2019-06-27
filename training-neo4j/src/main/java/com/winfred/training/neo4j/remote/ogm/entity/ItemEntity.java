@@ -1,5 +1,6 @@
 package com.winfred.training.neo4j.remote.ogm.entity;
 
+import org.neo4j.ogm.annotation.GeneratedValue;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
@@ -10,24 +11,25 @@ import java.util.Set;
 public class ItemEntity {
 
     @Id
-    private String itemNumber;
+    @GeneratedValue
+    Long itemNumber;
 
     @Relationship(type = "click")
-    private Set<ItemRelationship> itemRelationships;
+    Set<ItemRelationship> itemRelationships;
 
-    private Integer categoryId;
+    Integer categoryId;
 
-    private Integer sellerId;
+    Integer sellerId;
 
-    private Integer brandId;
+    Integer brandId;
 
-    private String status;
+    String status;
 
-    public String getItemNumber() {
+    public Long getItemNumber() {
         return itemNumber;
     }
 
-    public void setItemNumber(String itemNumber) {
+    public void setItemNumber(Long itemNumber) {
         this.itemNumber = itemNumber;
     }
 

@@ -1,5 +1,6 @@
 package com.winfred.training.neo4j.remote.ogm.service;
 
+import com.winfred.training.neo4j.remote.ogm.common.GraphDatabaseOgmSessionFactory;
 import com.winfred.training.neo4j.remote.ogm.common.ReflactorUtil;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.session.Session;
@@ -14,7 +15,7 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
     private static final int DEPTH_LIST = 0;
     private static final int DEPTH_ENTITY = 1;
 
-    private Session session;
+    private static Session session = GraphDatabaseOgmSessionFactory.getInstance().openSession();
 
     @Override
     public Iterator<T> loadAll(Collection<T> collection) {
@@ -64,6 +65,7 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
             return null;
         }
         try {
+            field.setAccessible(true);
             Object value = field.get(t);
             if (null == value) {
                 return null;
@@ -80,5 +82,5 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
      *
      * @return
      */
-    abstract Class<T> getEntityType();
+    public abstract Class<T> getEntityType();
 }

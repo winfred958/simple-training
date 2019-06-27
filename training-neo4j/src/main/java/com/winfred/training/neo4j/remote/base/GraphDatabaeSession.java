@@ -1,6 +1,6 @@
 package com.winfred.training.neo4j.remote.base;
 
-import com.winfred.training.neo4j.entity.ItemEntity;
+import com.winfred.training.neo4j.remote.ogm.entity.ItemEntity;
 import org.neo4j.driver.v1.*;
 import org.neo4j.graphdb.Node;
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 使用 java driver 语句太恶心, 放弃
+ * 使用 java driver CQL 语句太恶心, 放弃
  * <p>
  * 使用 OGM api
  *
@@ -20,7 +20,7 @@ public class GraphDatabaeSession {
         Driver driver = GraphDatabase
                 .driver(
                         "bolt://cdh-172-16-1-36:7687",
-                        AuthTokens.basic("neo4j", "Cwup9RGxgVEHUkJa5")
+                        AuthTokens.basic("neo4j", "xxxxxxxxxxxxxxxxxx")
                 );
         return driver.session();
     }
@@ -47,7 +47,7 @@ public class GraphDatabaeSession {
         public StatementResult execute(Transaction tx) {
             Map<String, Object> parameterMap = new HashMap<>();
 
-            parameterMap.put("item_number", itemEntity.getItem_number());
+            parameterMap.put("item_number", itemEntity.getItemNumber());
 
             StatementResult statementResult = tx.run(
                     "CREATE (a:ItemEntity) SET id = {item_number} RETURN a",

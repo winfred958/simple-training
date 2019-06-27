@@ -13,16 +13,25 @@ public class ItemRelationship implements Serializable {
 
     private static final long serialVersionUID = 972699365672859733L;
 
+    private Long id ;
+
     @StartNode
-    private ItemEntity startNode;
+    ItemEntity startNode;
 
     @EndNode
-    private ItemEntity endNode;
+    ItemEntity endNode;
 
-    private AtomicLong count;
+    AtomicLong count;
 
-    private Long updateTimestamp;
+    Long updateTimestamp;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public ItemEntity getStartNode() {
         return startNode;
@@ -41,6 +50,9 @@ public class ItemRelationship implements Serializable {
     }
 
     public AtomicLong getCount() {
+        if (null == count) {
+            count = new AtomicLong(0);
+        }
         return count;
     }
 
