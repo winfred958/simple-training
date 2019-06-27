@@ -47,6 +47,24 @@ public class ItemClickRelationServiceTest {
 
         ItemEntity serviceOrUpdate = neo4jService.createOrUpdate(startEntity);
         System.out.println(serviceOrUpdate);
+
+
+        System.out.println(serviceOrUpdate.getItemNumber());
+
+    }
+
+
+    @Test
+    public void load() {
+        ItemEntity requestEntity = new ItemEntity();
+        requestEntity.setItemNumber(10000001L);
+
+        ItemEntity responseEntity = neo4jService.load(requestEntity);
+
+        if(null != responseEntity){
+            Set<ItemRelationship> itemRelationships = responseEntity.getItemRelationships();
+            System.out.println(responseEntity.getItemNumber());
+        }
     }
 
 }

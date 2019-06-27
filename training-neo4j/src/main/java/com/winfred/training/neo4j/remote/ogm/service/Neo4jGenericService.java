@@ -41,7 +41,7 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
 
     @Override
     public T load(T t, int depth) {
-        String id = getAnnotationFieldValue(t, Id.class);
+        Long id = getAnnotationFieldValue(t, Id.class);
         if (id == null) {
             return null;
         }
@@ -59,7 +59,7 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
         return load(t);
     }
 
-    private String getAnnotationFieldValue(T t, Class<? extends Annotation> clazz) {
+    private Long getAnnotationFieldValue(T t, Class<? extends Annotation> clazz) {
         Field field = ReflactorUtil.getAnnotationField(t, clazz);
         if (field == null) {
             return null;
@@ -70,7 +70,7 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
             if (null == value) {
                 return null;
             }
-            return String.valueOf(value);
+            return Long.valueOf(String.valueOf(value));
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
