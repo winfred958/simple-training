@@ -2,10 +2,7 @@ package com.winfred.training.neo4j.remote.ogm.common;
 
 import org.neo4j.ogm.config.ClasspathConfigurationSource;
 import org.neo4j.ogm.config.Configuration;
-import org.neo4j.ogm.config.FileConfigurationSource;
 import org.neo4j.ogm.session.SessionFactory;
-
-import java.net.URL;
 
 public class GraphDatabaseOgmSessionFactory {
 
