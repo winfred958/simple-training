@@ -7,7 +7,7 @@ import org.neo4j.ogm.annotation.Relationship;
 
 import java.util.Set;
 
-@NodeEntity
+@NodeEntity(label = "ItemEntity")
 public class ItemEntity {
 
     @Id

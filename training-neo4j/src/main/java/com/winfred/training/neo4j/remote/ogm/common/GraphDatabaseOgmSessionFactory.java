@@ -1,5 +1,6 @@
 package com.winfred.training.neo4j.remote.ogm.common;
 
+import org.neo4j.ogm.config.ClasspathConfigurationSource;
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.config.FileConfigurationSource;
 import org.neo4j.ogm.session.SessionFactory;
@@ -12,9 +13,9 @@ public class GraphDatabaseOgmSessionFactory {
 
     private static class Single {
         public static Configuration getConfiguration() {
-            URL url = Thread.currentThread().getContextClassLoader().getResource("neo4j-ogm.properties");
+            ClasspathConfigurationSource classpathConfigurationSource = new ClasspathConfigurationSource("neo4j-ogm.properties");
             return new Configuration
-                    .Builder(new FileConfigurationSource(String.valueOf(url)))
+                    .Builder(classpathConfigurationSource)
                     .connectionLivenessCheckTimeout(2000)
                     .connectionPoolSize(150)
                     .build();
