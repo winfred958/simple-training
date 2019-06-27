@@ -4,6 +4,7 @@ import com.winfred.training.neo4j.remote.ogm.common.GraphDatabaseOgmSessionFacto
 import com.winfred.training.neo4j.remote.ogm.common.ReflactorUtil;
 import org.neo4j.ogm.annotation.Id;
 import org.neo4j.ogm.session.Session;
+import org.neo4j.ogm.transaction.Transaction;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -55,7 +56,9 @@ public abstract class Neo4jGenericService<T> implements Neo4jService<T> {
 
     @Override
     public T createOrUpdate(T t) {
+        Transaction transaction = session.beginTransaction();
         session.save(t, DEPTH_ENTITY);
+        transaction.commit();
         return load(t);
     }
 

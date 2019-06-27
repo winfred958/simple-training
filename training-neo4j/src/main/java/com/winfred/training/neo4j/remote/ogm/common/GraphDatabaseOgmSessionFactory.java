@@ -15,6 +15,8 @@ public class GraphDatabaseOgmSessionFactory {
             URL url = Thread.currentThread().getContextClassLoader().getResource("neo4j-ogm.properties");
             Configuration configuration = new Configuration
                     .Builder(new FileConfigurationSource(String.valueOf(url)))
+                    .uri("bolt://localhost:7687")
+                    .credentials("neo4j", "123456")
                     .connectionLivenessCheckTimeout(2000)
                     .connectionPoolSize(150)
                     .build();
@@ -26,8 +28,6 @@ public class GraphDatabaseOgmSessionFactory {
             // 加入扫描 entity 包
             return new SessionFactory(getConfiguration(), "com.winfred.training.neo4j.remote.ogm.entity");
         }
-
-        private static SessionFactory sessionFactory = Single.getSessionFactory();
     }
 
     public static SessionFactory getInstance() {
