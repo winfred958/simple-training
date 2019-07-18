@@ -13,9 +13,11 @@ public class MyTestClient {
 
 
     EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
-    Bootstrap bootstrap = new Bootstrap();
+
 
     public void sendMessage(String message) {
+        Bootstrap bootstrap = new Bootstrap();
+
         bootstrap
                 .group(eventLoopGroup)
                 .channel(NioSocketChannel.class)

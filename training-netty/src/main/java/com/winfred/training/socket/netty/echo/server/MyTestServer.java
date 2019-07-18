@@ -49,7 +49,6 @@ public class MyTestServer {
         } finally {
             parentEventLoop.shutdownGracefully();
             childEventLoop.shutdownGracefully();
-
         }
 
     }

@@ -1,5 +1,6 @@
 package com.winfred.training.socket.netty.echo.client;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
@@ -9,10 +10,8 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     String message = "hello";
 
-
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-
         ctx.writeAndFlush(message);
         log.info("request: {}", message);
     }
