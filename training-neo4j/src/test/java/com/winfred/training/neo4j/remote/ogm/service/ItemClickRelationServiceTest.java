@@ -5,6 +5,7 @@ import com.winfred.training.neo4j.remote.ogm.common.GraphDatabaseOgmSessionFacto
 import com.winfred.training.neo4j.remote.ogm.entity.ItemEntity;
 import com.winfred.training.neo4j.remote.ogm.entity.ItemRelationship;
 import com.winfred.training.neo4j.remote.ogm.service.imp.ItemClickRelationServiceImp;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +20,11 @@ public class ItemClickRelationServiceTest {
     @Before
     public void before() {
         neo4jService = new ItemClickRelationServiceImp();
+    }
+
+    @After
+    public void close() {
+        GraphDatabaseOgmSessionFactory.getInstance().close();
     }
 
     @Test
@@ -53,7 +59,13 @@ public class ItemClickRelationServiceTest {
 
         System.out.println(serviceOrUpdate.getItemNumber());
 
-        GraphDatabaseOgmSessionFactory.getInstance().close();
+
+        Iterator<ItemEntity> itemEntityIterator = neo4jService.loadAll();
+        ItemEntity next = null;
+        if (itemEntityIterator.hasNext()) {
+            next = itemEntityIterator.next();
+        }
+
 
     }
 
@@ -76,7 +88,6 @@ public class ItemClickRelationServiceTest {
             Set<ItemRelationship> itemRelationships = responseEntity.getItemRelationships();
             System.out.println(responseEntity.getItemNumber());
         }
-        GraphDatabaseOgmSessionFactory.getInstance().close();
     }
 
 }
