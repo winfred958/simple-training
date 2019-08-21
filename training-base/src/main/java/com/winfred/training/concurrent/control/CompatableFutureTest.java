@@ -1,6 +1,8 @@
 package com.winfred.training.concurrent.control;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 
 public class CompatableFutureTest {
 
@@ -55,8 +57,28 @@ public class CompatableFutureTest {
                         cf4,
                         cf5
                 );
-        allOf.join();
 
+
+        System.out.println("================xxx=1");
+        allOf.join();
+        System.out.println("================xxx=2");
+
+        allOf
+                .thenApplyAsync(new Function<Void, Object>() {
+                    @Override
+                    public Object apply(Void aVoid) {
+                        try {
+                            String str1 = cf1.get();
+                            String str2 = cf2.get();
+                            System.out.println(str1 + str2);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    }
+                });
 
     }
 }
