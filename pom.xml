@@ -16,11 +16,14 @@
     </modules>
 
 
-    <repository>
-        <id>neo4j-snapshot-repository</id>
-        <name>Neo4j Maven 2 snapshot repository</name>
-        <url>http://m2.neo4j.org/content/repositories/snapshots</url>
-    </repository>
+    <repositories>
+        <repository>
+            <id>neo4j-snapshot-repository</id>
+            <name>Neo4j Maven 2 snapshot repository</name>
+            <url>http://m2.neo4j.org/content/repositories/snapshots</url>
+        </repository>
+    </repositories>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,6 +45,9 @@
         <!-- logging -->
         <slf4j.version>1.7.26</slf4j.version>
         <log4j.version>2.11.2</log4j.version>
+
+        <!-- netty -->
+        <netty.version>4.1.36.Final</netty.version>
 
         <!-- spring -->
         <spring.version>5.1.7.RELEASE</spring.version>
@@ -236,13 +242,6 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
                     <version>${spring-boot.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.springframework</groupId>
-                            <artifactId>springloaded</artifactId>
-                            <version>${springloaded.version}</version>
-                        </dependency>
-                    </dependencies>
                     <executions>
                         <execution>
                             <goals>

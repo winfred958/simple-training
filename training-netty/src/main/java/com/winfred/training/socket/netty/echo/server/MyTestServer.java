@@ -2,6 +2,7 @@ package com.winfred.training.socket.netty.echo.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -27,23 +28,30 @@ public class MyTestServer {
     /**
      * boss thread
      */
-    private static final NioEventLoopGroup parentEventLoop = new NioEventLoopGroup(1);
+    private static final NioEventLoopGroup parentEventLoop = new NioEventLoopGroup();
     /**
      * work thread
      */
-    private static final NioEventLoopGroup childEventLoop = new NioEventLoopGroup(2);
+    private static final NioEventLoopGroup childEventLoop = new NioEventLoopGroup();
 
     public void startServer() {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(parentEventLoop, childEventLoop)
                 .channel(NioServerSocketChannel.class)
-                .handler(new LoggingHandler(LogLevel.INFO))
                 .option(ChannelOption.SO_BACKLOG, 100)
+                .handler(new ChannelInitializer<NioServerSocketChannel>() {
+                    @Override
+                    protected void initChannel(NioServerSocketChannel channel) throws Exception {
+                        channel
+                                .pipeline()
+                                .addLast(new LoggingHandler(LogLevel.DEBUG));
+                    }
+                })
                 .childHandler(new MyTestServerHandler());
 
         try {
             ChannelFuture channelFuture = serverBootstrap.bind(this.port).sync();
-            channelFuture.channel().closeFuture().sync();
+//            channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
