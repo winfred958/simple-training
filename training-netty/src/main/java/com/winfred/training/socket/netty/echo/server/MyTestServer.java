@@ -1,5 +1,6 @@
 package com.winfred.training.socket.netty.echo.server;
 
+import com.winfred.training.socket.netty.echo.base.TestParameter;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -8,7 +9,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * com.winfred.training.socket.netty.server
@@ -16,23 +16,17 @@ import lombok.extern.slf4j.Slf4j;
  * @author kevin
  * @since 2018/7/27 17:22
  */
-@Slf4j
 public class MyTestServer {
 
-    private int port = 8090;
-
-    public MyTestServer(int port) {
-        this.port = port;
-    }
 
     /**
      * boss thread
      */
-    private static final NioEventLoopGroup parentEventLoop = new NioEventLoopGroup();
+    private static final NioEventLoopGroup parentEventLoop = new NioEventLoopGroup(8);
     /**
      * work thread
      */
-    private static final NioEventLoopGroup childEventLoop = new NioEventLoopGroup();
+    private static final NioEventLoopGroup childEventLoop = new NioEventLoopGroup(64);
 
     public void startServer() {
         ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -50,8 +44,8 @@ public class MyTestServer {
                 .childHandler(new MyTestServerHandler());
 
         try {
-            ChannelFuture channelFuture = serverBootstrap.bind(this.port).sync();
-//            channelFuture.channel().closeFuture().sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(TestParameter.SERVER_POT).sync();
+            channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -62,7 +56,7 @@ public class MyTestServer {
     }
 
     public static void main(String[] args) {
-        MyTestServer myTestServer = new MyTestServer(8080);
+        MyTestServer myTestServer = new MyTestServer();
         myTestServer.startServer();
     }
 }

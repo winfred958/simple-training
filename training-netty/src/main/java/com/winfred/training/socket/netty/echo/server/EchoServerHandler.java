@@ -1,31 +1,47 @@
 package com.winfred.training.socket.netty.echo.server;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * echo channel handler
  *
  * @author kevin
  */
-@Slf4j
 public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.info("channelInactive");
-    }
-
-    @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        log.info("channelActive");
+        System.out.println("channelActive: " + ctx.name());
+        super.channelActive(ctx);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        log.info("channelRead: {}", msg);
+        String name = ctx.name();
+        String asLongText = ctx.channel().id().asLongText();
+
+//        new PooledUnsafeDirectByteBuf();
+
+
+        if (msg instanceof ByteBuf) {
+            ByteBuf byteBuf = (ByteBuf) msg;
+            /**
+             * 防止读完被清空
+             */
+            ByteBuf tmpBuf = byteBuf.copy();
+            int len = tmpBuf.readableBytes();
+            byte[] b = new byte[len];
+            tmpBuf.readBytes(b);
+
+            String str = new String(b);
+            System.out.println("channelRead: " + asLongText + " | " + name + " | " + str);
+        } else {
+            System.out.println("channelRead: " + asLongText + " | " + name + " | " + msg);
+        }
+
         // 回写收到的消息
         ctx.write(msg);
     }
@@ -37,7 +53,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("exceptionCaught", cause);
+        cause.printStackTrace();
         ctx.close();
     }
 }
