@@ -16,7 +16,6 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        String name = ctx.name();
         ChannelId channelId = ctx.channel().id();
 
         if (msg instanceof ByteBuf) {
@@ -30,9 +29,9 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
             tmpBuf.readBytes(b);
 
             String str = new String(b);
-            System.out.println("channelRead: " + channelId + " | " + name + " | " + str);
+            System.out.println("channelRead: " + channelId + " | " + str);
         } else {
-            System.out.println("channelRead: " + channelId + " | " + name + " | " + msg);
+            System.out.println("channelRead: " + channelId + " | " + msg);
         }
     }
 
