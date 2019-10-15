@@ -1,9 +1,12 @@
 package com.winfred.training.socket.netty.echo.server;
 
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+
+import java.net.InetSocketAddress;
 
 /**
  * echo channel handler
@@ -27,26 +30,33 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        ChannelId channelId = ctx.channel().id();
-        String name = ctx.name();
+        Channel channel = ctx.channel();
+        InetSocketAddress inetSocketAddress = (InetSocketAddress) channel.remoteAddress();
+        String hostAddress = inetSocketAddress.getAddress().getHostAddress();
+
+        ChannelId channelId = channel.id();
 
 //        new PooledUnsafeDirectByteBuf();
 
 
         if (msg instanceof ByteBuf) {
-            ByteBuf byteBuf = (ByteBuf) msg;
+            ByteBuf requestByteBuf = (ByteBuf) msg;
+
             /**
              * 防止读完被清空
              */
-            ByteBuf tmpBuf = byteBuf.copy();
+            ByteBuf tmpBuf = requestByteBuf.copy();
             int len = tmpBuf.readableBytes();
             byte[] b = new byte[len];
             tmpBuf.readBytes(b);
 
             String str = new String(b);
-            System.out.println("channelRead: " + channelId + " | " + str);
+            System.out.println("channelRead: " + channelId + " | " + hostAddress + " | " + str);
+            byte[] responseBytes = new String(hostAddress + " | " + str).getBytes();
+            // 修改数据
+
         } else {
-            System.out.println("channelRead: " + channelId + " | " + msg);
+            System.out.println("channelRead: " + channelId + " | " + hostAddress + " | " + msg);
         }
 
         // 回写收到的消息

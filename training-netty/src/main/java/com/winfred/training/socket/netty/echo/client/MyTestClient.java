@@ -44,7 +44,7 @@ public class MyTestClient {
                     continue;
                 }
 
-                channel.writeAndFlush(TestParameter.TEST_USER_NAME + ": " + line);
+                channel.writeAndFlush(line);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
