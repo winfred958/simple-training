@@ -53,7 +53,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
             String str = new String(b);
             System.out.println("channelRead: " + channelId + " | " + hostAddress + " | " + str);
             byte[] responseBytes = new String(hostAddress + " | " + str).getBytes();
-            // 修改数据
+            // 修改数据, 未实现
 
         } else {
             System.out.println("channelRead: " + channelId + " | " + hostAddress + " | " + msg);
