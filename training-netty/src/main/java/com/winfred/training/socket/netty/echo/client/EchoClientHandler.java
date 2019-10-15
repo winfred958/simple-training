@@ -2,6 +2,7 @@ package com.winfred.training.socket.netty.echo.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class EchoClientHandler extends ChannelInboundHandlerAdapter {
@@ -9,14 +10,14 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("channelActive: " + ctx.name());
+        System.out.println("channelActive: " + ctx.channel().id());
         super.channelActive(ctx);
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         String name = ctx.name();
-        String asLongText = ctx.channel().id().asLongText();
+        ChannelId channelId = ctx.channel().id();
 
         if (msg instanceof ByteBuf) {
             ByteBuf byteBuf = (ByteBuf) msg;
@@ -29,15 +30,15 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
             tmpBuf.readBytes(b);
 
             String str = new String(b);
-            System.out.println("channelRead: " + asLongText + " | " + name + " | " + str);
+            System.out.println("channelRead: " + channelId + " | " + name + " | " + str);
         } else {
-            System.out.println("channelRead: " + asLongText + " | " + name + " | " + msg);
+            System.out.println("channelRead: " + channelId + " | " + name + " | " + msg);
         }
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
-        System.out.println("channelReadComplete: " + ctx.name());
+        System.out.println("channelReadComplete: " + ctx.channel().id());
         ctx.flush();
     }
 
