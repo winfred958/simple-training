@@ -2,28 +2,42 @@ package com.winfred.training.socket.netty.echo.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelId;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
-    String message = "hello";
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush(message);
-        log.info("request: {}", message);
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelActive: " + ctx.channel().id());
+        super.channelActive(ctx);
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        log.info("response: {}", msg);
-        ctx.write(msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        ChannelId channelId = ctx.channel().id();
+
+        if (msg instanceof ByteBuf) {
+            ByteBuf byteBuf = (ByteBuf) msg;
+            /**
+             * 防止读完被清空
+             */
+            ByteBuf tmpBuf = byteBuf.copy();
+            int len = tmpBuf.readableBytes();
+            byte[] b = new byte[len];
+            tmpBuf.readBytes(b);
+
+            String str = new String(b);
+            System.out.println("channelRead: " + channelId + " | " + str);
+        } else {
+            System.out.println("channelRead: " + channelId + " | " + msg);
+        }
     }
 
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) {
+        System.out.println("channelReadComplete: " + ctx.channel().id());
         ctx.flush();
     }
 
@@ -33,4 +47,6 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
         cause.printStackTrace();
         ctx.close();
     }
+
+
 }

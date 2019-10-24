@@ -1,21 +1,27 @@
 package com.winfred.training.socket.netty.echo.client;
 
+import com.winfred.training.socket.netty.echo.base.TestParameter;
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class MyTestClient {
 
 
-    EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
+    static EventLoopGroup eventLoopGroup = new NioEventLoopGroup();
 
 
-    public void sendMessage(String message) {
+    public static void main(String[] args) throws IOException {
+
+
         Bootstrap bootstrap = new Bootstrap();
 
         bootstrap
@@ -24,17 +30,29 @@ public class MyTestClient {
                 .option(ChannelOption.TCP_NODELAY, true)
                 .handler(new MyTestClientHandeler());
         try {
-            ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8080).sync();
-            channelFuture.channel().closeFuture().sync();
+            ChannelFuture channelFuture = bootstrap.connect(TestParameter.SEVER_IP, TestParameter.SERVER_POT).sync();
+//            channelFuture.channel().closeFuture().sync();
+            Channel channel = channelFuture.channel();
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+            for (; ; ) {
+                String line = in.readLine();
+                if (line == null || "quit".equalsIgnoreCase(line)) {
+                    break;
+                }
+                if (line.length() < 1) {
+                    continue;
+                }
+
+                channel.writeAndFlush(line);
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             eventLoopGroup.shutdownGracefully();
         }
+
     }
 
-    public static void main(String[] args) {
-        MyTestClient myTestClient = new MyTestClient();
-        myTestClient.sendMessage("hello");
-    }
+
 }
