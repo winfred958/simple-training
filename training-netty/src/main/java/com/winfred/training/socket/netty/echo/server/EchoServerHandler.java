@@ -33,6 +33,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
         Channel channel = ctx.channel();
         InetSocketAddress inetSocketAddress = (InetSocketAddress) channel.remoteAddress();
         String hostAddress = inetSocketAddress.getAddress().getHostAddress();
+        int port = inetSocketAddress.getPort();
 
         ChannelId channelId = channel.id();
 
@@ -51,9 +52,10 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
             tmpBuf.readBytes(b);
 
             String str = new String(b);
-            System.out.println("channelRead: " + channelId + " | " + hostAddress + " | " + str);
-            byte[] responseBytes = new String(hostAddress + " | " + str).getBytes();
+            System.out.println("channelRead: " + channelId + " | " + hostAddress + ":" + port + " | " + str);
+            byte[] responseBytes = (hostAddress + " | " + str).getBytes();
             // 修改数据, 未实现
+
 
         } else {
             System.out.println("channelRead: " + channelId + " | " + hostAddress + " | " + msg);
