@@ -61,11 +61,11 @@
         <log4j.version>2.11.2</log4j.version>
 
         <!-- spring -->
-        <spring.version>5.1.7.RELEASE</spring.version>
+        <spring.version>5.1.10.RELEASE</spring.version>
         <jackson-databind.version>2.9.4</jackson-databind.version>
 
         <!-- spring boot -->
-        <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
 
         <!-- DB -->
         <mysql.connection.version>5.1.44</mysql.connection.version>
