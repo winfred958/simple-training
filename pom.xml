@@ -65,7 +65,7 @@
         <jackson-databind.version>2.9.4</jackson-databind.version>
 
         <!-- spring boot -->
-        <spring-boot.version>2.1.15.RELEASE</spring-boot.version>
+        <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
 
         <!-- DB -->
         <mysql.connection.version>5.1.44</mysql.connection.version>
