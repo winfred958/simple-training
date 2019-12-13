@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.behavioral.proxy.cglib;
+package com.winfred.training.designpattern.structure.proxy.cglib;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;

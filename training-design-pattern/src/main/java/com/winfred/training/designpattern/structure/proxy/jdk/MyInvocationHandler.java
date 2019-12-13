@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.behavioral.proxy.jdk;
+package com.winfred.training.designpattern.structure.proxy.jdk;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
