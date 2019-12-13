@@ -7,6 +7,7 @@ import com.winfred.training.designpattern.behavioral.chain.base.FilterChainImpl;
 import com.winfred.training.designpattern.behavioral.chain.entity.Request;
 import com.winfred.training.designpattern.behavioral.chain.entity.Response;
 import com.winfred.training.designpattern.behavioral.observer.SubscriberOne;
+import com.winfred.training.designpattern.behavioral.observer.SubscriberThree;
 import com.winfred.training.designpattern.behavioral.observer.SubscriberTwo;
 import com.winfred.training.designpattern.behavioral.observer.base.Publisher;
 import com.winfred.training.designpattern.behavioral.observer.entity.Message;
@@ -45,6 +46,7 @@ public class BehavioralTest {
 
         publisher.addObserver(new SubscriberOne());
         publisher.addObserver(new SubscriberTwo());
+        publisher.addObserver(new SubscriberThree());
 
         publisher.pub(new Message("你好"));
         System.out.println("==");
