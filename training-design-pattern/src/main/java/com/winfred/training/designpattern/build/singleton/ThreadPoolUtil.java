@@ -5,6 +5,9 @@ import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * 单例模式: 指定容量的线程池
+ * <p>
+ * 类 Initialization 时机:
+ *   1. JVM 在执行new(Create new object), getstatic/putstatic(Get/Set static field in class), invokestatic(反射调用类静态方法, Invoke a class static method)
  *
  * @author kevin
  */
@@ -36,7 +39,7 @@ public class ThreadPoolUtil {
         return SingleClass.executor;
     }
 
-    public static Future doExecutor(Callable callable) {
+    public static Future<?> doExecutor(Callable<?> callable) {
         return getInstance().submit(callable);
     }
 
