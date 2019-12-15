@@ -11,10 +11,10 @@ import com.winfred.training.designpattern.behavioral.observer.SubscriberThree;
 import com.winfred.training.designpattern.behavioral.observer.SubscriberTwo;
 import com.winfred.training.designpattern.behavioral.observer.base.Publisher;
 import com.winfred.training.designpattern.behavioral.observer.entity.Message;
+import com.winfred.training.designpattern.structure.proxy.cglib.UserService;
 import com.winfred.training.designpattern.structure.proxy.cglib.CGLibProxy;
+import com.winfred.training.designpattern.structure.proxy.cglib.UserServiceImpl;
 import com.winfred.training.designpattern.structure.proxy.jdk.MyInvocationHandler;
-import com.winfred.training.designpattern.structure.proxy.jdk.UserService;
-import com.winfred.training.designpattern.structure.proxy.jdk.UserServiceImpl;
 import org.junit.Test;
 
 
@@ -56,10 +56,10 @@ public class BehavioralTest {
     @Test
     public void jdkProxyTest() {
         // jdk proxy 只支持被代理的对象必须要实现接口
-        UserService userService = new UserServiceImpl();
+        com.winfred.training.designpattern.structure.proxy.jdk.UserService userService = new com.winfred.training.designpattern.structure.proxy.jdk.UserServiceImpl();
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler(userService);
 
-        UserService proxy = (UserService) myInvocationHandler.getProxy();
+        com.winfred.training.designpattern.structure.proxy.jdk.UserService proxy = (com.winfred.training.designpattern.structure.proxy.jdk.UserService) myInvocationHandler.getProxy();
 
         proxy.testBefore();
         System.out.println("=====================");
@@ -73,7 +73,7 @@ public class BehavioralTest {
     public void cglibProxyTest() {
 
         CGLibProxy cgLibProxy = new CGLibProxy();
-        com.winfred.training.designpattern.structure.proxy.cglib.UserService userService = (com.winfred.training.designpattern.structure.proxy.cglib.UserService) cgLibProxy.createProxyObject(new com.winfred.training.designpattern.structure.proxy.cglib.UserServiceImpl());
+        UserService userService = (UserService) cgLibProxy.createProxyObject(new UserServiceImpl());
 
         userService.testAround();
     }

@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.build.factory.simple;
+package com.winfred.training.designpattern.creational.factory.simple;
 
 public class BydTang implements Car {
     @Override

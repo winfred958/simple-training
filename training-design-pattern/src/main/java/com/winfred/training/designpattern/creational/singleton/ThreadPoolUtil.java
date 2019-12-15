@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.build.singleton;
+package com.winfred.training.designpattern.creational.singleton;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;

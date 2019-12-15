@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.build.factory.method;
+package com.winfred.training.designpattern.creational.factory.method;
 
 public interface ILoggerFactory {
 

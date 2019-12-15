@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.build.singleton;
+package com.winfred.training.designpattern.creational.singleton;
 
 import org.junit.Test;
 
