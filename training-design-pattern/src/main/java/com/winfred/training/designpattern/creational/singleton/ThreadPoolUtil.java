@@ -4,17 +4,23 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
- * 单例模式: 指定容量的线程池
+ * 单例模式: 静态内部类实现方式
  * <p>
  * 类 Initialization 时机:
- *   1. JVM 在执行new(Create new object), getstatic/putstatic(Get/Set static field in class), invokestatic(反射调用类静态方法, Invoke a class static method)
+ * 1. JVM 在执行new(Create new object), getstatic/putstatic(Get/Set static field in class), invokestatic(反射调用类静态方法, Invoke a class static method)
+ * <p>
+ * 利用class的 initialization lock, 线程安全
  *
  * @author kevin
  */
 public class ThreadPoolUtil {
 
     private static Integer CORE_POOL_SIZE = 64;
-    private static Integer MAX_POOL_SIZE = 2048;
+    private static Integer MAX_POOL_SIZE = 1024;
+
+    private ThreadPoolUtil() {
+
+    }
 
     private static class SingleClass {
         private static ExecutorService executor = new ThreadPoolExecutor(

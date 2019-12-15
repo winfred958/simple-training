@@ -18,6 +18,16 @@ public class SingletonTest {
         }
     }
 
+    @Test
+    public void hungrySingletonTest(){
+        int hashcode1 = HungrySingleton.getHashcode();
+        int hashcode2 = HungrySingleton.getHashcode();
+        int hashcode3 = HungrySingleton.getHashcode();
+    }
+
+
+
+
     class TestRunnable implements Runnable {
         private Integer i;
 
