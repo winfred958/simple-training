@@ -25,6 +25,13 @@ public class SingletonTest {
         int hashcode3 = HungrySingleton.getHashcode();
     }
 
+    @Test
+    public void hungrySingletonTestV2(){
+        int hashcode1 = HungrySingletonV2.getHashcode();
+        int hashcode2 = HungrySingletonV2.getHashcode();
+        int hashcode3 = HungrySingletonV2.getHashcode();
+    }
+
 
 
 
