@@ -6,6 +6,12 @@ import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
+/**
+ * cglib 动态代理
+ * <p>
+ * 字节码增强
+ *
+ */
 public class CGLibProxy implements MethodInterceptor {
 
     private Object target;
@@ -16,7 +22,7 @@ public class CGLibProxy implements MethodInterceptor {
         enhancer.setSuperclass(target.getClass());
         enhancer.setCallback(this);
         Object proxyObj = enhancer.create();
-        return proxyObj;// 返回代理对象
+        return proxyObj;// 返回增强的代理对象
     }
 
     @Override

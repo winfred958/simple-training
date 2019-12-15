@@ -5,10 +5,20 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
- * JDK代理是不需要以来第三方的库，只要要JDK环境就可以进行代理，它有几个要求
+ * JDK代理是不需要依赖第三方的库，只要要JDK环境就可以进行使用，它有几个要求
  * * 实现InvocationHandler
- * * 使用Proxy.newProxyInstance产生代理对象
+ * * 使用Proxy.newProxyInstance产生代理对象(采用字节重组, 重写生成代理对象)
  * * 被代理的对象必须要实现接口
+ * <p>
+ * <p>
+ * 原理 - 字节码重组 - JDK 动态代理生成对象的步骤:
+ * 1. 获取被代理对象的引用, 并反射获取它的所有接口.
+ * 2. JDK动态代理重新生成一个新的类, 同时新的类要实现被代理对象的所有接口.
+ * 3. 动态生成Java代码, 新加的业务逻辑方法由一定的逻辑代码调用.
+ * 4. 变异生成新的Java .class文件
+ * 5. 重新加载到JVM运行
+ * <p>
+ * 源码: {@link }
  *
  * @author z
  */
@@ -22,7 +32,8 @@ public class MyInvocationHandler implements InvocationHandler {
     }
 
     public Object getProxy() {
-        return Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), target.getClass().getInterfaces(), this);
+        Class<?> clazz = target.getClass();
+        return Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), this);
     }
 
     @Override
