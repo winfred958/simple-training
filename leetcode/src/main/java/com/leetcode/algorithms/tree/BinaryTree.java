@@ -5,9 +5,13 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 
 /**
- * inorderTraversal (中序遍历) => (left -> top -> right)
- * preorderTraversal (前序遍历) => (top -> left -> right)
- * postorderTraversal(后序遍历) => (left -> right -> top)
+ * 1. 深度优先搜索(DFS)
+ * -- Inorder Traversal     (中序遍历) => (left -> top -> right)
+ * -- Preorder Traversal    (前序遍历) => (top -> left -> right)
+ * -- Postorder Traversal   (后序遍历) => (left -> right -> top)
+ * <p>
+ * 2. 宽度优先搜索(BFS)
+ * -- 层序遍历
  */
 public class BinaryTree {
 

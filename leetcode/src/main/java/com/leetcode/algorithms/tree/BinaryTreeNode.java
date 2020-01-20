@@ -1,5 +1,10 @@
 package com.leetcode.algorithms.tree;
 
+/**
+ * binary tree node
+ *
+ * @param <T>
+ */
 public class BinaryTreeNode<T> {
 
     private T t;
