@@ -41,6 +41,12 @@ public class BinaryTree {
             System.out.println(binaryTreeNode.getT());
         }
 
+        System.out.println("===========================");
+        BinaryTreeNode<Integer> bfsTree = buildBFSTraversalTestData();
+        List<BinaryTreeNode<Integer>> bfsList = solution.bfsTraversal(bfsTree);
+        for (BinaryTreeNode<Integer> binaryTreeNode : bfsList) {
+            System.out.println(binaryTreeNode.getT());
+        }
     }
 
     static class Solution {
@@ -122,6 +128,35 @@ public class BinaryTree {
             }
             result.add(node);
         }
+
+        /**
+         * BFS 广度搜索优先, 层序遍历
+         *
+         * https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/er-cha-shu-de-ceng-ci-bian-li-by-leetcode/
+         * @param root
+         * @return
+         */
+        public List<BinaryTreeNode<Integer>> bfsTraversal(BinaryTreeNode<Integer> root) {
+            List<BinaryTreeNode<Integer>> result = new CopyOnWriteArrayList<>();
+            bfsTraversal(root, result);
+            return result;
+        }
+
+        private void bfsTraversal(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
+            if (null == node) {
+                return;
+            }
+            result.add(node);
+
+            if (node.hasLeftChild()) {
+                BinaryTreeNode<Integer> left = node.getLeft();
+                bfsTraversal(left, result);
+            }
+            if (node.hasRightChild()) {
+                BinaryTreeNode<Integer> right = node.getRight();
+                bfsTraversal(right, result);
+            }
+        }
     }
 
     private static BinaryTreeNode<Integer> buildInorderTraversalTestData() {
@@ -191,6 +226,35 @@ public class BinaryTree {
 
         value7.setLeft(value5);
         value7.setRight(value6);
+
+        return root;
+    }
+
+
+    private static BinaryTreeNode<Integer> buildBFSTraversalTestData() {
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<>(null);
+
+        BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
+        BinaryTreeNode<Integer> value3 = new BinaryTreeNode<>(3);
+        BinaryTreeNode<Integer> value4 = new BinaryTreeNode<>(4);
+        BinaryTreeNode<Integer> value5 = new BinaryTreeNode<>(5);
+        BinaryTreeNode<Integer> value6 = new BinaryTreeNode<>(6);
+        BinaryTreeNode<Integer> value7 = new BinaryTreeNode<>(7);
+        BinaryTreeNode<Integer> value8 = new BinaryTreeNode<>(8);
+
+        root.setLeft(value1);
+        root.setRight(value2);
+
+        value1.setLeft(value3);
+        value1.setRight(value4);
+
+        value3.setRight(value7);
+
+        value2.setLeft(value5);
+        value2.setRight(value6);
+
+        value5.setLeft(value8);
 
         return root;
     }
