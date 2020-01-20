@@ -13,6 +13,7 @@
         <module>training-spring</module>
         <module>training-netty</module>
         <module>training-neo4j</module>
+        <module>leetcode</module>
     </modules>
 
     <repositories>
