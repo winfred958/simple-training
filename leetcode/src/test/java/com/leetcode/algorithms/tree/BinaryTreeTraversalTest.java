@@ -12,7 +12,8 @@ public class BinaryTreeTraversalTest {
 
     BinaryTreeNode<Integer> inorderTree = new BinaryTreeNode<>(null);
     BinaryTreeNode<Integer> preorderTree = new BinaryTreeNode<>(null);
-
+    BinaryTreeNode<Integer> postorderTree = new BinaryTreeNode<>(null);
+    BinaryTreeNode<Integer> levelOrderTree = new BinaryTreeNode<>(null);
 
     @Test
     public void inorderTraversal() {
@@ -23,6 +24,32 @@ public class BinaryTreeTraversalTest {
         }
     }
 
+    @Test
+    public void preorderTraversal() {
+        List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.preorderTraversal(preorderTree);
+        System.out.println("============Preorder===============");
+        for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
+            System.out.println(binaryTreeNode.getT());
+        }
+    }
+
+    @Test
+    public void postorderTraversal() {
+        List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.inorderTraversal(postorderTree);
+        System.out.println("============Postorder===============");
+        for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
+            System.out.println(binaryTreeNode.getT());
+        }
+    }
+
+    @Test
+    public void levelOrderTraversal() {
+        List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.levelOrderTraversal(levelOrderTree);
+        System.out.println("============LevelOrder===============");
+        for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
+            System.out.println(binaryTreeNode.getT());
+        }
+    }
 
     @Before
     public void buildInorderTraversalTestData() {
@@ -67,5 +94,56 @@ public class BinaryTreeTraversalTest {
         preorderTree.setRight(value5);
         value5.setLeft(value6);
         value5.setRight(value7);
+    }
+
+    @Before
+    public void buildPostorderTraversalTestData() {
+
+        BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
+        BinaryTreeNode<Integer> value3 = new BinaryTreeNode<>(3);
+        BinaryTreeNode<Integer> value4 = new BinaryTreeNode<>(4);
+        BinaryTreeNode<Integer> value5 = new BinaryTreeNode<>(5);
+        BinaryTreeNode<Integer> value6 = new BinaryTreeNode<>(6);
+        BinaryTreeNode<Integer> value7 = new BinaryTreeNode<>(7);
+        BinaryTreeNode<Integer> value8 = new BinaryTreeNode<>(8);
+
+        postorderTree.setLeft(value3);
+        value3.setLeft(value1);
+        value3.setRight(value2);
+
+        postorderTree.setRight(value8);
+        value8.setLeft(value4);
+        value8.setRight(value7);
+
+        value7.setLeft(value5);
+        value7.setRight(value6);
+    }
+
+    @Before
+    private void buildLevelOrderTraversalTestData() {
+
+        BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
+        BinaryTreeNode<Integer> value3 = new BinaryTreeNode<>(3);
+        BinaryTreeNode<Integer> value4 = new BinaryTreeNode<>(4);
+        BinaryTreeNode<Integer> value5 = new BinaryTreeNode<>(5);
+        BinaryTreeNode<Integer> value6 = new BinaryTreeNode<>(6);
+        BinaryTreeNode<Integer> value7 = new BinaryTreeNode<>(7);
+        BinaryTreeNode<Integer> value8 = new BinaryTreeNode<>(8);
+
+        levelOrderTree.setLeft(value1);
+        levelOrderTree.setRight(value2);
+
+        value1.setLeft(value3);
+        value1.setRight(value4);
+
+        value3.setRight(value7);
+
+        value2.setLeft(value5);
+        value2.setRight(value6);
+
+        value5.setLeft(value8);
+
     }
 }

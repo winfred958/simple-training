@@ -17,40 +17,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class BinaryTreeTraversal {
 
 
-    public static void main(String[] args) {
-
-        System.out.println("============Inorder===============");
-        BinaryTreeNode<Integer> inorderTree = buildInorderTraversalTestData();
-        Solution solution = new Solution();
-        List<BinaryTreeNode<Integer>> inorderList = solution.inorderTraversal(inorderTree);
-        for (BinaryTreeNode<Integer> binaryTreeNode : inorderList) {
-            System.out.println(binaryTreeNode.getT());
-        }
-
-        System.out.println("============Preorder===============");
-
-        BinaryTreeNode<Integer> preorderTree = buildPreorderTraversalTestData();
-        List<BinaryTreeNode<Integer>> preorderList = solution.preorderTraversal(preorderTree);
-        for (BinaryTreeNode<Integer> binaryTreeNode : preorderList) {
-            System.out.println(binaryTreeNode.getT());
-        }
-
-        System.out.println("============Postorder===============");
-
-        BinaryTreeNode<Integer> postorderTree = buildPostorderTraversalTestData();
-        List<BinaryTreeNode<Integer>> postorderList = solution.postorderTraversal(postorderTree);
-        for (BinaryTreeNode<Integer> binaryTreeNode : postorderList) {
-            System.out.println(binaryTreeNode.getT());
-        }
-
-        System.out.println("==========LevelOrder=================");
-        BinaryTreeNode<Integer> bfsTree = buildLevelOrderTraversalTestData();
-        List<BinaryTreeNode<Integer>> bfsList = solution.levelOrderTraversal(bfsTree);
-        for (BinaryTreeNode<Integer> binaryTreeNode : bfsList) {
-            System.out.println(binaryTreeNode.getT());
-        }
-    }
-
     static class Solution {
 
 
