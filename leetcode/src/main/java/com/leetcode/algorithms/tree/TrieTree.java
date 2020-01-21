@@ -12,6 +12,11 @@ public class TrieTree {
 
     private TrieNode trie;
 
+    /**
+     * build trie use word
+     *
+     * @param word
+     */
     public void addWord(String word) {
         char[] chars = word.toCharArray();
         if (null == trie) {
@@ -42,6 +47,12 @@ public class TrieTree {
         addChars(currentNode.get(key), chars, index + 1);
     }
 
+    /**
+     * word in trie ?
+     *
+     * @param word
+     * @return
+     */
     public boolean containsWord(String word) {
         return containsWord(this.trie, word.toCharArray(), 0);
     }
