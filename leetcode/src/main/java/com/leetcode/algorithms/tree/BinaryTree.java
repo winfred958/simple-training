@@ -44,7 +44,7 @@ public class BinaryTree {
         }
 
         System.out.println("==========LevelOrder=================");
-        BinaryTreeNode<Integer> bfsTree = buildBFSTraversalTestData();
+        BinaryTreeNode<Integer> bfsTree = buildLevelOrderTraversalTestData();
         List<BinaryTreeNode<Integer>> bfsList = solution.levelOrderTraversal(bfsTree);
         for (BinaryTreeNode<Integer> binaryTreeNode : bfsList) {
             System.out.println(binaryTreeNode.getT());
@@ -242,7 +242,7 @@ public class BinaryTree {
     }
 
 
-    private static BinaryTreeNode<Integer> buildBFSTraversalTestData() {
+    private static BinaryTreeNode<Integer> buildLevelOrderTraversalTestData() {
         BinaryTreeNode<Integer> root = new BinaryTreeNode<>(null);
 
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
