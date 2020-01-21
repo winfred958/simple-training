@@ -57,6 +57,7 @@ public class TrieTree {
         String key = String.valueOf(chars[index]);
         Map<String, TrieNode> child = node.getChild();
         if (null != child && child.containsKey(key)) {
+            // 写一个 node 和 index + 1, 对比
             return containsWord(child.get(key), chars, index + 1);
         } else {
             return false;

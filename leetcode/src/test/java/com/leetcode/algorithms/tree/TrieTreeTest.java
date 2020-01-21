@@ -35,7 +35,7 @@ public class TrieTreeTest {
 
 
         boolean good = trieTree.containsWord("good");
-        boolean goose = trieTree.containsWord("goose--");
+        boolean goose = trieTree.containsWord("goody");
 
         System.out.println(good);
         System.out.println(goose);
