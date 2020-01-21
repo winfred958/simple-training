@@ -1,5 +1,6 @@
 package com.leetcode.algorithms.tree;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -11,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * -- Postorder Traversal   (后序遍历) => (left -> right -> top)
  * <p>
  * 2. 宽度优先搜索(BFS)
- * -- 层序遍历
+ * -- 层序遍历 levelOrder
  */
 public class BinaryTree {
 
@@ -43,7 +44,7 @@ public class BinaryTree {
 
         System.out.println("===========================");
         BinaryTreeNode<Integer> bfsTree = buildBFSTraversalTestData();
-        List<BinaryTreeNode<Integer>> bfsList = solution.bfsTraversal(bfsTree);
+        List<BinaryTreeNode<Integer>> bfsList = solution.levelOrderTraversal(bfsTree);
         for (BinaryTreeNode<Integer> binaryTreeNode : bfsList) {
             System.out.println(binaryTreeNode.getT());
         }
@@ -131,30 +132,39 @@ public class BinaryTree {
 
         /**
          * BFS 广度搜索优先, 层序遍历
-         *
+         * <p>
          * https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/er-cha-shu-de-ceng-ci-bian-li-by-leetcode/
+         *
          * @param root
          * @return
          */
-        public List<BinaryTreeNode<Integer>> bfsTraversal(BinaryTreeNode<Integer> root) {
-            List<BinaryTreeNode<Integer>> result = new CopyOnWriteArrayList<>();
-            bfsTraversal(root, result);
+        public List<BinaryTreeNode<Integer>> levelOrderTraversal(BinaryTreeNode<Integer> root) {
+            List<List<BinaryTreeNode<Integer>>> tmpResult = new CopyOnWriteArrayList<>();
+            levelOrderTraversal(root, tmpResult, 0);
+
+            List<BinaryTreeNode<Integer>> result = new ArrayList<>();
+            for (List<BinaryTreeNode<Integer>> list : tmpResult) {
+                for (BinaryTreeNode<Integer> node : list) {
+                    result.add(node);
+                }
+            }
             return result;
         }
 
-        private void bfsTraversal(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
+        private void levelOrderTraversal(BinaryTreeNode<Integer> node, List<List<BinaryTreeNode<Integer>>> result, int level) {
             if (null == node) {
                 return;
             }
-            result.add(node);
-
+            if (result.size() == level) {
+                // 新增层级
+                result.add(new ArrayList<BinaryTreeNode<Integer>>());
+            }
+            result.get(level).add(node);
             if (node.hasLeftChild()) {
-                BinaryTreeNode<Integer> left = node.getLeft();
-                bfsTraversal(left, result);
+                levelOrderTraversal(node.getLeft(), result, level + 1);
             }
             if (node.hasRightChild()) {
-                BinaryTreeNode<Integer> right = node.getRight();
-                bfsTraversal(right, result);
+                levelOrderTraversal(node.getRight(), result, level + 1);
             }
         }
     }
