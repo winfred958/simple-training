@@ -14,7 +14,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * 2. 宽度优先搜索(BFS)
  * -- 层序遍历 levelOrder
  */
-public class BinaryTree {
+public class BinaryTreeTraversal {
 
 
     public static void main(String[] args) {
