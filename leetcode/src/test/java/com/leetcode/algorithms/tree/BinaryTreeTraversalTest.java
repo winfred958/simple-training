@@ -35,7 +35,7 @@ public class BinaryTreeTraversalTest {
 
     @Test
     public void postorderTraversal() {
-        List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.inorderTraversal(postorderTree);
+        List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.postorderTraversal(postorderTree);
         System.out.println("============Postorder===============");
         for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
             System.out.println(binaryTreeNode.getT());
@@ -53,8 +53,6 @@ public class BinaryTreeTraversalTest {
 
     @Before
     public void buildInorderTraversalTestData() {
-
-
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
         BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
         BinaryTreeNode<Integer> value3 = new BinaryTreeNode<>(3);
@@ -77,8 +75,6 @@ public class BinaryTreeTraversalTest {
 
     @Before
     public void buildPreorderTraversalTestData() {
-
-
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
         BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
         BinaryTreeNode<Integer> value3 = new BinaryTreeNode<>(3);
@@ -121,8 +117,7 @@ public class BinaryTreeTraversalTest {
     }
 
     @Before
-    private void buildLevelOrderTraversalTestData() {
-
+    public void buildLevelOrderTraversalTestData() {
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
         BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
         BinaryTreeNode<Integer> value3 = new BinaryTreeNode<>(3);
@@ -144,6 +139,5 @@ public class BinaryTreeTraversalTest {
         value2.setRight(value6);
 
         value5.setLeft(value8);
-
     }
 }
