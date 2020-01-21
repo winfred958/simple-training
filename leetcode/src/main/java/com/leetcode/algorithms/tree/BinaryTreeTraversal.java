@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * -- Preorder Traversal    (前序遍历) => (top -> left -> right)
  * -- Postorder Traversal   (后序遍历) => (left -> right -> top)
  * <p>
- * 2. 宽度优先搜索(BFS)
+ * 2. 广度度优先搜索(BFS)
  * -- 层序遍历 levelOrder
  */
 public class BinaryTreeTraversal {

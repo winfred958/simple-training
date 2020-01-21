@@ -15,6 +15,10 @@ public class BinaryTreeTraversalTest {
     BinaryTreeNode<Integer> postorderTree = new BinaryTreeNode<>(null);
     BinaryTreeNode<Integer> levelOrderTree = new BinaryTreeNode<>(null);
 
+    /**
+     * 深度优先搜索
+     * 二叉树 - 中序遍历
+     */
     @Test
     public void inorderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.inorderTraversal(inorderTree);
@@ -24,6 +28,10 @@ public class BinaryTreeTraversalTest {
         }
     }
 
+    /**
+     * 深度优先搜索
+     * 二叉树 - 先序遍历
+     */
     @Test
     public void preorderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.preorderTraversal(preorderTree);
@@ -33,6 +41,10 @@ public class BinaryTreeTraversalTest {
         }
     }
 
+    /**
+     * 深度优先搜索
+     * 二叉树 - 后序遍历
+     */
     @Test
     public void postorderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.postorderTraversal(postorderTree);
@@ -41,6 +53,11 @@ public class BinaryTreeTraversalTest {
             System.out.println(binaryTreeNode.getT());
         }
     }
+
+    /**
+     * 广度优先搜索
+     * 二叉树 - 层序遍历
+     */
 
     @Test
     public void levelOrderTraversal() {
