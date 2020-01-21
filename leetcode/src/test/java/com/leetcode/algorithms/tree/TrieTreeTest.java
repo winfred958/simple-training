@@ -12,11 +12,15 @@ public class TrieTreeTest {
     @Before
     public void buildTree() {
         trieTree = new TrieTree();
-        trieTree.addWord("abc");
-        trieTree.addWord("abcdefg");
-        trieTree.addWord("abcxyz");
-        trieTree.addWord("123");
-        trieTree.addWord("126");
+        trieTree.addWord("goo");
+        trieTree.addWord("google");
+        trieTree.addWord("good");
+        trieTree.addWord("goods");
+        trieTree.addWord("goose");
+        trieTree.addWord("goodness");
+        trieTree.addWord("gift");
+        trieTree.addWord("apple");
+        trieTree.addWord("app");
     }
 
     @Test
