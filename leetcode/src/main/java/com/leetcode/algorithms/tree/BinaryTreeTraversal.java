@@ -66,17 +66,17 @@ public class BinaryTreeTraversal {
             return result;
         }
 
-        private void inorderTraversal(BinaryTreeNode<Integer> root, List<BinaryTreeNode<Integer>> result) {
+        private void inorderTraversal(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
 
-            if (null == root) {
+            if (null == node) {
                 return;
             }
-            if (root.hasLeftChild()) {
-                inorderTraversal(root.getLeft(), result);
+            if (node.hasLeftChild()) {
+                inorderTraversal(node.getLeft(), result);
             }
-            result.add(root);
-            if (root.hasRightChild()) {
-                inorderTraversal(root.getRight(), result);
+            result.add(node);
+            if (node.hasRightChild()) {
+                inorderTraversal(node.getRight(), result);
             }
         }
 
@@ -144,11 +144,10 @@ public class BinaryTreeTraversal {
             levelOrderTraversal(root, tmpResult, 0);
 
             List<BinaryTreeNode<Integer>> result = new ArrayList<>();
-            for (List<BinaryTreeNode<Integer>> list : tmpResult) {
-                for (BinaryTreeNode<Integer> node : list) {
-                    result.add(node);
-                }
-            }
+            tmpResult
+                    .forEach(e -> {
+                        result.addAll(e);
+                    });
             return result;
         }
 
