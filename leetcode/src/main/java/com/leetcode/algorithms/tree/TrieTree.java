@@ -42,6 +42,28 @@ public class TrieTree {
         addChars(currentNode.get(key), chars, index + 1);
     }
 
+    public boolean containsWord(String word) {
+        return containsWord(this.trie, word.toCharArray(), 0);
+    }
+
+    private boolean containsWord(TrieNode node, char[] chars, int index) {
+        if (null == node) {
+            return false;
+        }
+
+        if (index >= chars.length) {
+            return true;
+        }
+        String key = String.valueOf(chars[index]);
+        Map<String, TrieNode> child = node.getChild();
+        if (null != child && child.containsKey(key)) {
+            return containsWord(child.get(key), chars, index + 1);
+        } else {
+            return false;
+        }
+    }
+
+
     public TrieNode getTrie() {
         return trie;
     }

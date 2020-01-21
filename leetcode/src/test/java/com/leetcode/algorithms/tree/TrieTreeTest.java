@@ -21,6 +21,9 @@ public class TrieTreeTest {
         trieTree.addWord("gift");
         trieTree.addWord("apple");
         trieTree.addWord("app");
+        trieTree.addWord("appreciate");
+        trieTree.addWord("appropriate");
+        trieTree.addWord("approach");
     }
 
     @Test
@@ -30,5 +33,11 @@ public class TrieTreeTest {
         String jsonString = JSON.toJSONString(trie, SerializerFeature.SortField, SerializerFeature.IgnoreNonFieldGetter);
         System.out.println(jsonString);
 
+
+        boolean good = trieTree.containsWord("good");
+        boolean goose = trieTree.containsWord("goose--");
+
+        System.out.println(good);
+        System.out.println(goose);
     }
 }
