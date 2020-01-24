@@ -86,16 +86,8 @@ public class TrieTree {
 
     static class TrieNode {
 
-        private Map<String, TrieNode> child;
         private TrieNode parent;
-
-        public Map<String, TrieNode> getChild() {
-            return child;
-        }
-
-        public void setChild(Map<String, TrieNode> child) {
-            this.child = child;
-        }
+        private Map<String, TrieNode> child;
 
         public TrieNode getParent() {
             return parent;
@@ -103,6 +95,14 @@ public class TrieTree {
 
         public void setParent(TrieNode parent) {
             this.parent = parent;
+        }
+
+        public Map<String, TrieNode> getChild() {
+            return child;
+        }
+
+        public void setChild(Map<String, TrieNode> child) {
+            this.child = child;
         }
 
         public void addChildNode(String key, TrieNode node) {
