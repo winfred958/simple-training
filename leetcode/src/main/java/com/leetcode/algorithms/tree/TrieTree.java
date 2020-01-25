@@ -31,20 +31,20 @@ public class TrieTree {
             return;
         }
         String key = String.valueOf(chars[index]);
-        Map<String, TrieNode> currentNode = trie.getChild();
-        if (null == currentNode) {
-            currentNode = new ConcurrentSkipListMap<>();
-            trie.setChild(currentNode);
+        Map<String, TrieNode> leaf = trie.getChild();
+        if (null == leaf) {
+            leaf = new ConcurrentSkipListMap<>();
+            trie.setChild(leaf);
         }
-        if (currentNode.containsKey(key)) {
+        if (leaf.containsKey(key)) {
             // word 节点存在, 遍历下一个
         } else {
             // 新的 word 节点
-            TrieNode child = new TrieNode();
-            child.setParent(child);
-            currentNode.put(key, child);
+            TrieNode childLeaf = new TrieNode();
+            childLeaf.setParent(trie);
+            leaf.put(key, childLeaf);
         }
-        addChars(currentNode.get(key), chars, index + 1);
+        addChars(leaf.get(key), chars, index + 1);
     }
 
     /**
