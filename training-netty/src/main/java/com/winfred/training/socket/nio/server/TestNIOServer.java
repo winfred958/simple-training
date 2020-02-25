@@ -9,6 +9,9 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.util.Iterator;
 
+/**
+ * NIO (No-Bloking IO)
+ */
 @Slf4j
 public class TestNIOServer {
 

@@ -17,7 +17,7 @@ public class MyServerProtocolImpl implements MyServerProtocol {
     private int bufferSize;
 
     public MyServerProtocolImpl(int bufferSize) {
-        bufferSize = bufferSize;
+        this.bufferSize = bufferSize;
     }
 
     @Override
@@ -39,32 +39,38 @@ public class MyServerProtocolImpl implements MyServerProtocol {
     @Override
     public void handleAccept(SelectionKey key) throws IOException {
         ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
+        // 建立 socket channel (双工)
         SocketChannel socketChannel = serverSocketChannel.accept();
         socketChannel.configureBlocking(false);
+        // 注册, 监听 read event
         socketChannel.register(key.selector(), SelectionKey.OP_READ);
     }
 
     @Override
-    public void handleRead(SelectionKey key) throws IOException {
-        SocketChannel socketChannel = (SocketChannel) key.channel();
-        ByteBuffer byteBuffer = ByteBuffer.allocate(bufferSize);
-
-        // 开始读取数据
-        socketChannel.read(byteBuffer);
-        // 将缓冲区数据置为传出状态
-        byteBuffer.flip();
-        // 将字节转化为为UTF-8的字符串
-        String receivedString = Charset.defaultCharset().newDecoder().decode(byteBuffer).toString();
-
-        this.serverPrint(receivedString);
-
-        if (StringUtils.isBlank(receivedString)) {
+    public void handleRead(SelectionKey key) {
+        try (SocketChannel socketChannel = (SocketChannel) key.channel();) {
+            ByteBuffer byteBuffer = ByteBuffer.allocate(bufferSize);
             byteBuffer.clear();
-            socketChannel.write(Charset.defaultCharset().encode(String.format("已经收到: %s", receivedString)));
-            key.cancel();
-            socketChannel.close();
-            return;
+            // 开始读取数据
+            int length = socketChannel.read(byteBuffer);
+            if (length == -1) {
+                return;
+            }
+            // 将缓冲区数据置为传出状态
+            byteBuffer.flip();
+            // 将字节转化为为UTF-8的字符串
+            String receivedString = Charset.defaultCharset().newDecoder().decode(byteBuffer).toString();
+            this.serverPrint(socketChannel, receivedString);
+
+            if (StringUtils.isBlank(receivedString)) {
+                ByteBuffer buffer = Charset.defaultCharset().encode(String.format("已经收到: %s", receivedString));
+                socketChannel.write(buffer);
+            }
+        } catch (IOException e) {
+            log.error("[ SEVER READ ], error. ", e);
         }
+
+
     }
 
     @Override

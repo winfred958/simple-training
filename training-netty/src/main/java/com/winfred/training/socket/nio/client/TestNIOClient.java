@@ -65,7 +65,7 @@ public class TestNIOClient {
                 // FIXME: 启动客户端信道监听线程
                 executorService.submit(new ClientListener(selector));
             } else {
-                System.out.println("服务器已经断开");
+                log.info("服务器已经断开");
             }
         }
     }
@@ -85,6 +85,7 @@ public class TestNIOClient {
             Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
             while (keyIterator.hasNext()) {
                 SelectionKey key = keyIterator.next();
+                keyIterator.remove();
 
                 if (key.isConnectable()) {
                     SocketChannel channel = (SocketChannel) key.channel();
@@ -103,11 +104,10 @@ public class TestNIOClient {
                     // 将字节转化为为UTF-16的字符串
                     String receivedString = Charset.defaultCharset().newDecoder().decode(byteBuffer).toString();
 
-                    // 控制台打印出来
-                    System.out.println(receivedString);
+                    log.info("{}", receivedString);
 
                 }
-                keyIterator.remove();
+
             }
             return null;
         }
@@ -115,8 +115,7 @@ public class TestNIOClient {
 
     public static void main(String[] args) {
 
-
-        System.out.println("开始发送信息");
+        log.info("开始发送信息");
 
         String str = null;
 

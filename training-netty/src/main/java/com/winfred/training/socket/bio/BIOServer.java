@@ -13,6 +13,7 @@ import java.net.Socket;
  * BIO (Bloking IO)
  * <p>
  * 服务端线程从建立连接开始阻塞.
+ * 单通道:
  * Socket.InputStream.read 客户端未发送或未发送完毕, 服务端线程阻塞
  * Socket.OutputStream.write 客户端未接收, 服务端线程阻塞
  */
