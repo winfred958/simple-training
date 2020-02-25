@@ -34,12 +34,6 @@
     </dependencyManagement>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
         <!-- 去掉默认log -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

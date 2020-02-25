@@ -15,12 +15,6 @@
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
-        <!-- 引入 lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

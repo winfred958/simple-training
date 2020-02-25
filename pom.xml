@@ -90,6 +90,16 @@
         <httpclient.version>4.5.3</httpclient.version>
     </properties>
 
+    <dependencies>
+        <!-- 引入 lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
     <dependencyManagement>
         <dependencies>
 
@@ -104,12 +114,6 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.8.1</version>
-            </dependency>
-            <!-- 引入 lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
             </dependency>
 
             <!-- json -->
