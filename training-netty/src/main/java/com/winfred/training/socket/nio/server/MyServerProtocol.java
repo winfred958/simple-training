@@ -33,5 +33,5 @@ public interface MyServerProtocol {
 
     void handleRead(SelectionKey key);
 
-    void handleWrite(SelectionKey key) throws IOException;
+    void handleWrite(SelectionKey key, String message) throws IOException;
 }

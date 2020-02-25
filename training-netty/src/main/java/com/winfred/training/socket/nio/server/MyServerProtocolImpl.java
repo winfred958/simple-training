@@ -48,11 +48,15 @@ public class MyServerProtocolImpl implements MyServerProtocol {
 
     @Override
     public void handleRead(SelectionKey key) {
-        try (SocketChannel socketChannel = (SocketChannel) key.channel();) {
+
+        try {
+            SocketChannel socketChannel = (SocketChannel) key.channel();
             ByteBuffer byteBuffer = ByteBuffer.allocate(bufferSize);
             byteBuffer.clear();
             // 开始读取数据
-            int length = socketChannel.read(byteBuffer);
+            int length = 0;
+            length = socketChannel.read(byteBuffer);
+
             if (length == -1) {
                 return;
             }
@@ -67,20 +71,20 @@ public class MyServerProtocolImpl implements MyServerProtocol {
                 socketChannel.write(buffer);
             }
         } catch (IOException e) {
-            log.error("[ SEVER READ ], error. ", e);
+            e.printStackTrace();
         }
 
 
     }
 
     @Override
-    public void handleWrite(SelectionKey key) throws IOException {
+    public void handleWrite(SelectionKey key, String message) throws IOException {
         SocketChannel channel = (SocketChannel) key.channel();
         InetSocketAddress remote = (InetSocketAddress) channel.socket().getRemoteSocketAddress();
         String host = remote.getHostName();
 
         // 向 SocketChannel 写入事件
-        channel.write(Charset.defaultCharset().encode("aaaaaaaaaaaaaaaaaaa"));
+        channel.write(Charset.defaultCharset().encode(message));
 
         // 修改 SocketChannel 所关心的事件
         key.interestOps(SelectionKey.OP_READ);

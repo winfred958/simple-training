@@ -12,8 +12,8 @@ import java.util.Iterator;
 /**
  * NIO (No-Bloking IO)
  */
-@Slf4j
-public class TestNIOServer {
+@Slf4j(topic = "server")
+public class NIOServerTest {
 
     private Selector selector;
 
@@ -56,7 +56,7 @@ public class TestNIOServer {
                 } else if (selectionKey.isReadable()) {
                     myProtocol.handleRead(selectionKey);
                 } else if (selectionKey.isWritable()) {
-                    myProtocol.handleWrite(selectionKey);
+                    myProtocol.handleWrite(selectionKey, "");
                 }
 
             }
@@ -64,7 +64,7 @@ public class TestNIOServer {
     }
 
     public static void main(String[] args) {
-        TestNIOServer testNIOServer = new TestNIOServer();
+        NIOServerTest testNIOServer = new NIOServerTest();
         try {
             testNIOServer.initialize();
             testNIOServer.start();
