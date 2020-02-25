@@ -1,6 +1,5 @@
 package com.winfred.training.socket.aio.server;
 
-import com.winfred.training.core.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -33,13 +32,13 @@ public class AsyncServer {
             asynchronousServerSocketChannel.bind(new InetSocketAddress(port));
             log.info("server starting at port {}", port);
 //            ThreadPoolUtil.doExecutor(() -> {
-                countDownLatch = new CountDownLatch(1);
-                doAccept();
-                try {
-                    countDownLatch.await();
-                } catch (InterruptedException e) {
-                    log.error("CountDownLatch InterruptedException: ", e);
-                }
+            countDownLatch = new CountDownLatch(1);
+            doAccept();
+            try {
+                countDownLatch.await();
+            } catch (InterruptedException e) {
+                log.error("CountDownLatch InterruptedException: ", e);
+            }
 //            });
         } catch (IOException e) {
             log.error("", e);
