@@ -35,7 +35,7 @@ public class TestNIOServer {
         while (true) {
 
             if (selector.select(3000) == 0) {
-                System.out.println("等待...");
+                log.info("等待...");
                 continue;
             }
 

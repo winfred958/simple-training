@@ -1,5 +1,6 @@
 package com.winfred.training.socket.nio.server;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 
+@Slf4j
 public class MyServerProtocolImpl implements MyServerProtocol {
 
     private int bufferSize;
@@ -30,7 +32,7 @@ public class MyServerProtocolImpl implements MyServerProtocol {
         InetSocketAddress remote = (InetSocketAddress) channel.socket().getRemoteSocketAddress();
         String host = remote.getHostName();
         int port = remote.getPort();
-        System.out.println(String.format("访问地址: %s:%s 连接成功!", host, port));
+        log.info("访问地址: {}:{} 连接成功!", host, port);
     }
 
 
