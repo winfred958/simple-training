@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
@@ -64,7 +65,9 @@ public class MyServerProtocolImpl implements MyServerProtocol {
             byteBuffer.flip();
             // 将字节转化为为UTF-8的字符串
             String receivedString = Charset.defaultCharset().newDecoder().decode(byteBuffer).toString();
-            this.serverPrint(socketChannel, receivedString);
+
+            SocketAddress remoteAddress = socketChannel.getRemoteAddress();
+            log.info("{} >> {}", remoteAddress.toString(), receivedString);
 
             if (StringUtils.isBlank(receivedString)) {
                 ByteBuffer buffer = Charset.defaultCharset().encode(String.format("已经收到: %s", receivedString));

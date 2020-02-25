@@ -11,16 +11,6 @@ import java.nio.channels.SocketChannel;
 
 public interface MyServerProtocol {
 
-    default void serverPrint(SocketChannel socketChannel, String str) {
-        Logger log = LoggerFactory.getLogger(this.getClass());
-        try {
-            SocketAddress remoteAddress = socketChannel.getRemoteAddress();
-            log.info("{} >> {}", remoteAddress.toString(), str);
-        } catch (IOException e) {
-            log.error("server print error", e);
-        }
-    }
-
     void handleConnect(SelectionKey key) throws IOException;
 
     /**

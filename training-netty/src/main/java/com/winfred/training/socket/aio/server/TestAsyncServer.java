@@ -16,5 +16,6 @@ public class TestAsyncServer {
     @Test
     public void testAioServer() {
         asyncServer.startServer();
+
     }
 }

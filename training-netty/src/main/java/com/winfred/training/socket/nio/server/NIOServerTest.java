@@ -1,5 +1,6 @@
 package com.winfred.training.socket.nio.server;
 
+import com.winfred.training.core.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -54,11 +55,18 @@ public class NIOServerTest {
                 } else if (selectionKey.isAcceptable()) {
                     myProtocol.handleAccept(selectionKey);
                 } else if (selectionKey.isReadable()) {
-                    myProtocol.handleRead(selectionKey);
+                    ThreadPoolUtil.doExecutor(() -> {
+                        myProtocol.handleRead(selectionKey);
+                    });
                 } else if (selectionKey.isWritable()) {
-                    myProtocol.handleWrite(selectionKey, "");
+                    ThreadPoolUtil.doExecutor(() -> {
+                        try {
+                            myProtocol.handleWrite(selectionKey, "");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
                 }
-
             }
         }
     }

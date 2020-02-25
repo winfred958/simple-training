@@ -18,7 +18,10 @@ public class AsyncServer {
 
     private int port;
 
-    CountDownLatch countDownLatch;
+    /**
+     * 使用栅栏, 控制异步, 不然主线程会直接退出
+     */
+    CountDownLatch countDownLatch = new CountDownLatch(1);
 
     AsynchronousServerSocketChannel asynchronousServerSocketChannel;
 
@@ -30,9 +33,10 @@ public class AsyncServer {
         try {
             asynchronousServerSocketChannel = AsynchronousServerSocketChannel.open();
             asynchronousServerSocketChannel.bind(new InetSocketAddress(port));
+
             log.info("server starting at port {}", port);
 //            ThreadPoolUtil.doExecutor(() -> {
-            countDownLatch = new CountDownLatch(1);
+
             doAccept();
             try {
                 countDownLatch.await();
@@ -49,20 +53,21 @@ public class AsyncServer {
      * 处理客户端连接
      */
     public void doAccept() {
-        asynchronousServerSocketChannel.accept(this, new CompletionHandler<AsynchronousSocketChannel, AsyncServer>() {
-            @Override
-            public void completed(AsynchronousSocketChannel result, AsyncServer attachment) {
-                attachment.asynchronousServerSocketChannel.accept(attachment, this);
+        asynchronousServerSocketChannel
+                .accept(this, new CompletionHandler<AsynchronousSocketChannel, AsyncServer>() {
+                    @Override
+                    public void completed(AsynchronousSocketChannel result, AsyncServer attachment) {
+                        attachment.asynchronousServerSocketChannel.accept(attachment, this);
 
-                ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                result.read(byteBuffer, byteBuffer, new ReadCompletionHandler(result));
-            }
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+                        result.read(byteBuffer, byteBuffer, new ReadCompletionHandler(result));
+                    }
 
-            @Override
-            public void failed(Throwable exc, AsyncServer attachment) {
-                log.error("", exc);
-                attachment.countDownLatch.countDown();
-            }
-        });
+                    @Override
+                    public void failed(Throwable exc, AsyncServer attachment) {
+                        log.error("", exc);
+                        attachment.countDownLatch.countDown();
+                    }
+                });
     }
 }
