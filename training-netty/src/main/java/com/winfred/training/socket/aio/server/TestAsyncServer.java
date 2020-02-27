@@ -1,21 +1,11 @@
 package com.winfred.training.socket.aio.server;
 
 
-import org.junit.Before;
-import org.junit.Test;
-
 public class TestAsyncServer {
 
-    AsyncServer asyncServer;
+    public static void main(String[] args) {
+        AsyncServer asyncServer = new AsyncServer.Builder().setPort(19999).build();
 
-    @Before
-    public void before() {
-        this.asyncServer = new AsyncServer(6666);
-    }
-
-    @Test
-    public void testAioServer() {
         asyncServer.startServer();
-
     }
 }

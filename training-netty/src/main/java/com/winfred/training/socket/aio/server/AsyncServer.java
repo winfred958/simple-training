@@ -25,8 +25,8 @@ public class AsyncServer {
 
     AsynchronousServerSocketChannel asynchronousServerSocketChannel;
 
-    public AsyncServer(int port) {
-        this.port = port;
+    public AsyncServer(Builder builder) {
+        this.port = builder.port;
     }
 
     public void startServer() {
@@ -35,7 +35,6 @@ public class AsyncServer {
             asynchronousServerSocketChannel.bind(new InetSocketAddress(port));
 
             log.info("server starting at port {}", port);
-//            ThreadPoolUtil.doExecutor(() -> {
 
             doAccept();
             try {
@@ -43,16 +42,19 @@ public class AsyncServer {
             } catch (InterruptedException e) {
                 log.error("CountDownLatch InterruptedException: ", e);
             }
-//            });
         } catch (IOException e) {
             log.error("", e);
         }
     }
 
+    public void stop() {
+        countDownLatch.countDown();
+    }
+
     /**
      * 处理客户端连接
      */
-    public void doAccept() {
+    private void doAccept() {
         asynchronousServerSocketChannel
                 .accept(this, new CompletionHandler<AsynchronousSocketChannel, AsyncServer>() {
                     @Override
@@ -64,10 +66,24 @@ public class AsyncServer {
                     }
 
                     @Override
-                    public void failed(Throwable exc, AsyncServer attachment) {
-                        log.error("", exc);
-                        attachment.countDownLatch.countDown();
+                    public void failed(Throwable exc, AsyncServer asyncServer) {
+                        log.error("[ Asnc Server failed ]", exc);
+                        asyncServer.stop();
                     }
                 });
+    }
+
+
+    public static class Builder {
+        private int port;
+
+        public Builder setPort(int port) {
+            this.port = port;
+            return this;
+        }
+
+        public AsyncServer build() {
+            return new AsyncServer(this);
+        }
     }
 }
