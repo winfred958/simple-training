@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
 /**
  * @author kevin
  */
-@Slf4j
+@Slf4j(topic = "ReadCompletionHandler")
 public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuffer> {
 
     private AsynchronousSocketChannel asynchronousSocketChannel;

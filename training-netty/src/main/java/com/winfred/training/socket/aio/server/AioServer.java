@@ -13,8 +13,8 @@ import java.util.concurrent.CountDownLatch;
 /**
  * @author kevin
  */
-@Slf4j
-public class AsyncServer {
+@Slf4j(topic = "AsyncServer")
+public class AioServer {
 
     private int port;
 
@@ -25,7 +25,7 @@ public class AsyncServer {
 
     AsynchronousServerSocketChannel asynchronousServerSocketChannel;
 
-    public AsyncServer(Builder builder) {
+    public AioServer(Builder builder) {
         this.port = builder.port;
     }
 
@@ -38,6 +38,7 @@ public class AsyncServer {
 
             doAccept();
             try {
+                // 阻塞主进程
                 countDownLatch.await();
             } catch (InterruptedException e) {
                 log.error("CountDownLatch InterruptedException: ", e);
@@ -56,9 +57,9 @@ public class AsyncServer {
      */
     private void doAccept() {
         asynchronousServerSocketChannel
-                .accept(this, new CompletionHandler<AsynchronousSocketChannel, AsyncServer>() {
+                .accept(this, new CompletionHandler<AsynchronousSocketChannel, AioServer>() {
                     @Override
-                    public void completed(AsynchronousSocketChannel result, AsyncServer attachment) {
+                    public void completed(AsynchronousSocketChannel result, AioServer attachment) {
                         attachment.asynchronousServerSocketChannel.accept(attachment, this);
 
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
@@ -66,7 +67,7 @@ public class AsyncServer {
                     }
 
                     @Override
-                    public void failed(Throwable exc, AsyncServer asyncServer) {
+                    public void failed(Throwable exc, AioServer asyncServer) {
                         log.error("[ Asnc Server failed ]", exc);
                         asyncServer.stop();
                     }
@@ -82,8 +83,8 @@ public class AsyncServer {
             return this;
         }
 
-        public AsyncServer build() {
-            return new AsyncServer(this);
+        public AioServer build() {
+            return new AioServer(this);
         }
     }
 }

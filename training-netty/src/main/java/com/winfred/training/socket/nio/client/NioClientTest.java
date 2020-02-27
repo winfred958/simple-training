@@ -7,12 +7,12 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.*;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Scanner;
 
 @Slf4j(topic = "client")
-public class NIOClientTest {
+public class NioClientTest {
 
     private Selector selector;
     private SocketChannel socketChannel;
@@ -21,7 +21,7 @@ public class NIOClientTest {
     private int port;
     private boolean isBlocking;
 
-    public NIOClientTest(Builder builder) {
+    public NioClientTest(Builder builder) {
         this.hostname = builder.hostname;
         this.port = builder.port;
         this.isBlocking = builder.isBlocking;
@@ -70,21 +70,24 @@ public class NIOClientTest {
     }
 
     public void sendMessage(String message) {
-        ByteBuffer byteBuffer = ByteBuffer.wrap(message.getBytes(Charset.defaultCharset()));
+        ByteBuffer byteBuffer = ByteBuffer.wrap(message.getBytes(StandardCharsets.UTF_8));
         if (null != socketChannel && socketChannel.isConnected()) {
             try {
                 socketChannel.write(byteBuffer);
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("[服务器已经断开]", e);
+                // 重连
+                initialize();
             }
         } else {
             log.info("服务器已经断开");
         }
+
         // 注册 reade event
         try {
             socketChannel.register(selector, SelectionKey.OP_READ);
         } catch (ClosedChannelException e) {
-            e.printStackTrace();
+            log.error("register", e);
         }
     }
 
@@ -109,7 +112,7 @@ public class NIOClientTest {
             // 将缓冲区数据置为传出状态
             byteBuffer.flip();
             // 将字节转化为为UTF-8的字符串
-            String receivedString = Charset.defaultCharset().newDecoder().decode(byteBuffer).toString();
+            String receivedString = StandardCharsets.UTF_8.newDecoder().decode(byteBuffer).toString();
 
             SocketAddress remoteAddress = socketChannel.getRemoteAddress();
             log.info("{} >> {}", remoteAddress.toString(), receivedString);
@@ -126,8 +129,8 @@ public class NIOClientTest {
         private int port;
         private boolean isBlocking;
 
-        public NIOClientTest build() {
-            return new NIOClientTest(this);
+        public NioClientTest build() {
+            return new NioClientTest(this);
         }
 
         public Builder setHostName(String hostname) {
@@ -148,7 +151,7 @@ public class NIOClientTest {
     }
 
     public static void main(String[] args) {
-        NIOClientTest client = new Builder()
+        NioClientTest client = new Builder()
                 .setHostName("127.0.0.1")
                 .setPort(9999)
                 .setIsBlocking(false)

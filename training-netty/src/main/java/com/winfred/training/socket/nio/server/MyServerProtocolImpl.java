@@ -11,6 +11,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 public class MyServerProtocolImpl implements MyServerProtocol {
@@ -22,12 +23,16 @@ public class MyServerProtocolImpl implements MyServerProtocol {
     }
 
     @Override
-    public void handleConnect(SelectionKey key) throws IOException {
+    public void handleConnect(SelectionKey key)  {
         // 获取事件句柄对应的 SocketChannel
         SocketChannel channel = (SocketChannel) key.channel();
 
         // 真正的完成 socket 连接
-        channel.finishConnect();
+        try {
+            channel.finishConnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // 打印连接信息
         InetSocketAddress remote = (InetSocketAddress) channel.socket().getRemoteSocketAddress();
@@ -38,13 +43,18 @@ public class MyServerProtocolImpl implements MyServerProtocol {
 
 
     @Override
-    public void handleAccept(SelectionKey key) throws IOException {
+    public void handleAccept(SelectionKey key) {
         ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
         // 建立 socket channel (双工)
-        SocketChannel socketChannel = serverSocketChannel.accept();
-        socketChannel.configureBlocking(false);
-        // 注册, 监听 read event
-        socketChannel.register(key.selector(), SelectionKey.OP_READ);
+        SocketChannel socketChannel = null;
+        try {
+            socketChannel = serverSocketChannel.accept();
+            socketChannel.configureBlocking(false);
+            // 注册, 监听 read event
+            socketChannel.register(key.selector(), SelectionKey.OP_READ);
+        } catch (IOException e) {
+            log.error("{} [handleAccept]", this.getClass().getName(), e);
+        }
     }
 
     @Override
@@ -64,20 +74,22 @@ public class MyServerProtocolImpl implements MyServerProtocol {
             // 将缓冲区数据置为传出状态
             byteBuffer.flip();
             // 将字节转化为为UTF-8的字符串
-            String receivedString = Charset.defaultCharset().newDecoder().decode(byteBuffer).toString();
+
+            String receivedString = StandardCharsets.UTF_8.newDecoder().decode(byteBuffer).toString();
 
             SocketAddress remoteAddress = socketChannel.getRemoteAddress();
             log.info("{} >> {}", remoteAddress.toString(), receivedString);
 
-            if (StringUtils.isBlank(receivedString)) {
-                ByteBuffer buffer = Charset.defaultCharset().encode(String.format("已经收到: %s", receivedString));
+            if (StringUtils.isNotBlank(receivedString)) {
+                ByteBuffer buffer = ByteBuffer.allocate(1024);
+                String responseStr = String.format("已经收到: %s", receivedString);
+                buffer.put(responseStr.getBytes(StandardCharsets.UTF_8));
+                buffer.flip();
                 socketChannel.write(buffer);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("远程连接关闭.", e);
         }
-
-
     }
 
     @Override

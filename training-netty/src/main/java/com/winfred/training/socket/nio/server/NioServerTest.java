@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.channels.ClosedChannelException;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -14,7 +15,7 @@ import java.util.Iterator;
  * NIO (No-Bloking IO)
  */
 @Slf4j(topic = "server")
-public class NIOServerTest {
+public class NioServerTest {
 
     private Selector selector;
 
@@ -33,13 +34,22 @@ public class NIOServerTest {
     }
 
 
-    public void start() throws IOException {
+    public void start() {
         //4.将serverSocketChannel注册到Reactor线程的多路复用器Selector上, 监听 ACCEPT事件
-        serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        try {
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        } catch (ClosedChannelException e) {
+            log.error(" [serverSocketChannel.register] ", e);
+        }
         while (true) {
 
-            if (selector.select(3000) == 0) {
-                log.info("等待...");
+            try {
+                if (selector.select(3000) == 0) {
+                    log.info("没有连接, 等待...");
+                    continue;
+                }
+            } catch (IOException e) {
+                log.error("", e);
                 continue;
             }
 
@@ -72,7 +82,7 @@ public class NIOServerTest {
     }
 
     public static void main(String[] args) {
-        NIOServerTest testNIOServer = new NIOServerTest();
+        NioServerTest testNIOServer = new NioServerTest();
         try {
             testNIOServer.initialize();
             testNIOServer.start();
