@@ -59,11 +59,11 @@ public class AioServer {
         asynchronousServerSocketChannel
                 .accept(this, new CompletionHandler<AsynchronousSocketChannel, AioServer>() {
                     @Override
-                    public void completed(AsynchronousSocketChannel result, AioServer attachment) {
-                        attachment.asynchronousServerSocketChannel.accept(attachment, this);
+                    public void completed(AsynchronousSocketChannel socketChannel, AioServer server) {
+                        server.asynchronousServerSocketChannel.accept(server, this);
 
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                        result.read(byteBuffer, byteBuffer, new ReadCompletionHandler(result));
+                        socketChannel.read(byteBuffer, byteBuffer, new ReadCompletionHandler(socketChannel));
                     }
 
                     @Override

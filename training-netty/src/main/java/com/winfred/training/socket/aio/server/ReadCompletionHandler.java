@@ -4,11 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author kevin
@@ -30,8 +29,15 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
         byte[] bytes = new byte[attachment.remaining()];
         attachment.get(bytes);
         // 客户端请求转码
-        String request = new String(bytes, Charset.forName("UTF-8"));
-        log.info("server accept request: {}", request);
+        String requestStr = new String(bytes, StandardCharsets.UTF_8);
+
+        String remoteHost = "";
+        try {
+            remoteHost = asynchronousSocketChannel.getRemoteAddress().toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        log.info("server accept request {}-{}: {}", remoteHost, result, requestStr);
         String response = "";
         doWrite(response);
     }
@@ -46,7 +52,6 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
             byte[] bytes = response.getBytes();
             ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
             writeBuffer.put(bytes);
-            writeBuffer.flip();
             asynchronousSocketChannel.write(writeBuffer, writeBuffer, new CompletionHandler<Integer, ByteBuffer>() {
                 @Override
                 public void completed(Integer result, ByteBuffer attachment) {
