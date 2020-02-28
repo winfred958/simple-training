@@ -23,7 +23,7 @@ public class MyServerProtocolImpl implements MyServerProtocol {
     }
 
     @Override
-    public void handleConnect(SelectionKey key)  {
+    public void handleConnect(SelectionKey key) {
         // 获取事件句柄对应的 SocketChannel
         SocketChannel channel = (SocketChannel) key.channel();
 
@@ -69,6 +69,12 @@ public class MyServerProtocolImpl implements MyServerProtocol {
             length = socketChannel.read(byteBuffer);
 
             if (length == -1) {
+                // FIXME? len == -1 链路已经关闭, == 0 没有读到字节忽略
+                key.cancel();
+                socketChannel.close();
+                return;
+            }
+            if (length == 0) {
                 return;
             }
             // 将缓冲区数据置为传出状态

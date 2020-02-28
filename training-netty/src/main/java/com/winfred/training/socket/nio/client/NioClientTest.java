@@ -1,12 +1,16 @@
 package com.winfred.training.socket.nio.client;
 
+import com.winfred.training.core.ThreadPoolUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.nio.channels.ClosedChannelException;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -37,27 +41,53 @@ public class NioClientTest {
             selector = Selector.open();
 
             // 注册感兴趣的 event
-            socketChannel.register(selector, SelectionKey.OP_READ);
+            socketChannel.register(selector, SelectionKey.OP_CONNECT);
         } catch (IOException e) {
             log.error("client init failed.", e);
         }
 
     }
 
+
     public void start() {
-        initialize();
-        Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
-        while (keyIterator.hasNext()) {
-            SelectionKey selectionKey = keyIterator.next();
-            keyIterator.remove();
+
+        while (true) {
+
+            Iterator<SelectionKey> keyIterator = selector.selectedKeys().iterator();
+            while (keyIterator.hasNext()) {
+                SelectionKey key = keyIterator.next();
+                keyIterator.remove();
+
+                try {
+                    handler(key);
+                } catch (IOException e) {
+                    log.error("", e);
+                }
+            }
             try {
-                handler(selectionKey);
-            } catch (IOException e) {
-                log.error("", e);
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
+    }
 
-
+    private void reconnect() {
+        boolean connected = false;
+        try {
+            connected = socketChannel.connect(new InetSocketAddress(hostname, port));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (connected) {
+                socketChannel.register(selector, SelectionKey.OP_READ);
+            } else {
+                socketChannel.register(selector, SelectionKey.OP_CONNECT);
+            }
+        } catch (ClosedChannelException e) {
+            e.printStackTrace();
+        }
     }
 
     public void stop() {
@@ -71,6 +101,21 @@ public class NioClientTest {
 
     public void sendMessage(String message) {
         ByteBuffer byteBuffer = ByteBuffer.wrap(message.getBytes(StandardCharsets.UTF_8));
+
+        try {
+            boolean finishConnect = socketChannel.finishConnect();
+            if (finishConnect) {
+                // 注册 reade event
+                socketChannel.register(selector, SelectionKey.OP_READ);
+            } else {
+                reconnect();
+            }
+
+        } catch (ClosedChannelException e) {
+            log.error("register", e);
+        } catch (IOException e) {
+            log.error("connect error", e);
+        }
         if (null != socketChannel && socketChannel.isConnected()) {
             try {
                 socketChannel.write(byteBuffer);
@@ -82,23 +127,15 @@ public class NioClientTest {
         } else {
             log.info("服务器已经断开");
         }
-
-        // 注册 reade event
-        try {
-            socketChannel.register(selector, SelectionKey.OP_READ);
-        } catch (ClosedChannelException e) {
-            log.error("register", e);
-        }
     }
 
     private void handler(SelectionKey key) throws IOException {
-        if (key.isAcceptable()) {
-            ServerSocketChannel serverSocketChannel = (ServerSocketChannel) key.channel();
-            // 建立 socket channel (双工)
-            SocketChannel socketChannel = serverSocketChannel.accept();
-            socketChannel.configureBlocking(false);
-            // 注册, 监听 read event
-            socketChannel.register(key.selector(), SelectionKey.OP_READ);
+        if (key.isConnectable()) {
+
+            SocketChannel socketChannel = (SocketChannel) key.channel();
+            if (socketChannel.finishConnect()) {
+                socketChannel.register(selector, SelectionKey.OP_READ);
+            }
 
         } else if (key.isReadable()) {
             SocketChannel socketChannel = (SocketChannel) key.channel();
@@ -106,7 +143,7 @@ public class NioClientTest {
             byteBuffer.clear();
             // 开始读取数据
             int length = socketChannel.read(byteBuffer);
-            if (length == -1) {
+            if (length <= 0) {
                 return;
             }
             // 将缓冲区数据置为传出状态
@@ -118,7 +155,6 @@ public class NioClientTest {
             log.info("{} >> {}", remoteAddress.toString(), receivedString);
 
             socketChannel.register(key.selector(), SelectionKey.OP_WRITE);
-        } else if (key.isWritable()) {
         }
     }
 
@@ -157,14 +193,24 @@ public class NioClientTest {
                 .setIsBlocking(false)
                 .build();
 
-        client.start();
+
+        client.initialize();
+
+        ThreadPoolUtil
+                .doExecutor(() -> {
+                    client.start();
+                });
+
 
         String str = null;
         while (!"exit".equals(String.valueOf(str).trim())) {
             Scanner scanner = new Scanner(System.in);
             str = scanner.nextLine();
+
             client.sendMessage(str);
+
         }
-        client.stop();
+
+
     }
 }

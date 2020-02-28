@@ -45,7 +45,7 @@ public class NioServerTest {
 
             try {
                 if (selector.select(3000) == 0) {
-                    log.info("没有连接, 等待...");
+                    log.info("没有事件发生, 等待...");
                     continue;
                 }
             } catch (IOException e) {
