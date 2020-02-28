@@ -1,4 +1,4 @@
-package com.winfred.training.socket.netty.time.server;
+package com.winfred.training.netty.time.server;
 
 
 import io.netty.buffer.ByteBuf;

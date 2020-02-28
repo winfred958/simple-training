@@ -1,6 +1,6 @@
-package com.winfred.training.socket.netty.echo.client;
+package com.winfred.training.netty.echo.client;
 
-import com.winfred.training.socket.netty.echo.base.TestParameter;
+import com.winfred.training.netty.echo.base.TestParameter;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

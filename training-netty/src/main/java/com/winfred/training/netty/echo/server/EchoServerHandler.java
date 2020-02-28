@@ -1,4 +1,4 @@
-package com.winfred.training.socket.netty.echo.server;
+package com.winfred.training.netty.echo.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;

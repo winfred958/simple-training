@@ -2,6 +2,7 @@ package com.winfred.training.socket.aio.client;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Scanner;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -28,8 +29,13 @@ public class AioClientTest {
             e.printStackTrace();
         }
 
-        aioClient.sendMessage("123456");
-
+        String str = null;
+        while (!"exit".equals(String.valueOf(str).trim())) {
+            Scanner scanner = new Scanner(System.in);
+            str = scanner.nextLine();
+            aioClient.sendMessage(str);
+        }
+        countDownLatch.countDown();
         try {
             countDownLatch.await();
         } catch (InterruptedException e) {
