@@ -15,6 +15,21 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Scanner;
 
+/**
+ * 1. 打开 SocketChannel.open()
+ * 2. 设置 SocketChannel为非阻塞模式, 同时设置TCP参数
+ * 3. 异步连接服务端, SocketChannel.connect()
+ * 4. 判断连接结果, 调用步骤10, 否则调用步骤5
+ * 5. 向Reactor线程的多路复用器注册 OP_CONNECT 状态位, 监听服务端的TCP ACK应答
+ * 6. 创建Selector启动线程
+ * 7. Selector 轮询就绪的Key
+ * 8. handlerConnect()
+ * 9. 判断连接是否完成. 完成执行步骤10
+ * 10. 向多路复用器注册读事件 OP_READ
+ * 11. handlerRead() 异步读取请求消息到 ByteBuffer
+ * 12. decode, 如果有半包消息接收缓冲区reset,  继续读取报文, 将解码成功的消息封装成Task, 放入业务线程池, 处理请求
+ * 13. 业务处理结果封装成 ByteBuffer , 调用SocketChannel的一步write接口, 将消息发送给客户端
+ */
 @Slf4j(topic = "client")
 public class NioClientTest {
 

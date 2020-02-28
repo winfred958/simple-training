@@ -13,7 +13,20 @@ import java.util.Iterator;
 
 /**
  * NIO (No-Bloking IO)
+ * <p>
+ * 1. 打开 ServerSocketChannel, 用于监听客户端连接
+ * 2. 绑定监听端口, 设置非阻塞模式
+ * 3. 创建Selector, 启动线程
+ * 4. 将 ServerSocketChannel注册到Selector, 监听OP_ACCEPT事件
+ * 5. Selector 轮询监听的 key,
+ * 6. handleAcc() 处理新的客户端接入, Selector监听到有新的客户端接入, 处理请求, 完成TCP三次握手, 建立物理链路
+ * 7. 设置新客户端连接的参数, 为非阻塞模式
+ * 8. 将新连接注册到 Selector, 监听 SelectionKey.OP_READ
+ * 9. 异步读取消息到ByteBuffer
+ * 10. decode, 如果有半包指针reset, 继续读取后续的报文, 将解码成功的消息封装成Task, 投递到业务线程池中, 处理请求
+ * 11. 返回值异步写ByteBuffer, 调用SocketChannel的write方法, 将消息一步发送给客户端
  */
+
 @Slf4j(topic = "server")
 public class NioServerTest {
 
