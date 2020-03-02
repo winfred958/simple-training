@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * 字节码增强
  *
  */
-public class CGLibProxy implements MethodInterceptor {
+public class CglibProxy implements MethodInterceptor {
 
     private Object target;
 

@@ -1,6 +1,6 @@
-package com.winfred.training.designpattern.behavioral;
+package com.winfred.training.designpattern.structure;
 
-import com.winfred.training.designpattern.structure.proxy.cglib.CGLibProxy;
+import com.winfred.training.designpattern.structure.proxy.cglib.CglibProxy;
 import com.winfred.training.designpattern.structure.proxy.cglib.UserService;
 import com.winfred.training.designpattern.structure.proxy.cglib.UserServiceImpl;
 import com.winfred.training.designpattern.structure.proxy.jdk.MyInvocationHandler;
@@ -28,7 +28,7 @@ public class ProxyTest {
     @Test
     public void cglibProxyTest() {
 
-        CGLibProxy cgLibProxy = new CGLibProxy();
+        CglibProxy cgLibProxy = new CglibProxy();
         UserService userService = (UserService) cgLibProxy.createProxyObject(new UserServiceImpl());
 
         userService.testAround();
