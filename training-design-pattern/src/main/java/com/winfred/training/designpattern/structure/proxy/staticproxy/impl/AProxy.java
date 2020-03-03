@@ -1,7 +1,7 @@
-package com.winfred.training.designpattern.structure.proxy.staticp.impl;
+package com.winfred.training.designpattern.structure.proxy.staticproxy.impl;
 
 
-import com.winfred.training.designpattern.structure.proxy.staticp.IA;
+import com.winfred.training.designpattern.structure.proxy.staticproxy.IA;
 
 public class AProxy implements IA {
     private IA a;
