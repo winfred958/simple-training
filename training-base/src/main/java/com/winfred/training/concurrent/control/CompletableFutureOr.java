@@ -29,22 +29,27 @@ public class CompletableFutureOr {
     @Test
     public void applyToEitherAsync() {
 
-        CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A-1", 1000L);
-        CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("A-2", 3000L);
+        CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A-1", 3000L);
+        CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("A-2", 1000L);
         CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("A-3", 2000L);
 
-        AllResponse allResponse = new AllResponse();
-        CompletableFuture<AllResponse> completableFuture = completableFutureA
-                .applyToEitherAsync(completableFutureB, new Function<SimpleResponse, AllResponse>() {
+        CompletableFuture<SimpleResponse> completableFuture = completableFutureA
+                .applyToEitherAsync(completableFutureB, new Function<SimpleResponse, SimpleResponse>() {
                     @Override
-                    public AllResponse apply(SimpleResponse simpleResponse) {
-                        allResponse.setResponseA(simpleResponse);
-                        return allResponse;
+                    public SimpleResponse apply(SimpleResponse simpleResponse) {
+                        return simpleResponse;
+                    }
+                })
+                .applyToEitherAsync(completableFutureC, new Function<SimpleResponse, SimpleResponse>() {
+                    @Override
+                    public SimpleResponse apply(SimpleResponse simpleResponse) {
+                        return simpleResponse;
                     }
                 });
+
         try {
-            AllResponse allResponse1 = completableFuture.get();
-            allResponse1.getResponseA();
+            SimpleResponse simpleResponse = completableFuture.get();
+            simpleResponse.getCode();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -87,10 +92,4 @@ public class CompletableFutureOr {
         private Integer code;
     }
 
-    @Data
-    static class AllResponse {
-        private SimpleResponse responseA;
-        private SimpleResponse responseB;
-        private SimpleResponse responseC;
-    }
 }
