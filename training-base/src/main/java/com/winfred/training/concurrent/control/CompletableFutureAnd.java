@@ -13,24 +13,34 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@Slf4j
-public class CompletableFutureAndOr {
+/**
+ * CompletableFuture, 控制线程AND关系
+ * <p>
+ * CompletableFuture<V> thenCombine(CompletionStage<U>, fn<T, U>);
+ * CompletableFuture<V> thenCombineAsync(CompletionStage<U>, fn<T, U>);
+ * <p>
+ * CompletionStage<Void> thenAcceptBoth(other, consumer);
+ * CompletionStage<Void> thenAcceptBothAsync(other, consumer);
+ * <p>
+ * CompletionStage<Void> runAfterBoth(other, action);
+ * CompletionStage<Void> runAfterBothAsync(other, action);
+ */
 
-    /**
-     * AND 有返回值
-     */
+@Slf4j
+public class CompletableFutureAnd {
+
+
     @Test
     public void thenCombine() {
 
         CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A", 1000L);
         CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("B", 3000L);
         CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("C", 2000L);
-
+        AllResponse allResponse = new AllResponse();
         CompletableFuture<AllResponse> allCombine = completableFutureA
                 .thenCombineAsync(completableFutureB, new BiFunction<SimpleResponse, SimpleResponse, AllResponse>() {
                     @Override
                     public AllResponse apply(SimpleResponse simpleResponse, SimpleResponse simpleResponse2) {
-                        AllResponse allResponse = new AllResponse();
                         allResponse.setResponseA(simpleResponse);
                         allResponse.setResponseB(simpleResponse2);
                         return allResponse;
@@ -59,8 +69,8 @@ public class CompletableFutureAndOr {
 
 
         try {
-            AllResponse allResponse = allCombine.get();
-            allResponse.getResponseA();
+            AllResponse response = allCombine.get();
+            response.getResponseA();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -90,6 +100,10 @@ public class CompletableFutureAndOr {
                     }
                 }, ForkJoinUtils.getInstance());
     }
+
+
+    public
+
 
     @Data
     @AllArgsConstructor
