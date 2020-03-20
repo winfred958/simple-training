@@ -14,14 +14,17 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Slf4j
-public class CompletableFutureAnd {
+public class CompletableFutureAndOr {
 
+    /**
+     * AND 有返回值
+     */
     @Test
     public void thenCombine() {
 
-        CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A");
-        CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("B");
-        CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("C");
+        CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A", 1000L);
+        CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("B", 3000L);
+        CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("C", 2000L);
 
         CompletableFuture<AllResponse> allCombine = completableFutureA
                 .thenCombineAsync(completableFutureB, new BiFunction<SimpleResponse, SimpleResponse, AllResponse>() {
@@ -65,15 +68,27 @@ public class CompletableFutureAnd {
         }
     }
 
-    private CompletableFuture<SimpleResponse> getCompletableFuture(String apiName) {
+    private CompletableFuture<SimpleResponse> getCompletableFuture(String apiName, Long took) {
         return CompletableFuture
                 .supplyAsync(new Supplier<SimpleResponse>() {
                     @Override
                     public SimpleResponse get() {
-                        log.info("访问接口: {}", apiName);
+                        log.info("request: {}", apiName);
+                        try {
+                            Thread.sleep(took);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                         return new SimpleResponse(apiName, 200);
                     }
-                });
+                }, ForkJoinUtils.getInstance())
+                .thenApplyAsync(new Function<SimpleResponse, SimpleResponse>() {
+                    @Override
+                    public SimpleResponse apply(SimpleResponse simpleResponse) {
+                        log.info("\t \t response: {} response", apiName);
+                        return simpleResponse;
+                    }
+                }, ForkJoinUtils.getInstance());
     }
 
     @Data
