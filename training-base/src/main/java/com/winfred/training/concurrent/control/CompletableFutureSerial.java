@@ -19,37 +19,6 @@ public class CompletableFutureSerial {
     String actionTwo = "穿袜子";
     String actionThree = "穿鞋子";
 
-    /**
-     * 串行 有返回值
-     */
-
-    private CompletableFuture<Message> getApplyCompletableFuture(String actionName, Long took) {
-        CompletableFuture<Message> completableFuture = CompletableFuture
-                .supplyAsync(new Supplier<String>() {
-                    @Override
-                    public String get() {
-
-                        log.info("{} 开始 ...", actionName);
-                        try {
-                            Thread.sleep(took);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        return actionName;
-                    }
-                }, ForkJoinUtils.getInstance())
-
-                .thenApplyAsync(new PostRecode<String, Message>(), ForkJoinUtils.getInstance())
-                .exceptionally(new Function<Throwable, Message>() {
-                    @Override
-                    public Message apply(Throwable throwable) {
-                        log.error("", throwable);
-                        return new Message("", false);
-                    }
-                });
-        return completableFuture;
-    }
-
 
     /**
      * 串行, 相当于 map
@@ -101,12 +70,39 @@ public class CompletableFutureSerial {
         }
     }
 
-
     @Data
     @AllArgsConstructor
     static class Message {
         private String action;
         private Boolean isSuccess;
     }
+
+    private CompletableFuture<Message> getApplyCompletableFuture(String actionName, Long took) {
+        CompletableFuture<Message> completableFuture = CompletableFuture
+                .supplyAsync(new Supplier<String>() {
+                    @Override
+                    public String get() {
+
+                        log.info("{} 开始 ...", actionName);
+                        try {
+                            Thread.sleep(took);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return actionName;
+                    }
+                }, ForkJoinUtils.getInstance())
+
+                .thenApplyAsync(new PostRecode<String, Message>(), ForkJoinUtils.getInstance())
+                .exceptionally(new Function<Throwable, Message>() {
+                    @Override
+                    public Message apply(Throwable throwable) {
+                        log.error("", throwable);
+                        return new Message("", false);
+                    }
+                });
+        return completableFuture;
+    }
+
 
 }
