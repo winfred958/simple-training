@@ -9,10 +9,13 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author kevin
  */
 public final class ThreadPoolUtil {
-    private static ExecutorService executorService;
 
     private static Integer CORE_POOL_SIZE = 64;
     private static Integer MAX_POOL_SIZE = 2048;
+
+    private ThreadPoolUtil() {
+
+    }
 
     private static class SingleClass {
         private static ExecutorService executor = new ThreadPoolExecutor(
@@ -32,23 +35,18 @@ public final class ThreadPoolUtil {
     }
 
     private static ExecutorService getInstance() {
-        if (null == executorService) {
-            executorService = SingleClass.executor;
-        }
-        return executorService;
+        return SingleClass.executor;
     }
 
-    public static Future doExecutor(Callable callable) {
-        getInstance();
-        return executorService.submit(callable);
+    public Future<?> doExecutor(Callable<?> callable) {
+        return getInstance().submit(callable);
     }
 
     public static void doExecutor(Runnable runnable) {
-        getInstance();
-        executorService.execute(runnable);
+        getInstance().execute(runnable);
     }
 
     public static void destroy() {
-        executorService.shutdown();
+        getInstance().shutdown();
     }
 }

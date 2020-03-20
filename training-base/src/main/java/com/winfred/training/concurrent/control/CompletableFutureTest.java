@@ -1,12 +1,15 @@
 package com.winfred.training.concurrent.control;
 
+import org.junit.Test;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
-public class CompatableFutureTest {
+public class CompletableFutureTest {
 
-    public static void main(String[] args) {
+    @Test
+    public void allOf() {
         CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(1000L);

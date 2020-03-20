@@ -60,7 +60,7 @@
         <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 
         <!-- logging -->
-        <slf4j.version>1.7.26</slf4j.version>
+        <slf4j.version>1.7.30</slf4j.version>
         <log4j.version>2.11.2</log4j.version>
 
         <!-- spring -->
@@ -68,7 +68,7 @@
         <jackson-databind.version>2.9.4</jackson-databind.version>
 
         <!-- spring boot -->
-        <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+        <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
 
         <!-- DB -->
         <mysql.connection.version>5.1.44</mysql.connection.version>
@@ -183,22 +183,14 @@
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl -->
-            <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-slf4j-impl</artifactId>
-                <version>${log4j.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-core</artifactId>
                 <version>${log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
