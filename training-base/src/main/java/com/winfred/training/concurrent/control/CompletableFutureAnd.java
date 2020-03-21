@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -66,7 +67,6 @@ public class CompletableFutureAnd {
                         }, ForkJoinUtils.getInstance());
                     }
                 }, ForkJoinUtils.getInstance());
-
 
         try {
             AllResponse response = allCombine.get();

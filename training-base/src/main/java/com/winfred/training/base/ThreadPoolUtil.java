@@ -34,11 +34,11 @@ public final class ThreadPoolUtil {
         );
     }
 
-    private static ExecutorService getInstance() {
+    public static ExecutorService getInstance() {
         return SingleClass.executor;
     }
 
-    public Future<?> doExecutor(Callable<?> callable) {
+    public static Future doExecutor(Callable callable) {
         return getInstance().submit(callable);
     }
 

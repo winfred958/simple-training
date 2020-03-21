@@ -1,12 +1,16 @@
 package com.winfred.training.concurrent.deadlock;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.management.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class DeadLock {
 
 //    Found one Java-level deadlock:
@@ -48,14 +52,14 @@ public class DeadLock {
         @Override
         public void run() {
             synchronized (lock1) {
-                System.out.println(Thread.currentThread().getName() + " obtained " + lock1);
+                log.info(Thread.currentThread().getName() + " obtained " + lock1);
                 try {
                     Thread.sleep(1000L);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 synchronized (lock2) {
-                    System.out.println(Thread.currentThread().getName() + " obtained " + lock2);
+                    log.info(Thread.currentThread().getName() + " obtained " + lock2);
                 }
             }
         }
@@ -78,13 +82,18 @@ public class DeadLock {
 //            e.printStackTrace();
 //        }
 
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1, new ThreadFactory() {
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread("single scheduler pool");
+            }
+        });
         // 每隔10s 检测一次该jvm 死锁
         scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                System.out.println("================ WARNING ==================== " + simpleDateFormat.format(Calendar.getInstance().getTime()));
+                log.info("================ WARNING ==================== " + simpleDateFormat.format(Calendar.getInstance().getTime()));
 
                 ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
                 // 获取死锁线程thread id
@@ -92,7 +101,7 @@ public class DeadLock {
                 ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(tids);
                 for (ThreadInfo threadInfo : threadInfos) {
 
-                    System.out.println("deadlock thread :: " + threadInfo.getThreadName() +
+                    log.info("deadlock thread :: " + threadInfo.getThreadName() +
                             " :: lockName=" + threadInfo.getLockName() +
                             " | ThreadId=" + threadInfo.getThreadId() +
                             " | LockOwnerId=" + threadInfo.getLockOwnerId() +
@@ -110,7 +119,7 @@ public class DeadLock {
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
         MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
 
-        System.out.println(
+        log.info(
                 "heapMemoryUsage max " + heapMemoryUsage.getMax() +
                         "\nheapMemoryUsage init " + heapMemoryUsage.getInit() +
                         "\nheapMemoryUsage used " + heapMemoryUsage.getUsed()
@@ -120,7 +129,7 @@ public class DeadLock {
         nonHeapMemoryUsage.getMax();
         nonHeapMemoryUsage.getInit();
         nonHeapMemoryUsage.getUsed();
-        System.out.println(
+        log.info(
                 "nonHeapMemoryUsage max " + nonHeapMemoryUsage.getMax() +
                         "\nnonHeapMemoryUsage init " + nonHeapMemoryUsage.getInit() +
                         "\nnonHeapMemoryUsage used " + nonHeapMemoryUsage.getUsed()
