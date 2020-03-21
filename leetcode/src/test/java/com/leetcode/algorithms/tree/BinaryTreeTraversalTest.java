@@ -1,11 +1,13 @@
 package com.leetcode.algorithms.tree;
 
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
+@Slf4j
 public class BinaryTreeTraversalTest {
 
     BinaryTreeTraversal.Solution solution = new BinaryTreeTraversal.Solution();
@@ -22,7 +24,7 @@ public class BinaryTreeTraversalTest {
     @Test
     public void inorderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.inorderTraversal(inorderTree);
-        System.out.println("============Inorder===============");
+        log.info("============Inorder===============");
         for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
             System.out.println(binaryTreeNode.getT());
         }
@@ -35,7 +37,7 @@ public class BinaryTreeTraversalTest {
     @Test
     public void preorderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.preorderTraversal(preorderTree);
-        System.out.println("============Preorder===============");
+        log.info("============Preorder===============");
         for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
             System.out.println(binaryTreeNode.getT());
         }
@@ -48,7 +50,7 @@ public class BinaryTreeTraversalTest {
     @Test
     public void postorderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.postorderTraversal(postorderTree);
-        System.out.println("============Postorder===============");
+        log.info("============Postorder===============");
         for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
             System.out.println(binaryTreeNode.getT());
         }
@@ -62,12 +64,15 @@ public class BinaryTreeTraversalTest {
     @Test
     public void levelOrderTraversal() {
         List<BinaryTreeNode<Integer>> inorderTraversalResult = solution.levelOrderTraversal(levelOrderTree);
-        System.out.println("============LevelOrder===============");
+        log.info("============LevelOrder===============");
         for (BinaryTreeNode<Integer> binaryTreeNode : inorderTraversalResult) {
             System.out.println(binaryTreeNode.getT());
         }
     }
 
+    /**
+     * 构造中序遍历二叉树
+     */
     @Before
     public void buildInorderTraversalTestData() {
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
@@ -90,6 +95,9 @@ public class BinaryTreeTraversalTest {
     }
 
 
+    /**
+     * 构造先序遍历二叉树
+     */
     @Before
     public void buildPreorderTraversalTestData() {
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
@@ -109,6 +117,9 @@ public class BinaryTreeTraversalTest {
         value5.setRight(value7);
     }
 
+    /**
+     * 构造后序遍历二叉树
+     */
     @Before
     public void buildPostorderTraversalTestData() {
 
@@ -133,6 +144,9 @@ public class BinaryTreeTraversalTest {
         value7.setRight(value6);
     }
 
+    /**
+     * 构造广度搜索优先树
+     */
     @Before
     public void buildLevelOrderTraversalTestData() {
         BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);

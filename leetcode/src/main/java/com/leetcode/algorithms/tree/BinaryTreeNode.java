@@ -4,6 +4,7 @@ package com.leetcode.algorithms.tree;
  * binary tree node
  *
  * @param <T>
+ * @author kevin
  */
 public class BinaryTreeNode<T> {
 

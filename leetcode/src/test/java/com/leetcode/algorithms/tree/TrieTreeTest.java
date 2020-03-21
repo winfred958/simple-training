@@ -2,9 +2,11 @@ package com.leetcode.algorithms.tree;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
+@Slf4j
 public class TrieTreeTest {
 
     TrieTree trieTree;
