@@ -25,7 +25,12 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RegistryHandler extends ChannelInboundHandlerAdapter {
 
     private List<String> classPaths = new ArrayList<>();
-    private Map<String, Class<?>> serviceMap = new ConcurrentHashMap<>();
+    private Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+
+    public RegistryHandler() {
+        scanClass("com.winfred.training.netty.rpc.provider");
+        doRegistry();
+    }
 
     /**
      * 触发读事件的回调
@@ -38,16 +43,13 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         Object result = null;
 
-        scanClass("com.winfred.training.netty.rpc.provider");
-        doRegistry();
-
         InvokeProtocol invokeProtocol = (InvokeProtocol) msg;
         String className = invokeProtocol.getClassName();
         if (serviceMap.containsKey(className)) {
-            Class<?> service = serviceMap.get(className);
-            Method method = service.getDeclaredMethod(invokeProtocol.getMethodName(), invokeProtocol.getParameterTypes());
+            Object service = serviceMap.get(className);
+            Method method = service.getClass().getDeclaredMethod(invokeProtocol.getMethodName(), invokeProtocol.getParameterTypes());
             method.setAccessible(true);
-            result = method.invoke(service.newInstance(), invokeProtocol.getParameterValues());
+            result = method.invoke(service, invokeProtocol.getParameterValues());
         }
         log.info("{} => {}", ctx.channel().remoteAddress(), String.valueOf(result));
         ctx.write(result);
@@ -102,8 +104,12 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
                 Class<?> clazz = Class.forName(classPath);
                 Class<?> clazzInterface = clazz.getInterfaces()[0];
                 String interfaceName = clazzInterface.getName();
-                serviceMap.put(interfaceName, clazz);
+                serviceMap.put(interfaceName, clazz.newInstance());
             } catch (ClassNotFoundException e) {
+                log.error("", e);
+            } catch (IllegalAccessException e) {
+                log.error("", e);
+            } catch (InstantiationException e) {
                 log.error("", e);
             }
         }
