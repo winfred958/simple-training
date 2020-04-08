@@ -68,6 +68,7 @@ public class Registry {
                         channelPipeline.addLast("decode", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
                         // 数据解析 ↑
 
+                        log.info("client connected: {}", ch.remoteAddress());
                         // 业务逻辑处理
                         channelPipeline.addLast("rpc-handler", new RegistryHandler());
 
@@ -82,7 +83,10 @@ public class Registry {
             channelFuture = serverBootstrap.bind(port).sync();
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("", e);
+        } finally {
+            boosGroup.shutdownGracefully();
+            workGroup.shutdownGracefully();
         }
 
 

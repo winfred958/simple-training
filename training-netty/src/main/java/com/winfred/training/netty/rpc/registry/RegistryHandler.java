@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RegistryHandler extends ChannelInboundHandlerAdapter {
 
     private List<String> classPaths = new ArrayList<>();
-    private Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+    private Map<String, Class<?>> serviceMap = new ConcurrentHashMap<>();
 
     /**
      * 触发读事件的回调
@@ -37,13 +37,19 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         Object result = null;
+
+        scanClass("com.winfred.training.netty.rpc.provider");
+        doRegistry();
+
         InvokeProtocol invokeProtocol = (InvokeProtocol) msg;
         String className = invokeProtocol.getClassName();
         if (serviceMap.containsKey(className)) {
-            Object service = serviceMap.get(className);
-            Method method = service.getClass().getMethod(invokeProtocol.getMethodName(), invokeProtocol.getParameterTypes());
-            result = method.invoke(service, invokeProtocol.getParameterValues());
+            Class<?> service = serviceMap.get(className);
+            Method method = service.getDeclaredMethod(invokeProtocol.getMethodName(), invokeProtocol.getParameterTypes());
+            method.setAccessible(true);
+            result = method.invoke(service.newInstance(), invokeProtocol.getParameterValues());
         }
+        log.info("{} => {}", ctx.channel().remoteAddress(), String.valueOf(result));
         ctx.write(result);
     }
 
@@ -62,6 +68,7 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        log.error("", cause);
     }
 
     /**
@@ -72,9 +79,8 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
      * @param packageName
      */
     private void scanClass(String packageName) {
-        URL url = Thread
-                .currentThread()
-                .getContextClassLoader()
+        URL url = this.getClass()
+                .getClassLoader()
                 .getResource(StringUtils.replacePattern(packageName, "\\.", "/"));
 
         File classPath = new File(url.getFile());

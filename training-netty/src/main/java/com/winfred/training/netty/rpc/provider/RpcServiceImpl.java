@@ -7,6 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 public class RpcServiceImpl implements RpcService {
     @Override
     public int add(int a, int b) {
-        return 0;
+        return a + b;
     }
 }
