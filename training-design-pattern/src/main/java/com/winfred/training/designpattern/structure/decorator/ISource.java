@@ -1,5 +1,5 @@
 package com.winfred.training.designpattern.structure.decorator;
 
-public interface IA {
-    void doSomething();
+public interface ISource {
+    String doSomething();
 }

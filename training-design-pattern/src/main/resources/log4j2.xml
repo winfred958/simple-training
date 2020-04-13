@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    status : 这个用于设置log4j2自身内部的信息输出,可以不设置,当设置成trace时,会看到log4j2内部各种详细输出
+    monitorInterval : Log4j能够自动检测修改配置文件和重新配置本身, 设置间隔秒数。
+-->
+<configuration status="INFO" monitorInterval="600">
+    <properties>
+        <!-- 基本的文件的输出信息的配置 -->
+        <property name="LOG_HOME">log/</property>
+        <!-- 日志备份目录 -->
+        <property name="BACKUP_HOME">{LOG_HOME}/backup</property>
+        <property name="STAT_NAME">stat</property>
+        <property name="SERVER_NAME">training-design-pattern</property>
+    </properties>
+    <appenders>
+        <!-- 定义控制台输出 -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout
+                    pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+        </Console>
+
+        <RollingRandomAccessFile name="DevLog" fileName="${LOG_HOME}/${SERVER_NAME}.log"
+                                 filePattern="${LOG_HOME}/${date:yyyy-MM-dd}/${SERVER_NAME}.%d{yyyy-MM-dd}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level [%thread] %class{36} %L %M - %msg%xEx%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="500MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20">
+                <Delete basePath="${LOG_HOME}" maxDepth="2">
+                    <IfFileName glob="${SERVER_NAME}*.log"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </appenders>
+    <loggers>
+        <!-- 3rdparty Loggers -->
+        <logger name="org.springframework.core" level="warn">
+        </logger>
+        <logger name="org.springframework.beans" level="warn">
+        </logger>
+        <logger name="org.springframework.context" level="warn">
+        </logger>
+        <logger name="org.springframework.web" level="warn">
+        </logger>
+        <logger name="org.jboss.netty" level="warn">
+        </logger>
+        <logger name="org.apache.kafka.common" level="warn">
+        </logger>
+        <logger name="org.apache.http" level="warn">
+        </logger>
+        <logger name="com.winfred.datamining.kb" level="info">
+        </logger>
+        <logger name="DevLog" level="INFO">
+        </logger>
+        <!-- Root Logger -->
+        <root level="INFO">
+            <appender-ref ref="DevLog"/>
+            <appender-ref ref="Console"/>
+        </root>
+    </loggers>
+</configuration>
