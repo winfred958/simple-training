@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="257.0333333333333" y="0.0">java.util.Observer</node>
+    <node x="3.5" y="252.0">com.winfred.training.designpattern.behavioral.observer.base.Publisher</node>
+    <node x="0.0" y="99.0">com.winfred.training.designpattern.behavioral.observer.SubscriberOne</node>
+    <node x="163.0" y="173.0">com.winfred.training.designpattern.behavioral.ObserverTest</node>
+    <node x="159.0" y="99.0">com.winfred.training.designpattern.behavioral.observer.SubscriberThree</node>
+    <node x="98.76666666666665" y="0.0">com.winfred.training.designpattern.behavioral.observer.ObserverExt</node>
+    <node x="0.0" y="173.0">java.util.Observable</node>
+    <node x="332.0" y="99.0">com.winfred.training.designpattern.behavioral.observer.SubscriberTwo</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.base.Publisher" target="java.util.Observable">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.SubscriberTwo" target="com.winfred.training.designpattern.behavioral.observer.ObserverExt">
+      <point x="-34.75" y="-14.5" />
+      <point x="366.75" y="59.0" />
+      <point x="202.9333333333333" y="59.0" />
+      <point x="41.66666666666666" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.SubscriberOne" target="com.winfred.training.designpattern.behavioral.observer.ObserverExt">
+      <point x="-34.75" y="-14.5" />
+      <point x="34.75" y="59.0" />
+      <point x="119.6" y="59.0" />
+      <point x="-41.66666666666666" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.SubscriberTwo" target="java.util.Observer">
+      <point x="34.75" y="-14.5" />
+      <point x="436.25" y="49.0" />
+      <point x="343.7" y="49.0" />
+      <point x="34.666666666666686" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.SubscriberThree" target="com.winfred.training.designpattern.behavioral.observer.ObserverExt">
+      <point x="-38.25000000000003" y="-14.5" />
+      <point x="197.24999999999997" y="59.0" />
+      <point x="161.26666666666665" y="59.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.SubscriberOne" target="java.util.Observer">
+      <point x="34.75" y="-14.5" />
+      <point x="104.25" y="69.0" />
+      <point x="274.3666666666666" y="69.0" />
+      <point x="-34.666666666666686" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.observer.SubscriberThree" target="java.util.Observer">
+      <point x="38.24999999999997" y="-14.5" />
+      <point x="273.75" y="79.0" />
+      <point x="309.0333333333333" y="79.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="238.5" y="77.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.behavioral.ObserverTest</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
