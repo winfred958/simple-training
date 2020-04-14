@@ -12,8 +12,12 @@ public abstract class Decorator implements ISource {
     }
 
     @Override
-    public String doSomething() {
-        return source.doSomething();
+    public String getMsg() {
+        return source.getMsg();
     }
 
+    @Override
+    public Double getPrice() {
+        return source.getPrice();
+    }
 }

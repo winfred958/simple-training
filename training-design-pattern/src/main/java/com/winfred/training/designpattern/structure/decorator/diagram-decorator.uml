@@ -3,28 +3,43 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="79.0">com.winfred.training.designpattern.structure.decorator.SourceDecorator</node>
-    <node x="98.75" y="0.0">com.winfred.training.designpattern.structure.decorator.ISource</node>
-    <node x="173.0" y="79.0">com.winfred.training.designpattern.structure.decorator.impl.Source</node>
+    <node x="0.0" y="232.0">com.winfred.training.designpattern.structure.decorator.DecoratorClient</node>
+    <node x="0.0" y="158.0">com.winfred.training.designpattern.structure.decorator.SourceDecoratorAddSausage</node>
+    <node x="242.99999999999997" y="158.0">com.winfred.training.designpattern.structure.decorator.SourceDecoratorAddEgg</node>
+    <node x="237.74999999999997" y="0.0">com.winfred.training.designpattern.structure.decorator.ISource</node>
+    <node x="301.5" y="79.0">com.winfred.training.designpattern.structure.decorator.impl.Source</node>
+    <node x="170.49999999999997" y="79.0">com.winfred.training.designpattern.structure.decorator.Decorator</node>
   </nodes>
   <notes />
   <edges>
-    <edge source="com.winfred.training.designpattern.structure.decorator.impl.Source" target="com.winfred.training.designpattern.structure.decorator.ISource">
+    <edge source="com.winfred.training.designpattern.structure.decorator.SourceDecoratorAddEgg" target="com.winfred.training.designpattern.structure.decorator.Decorator">
       <point x="0.0" y="-14.5" />
-      <point x="218.0" y="54.0" />
-      <point x="171.5" y="54.0" />
-      <point x="24.25" y="14.5" />
+      <point x="340.5" y="133.0" />
+      <point x="253.74999999999997" y="133.0" />
+      <point x="27.75" y="14.5" />
     </edge>
-    <edge source="com.winfred.training.designpattern.structure.decorator.SourceDecorator" target="com.winfred.training.designpattern.structure.decorator.ISource">
+    <edge source="com.winfred.training.designpattern.structure.decorator.Decorator" target="com.winfred.training.designpattern.structure.decorator.ISource">
       <point x="0.0" y="-14.5" />
-      <point x="76.5" y="54.0" />
-      <point x="123.0" y="54.0" />
+      <point x="225.99999999999997" y="54.0" />
+      <point x="262.0" y="54.0" />
       <point x="-24.25" y="14.5" />
     </edge>
+    <edge source="com.winfred.training.designpattern.structure.decorator.impl.Source" target="com.winfred.training.designpattern.structure.decorator.ISource">
+      <point x="0.0" y="-14.5" />
+      <point x="346.5" y="54.0" />
+      <point x="310.5" y="54.0" />
+      <point x="24.25" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.structure.decorator.SourceDecoratorAddSausage" target="com.winfred.training.designpattern.structure.decorator.Decorator">
+      <point x="0.0" y="-14.5" />
+      <point x="111.5" y="133.0" />
+      <point x="198.24999999999997" y="133.0" />
+      <point x="-27.75" y="14.5" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="380.0" y="163.5" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="107.5" y="159.5" />
   <SelectedNodes>
-    <node>com.winfred.training.designpattern.structure.decorator.SourceDecorator</node>
+    <node>com.winfred.training.designpattern.structure.decorator.DecoratorClient</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
