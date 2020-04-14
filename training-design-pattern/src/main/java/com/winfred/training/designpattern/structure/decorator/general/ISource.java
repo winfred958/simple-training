@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.structure.decorator;
+package com.winfred.training.designpattern.structure.decorator.general;
 
 public interface ISource {
 

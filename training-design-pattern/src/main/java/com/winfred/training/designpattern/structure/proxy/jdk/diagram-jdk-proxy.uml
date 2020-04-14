@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="227.0">com.winfred.training.designpattern.structure.proxy.jdk.TestBefore</node>
+    <node x="14.0" y="0.0">com.winfred.training.designpattern.structure.proxy.jdk.UserService</node>
+    <node x="0.0" y="79.0">com.winfred.training.designpattern.structure.proxy.jdk.UserServiceImpl</node>
+    <node x="163.0" y="227.0">com.winfred.training.designpattern.structure.proxy.jdk.TestAround</node>
+    <node x="0.0" y="301.0">com.winfred.training.designpattern.structure.proxy.jdk.TestAfter</node>
+    <node x="0.0" y="153.0">com.winfred.training.designpattern.structure.proxy.jdk.MyInvocationHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.structure.proxy.jdk.UserServiceImpl" target="com.winfred.training.designpattern.structure.proxy.jdk.UserService">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="88.5" y="64.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.structure.proxy.jdk.TestAround</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

@@ -1,6 +1,6 @@
-package com.winfred.training.designpattern.structure.decorator;
+package com.winfred.training.designpattern.structure.decorator.general;
 
-import com.winfred.training.designpattern.structure.decorator.impl.Source;
+import com.winfred.training.designpattern.structure.decorator.general.impl.Source;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
