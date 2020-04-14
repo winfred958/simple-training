@@ -3,21 +3,26 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="0.0">com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator</node>
-    <node x="0.0" y="227.0">com.winfred.training.designpattern.structure.decorator.logger.Client</node>
-    <node x="0.0" y="153.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory</node>
-    <node x="17.5" y="79.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLogger</node>
+    <node x="0.0" y="79.0">com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator</node>
+    <node x="212.0" y="232.0">com.winfred.training.designpattern.structure.decorator.logger.Client</node>
+    <node x="0.0" y="232.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory</node>
+    <node x="31.5" y="0.0">org.slf4j.Logger</node>
+    <node x="17.5" y="158.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLogger</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator" target="org.slf4j.Logger">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
     <edge source="com.winfred.training.designpattern.structure.decorator.logger.JsonLogger" target="com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="88.5" y="64.5" />
+  <settings layout="Hierarchic Group" zoom="1.0" x="431.0" y="68.5" />
   <SelectedNodes>
-    <node>com.winfred.training.designpattern.structure.decorator.logger.Client</node>
+    <node>org.slf4j.Logger</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
