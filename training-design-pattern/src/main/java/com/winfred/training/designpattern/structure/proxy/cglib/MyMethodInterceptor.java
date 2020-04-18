@@ -1,5 +1,6 @@
 package com.winfred.training.designpattern.structure.proxy.cglib;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
@@ -10,9 +11,9 @@ import java.lang.reflect.Method;
  * cglib 动态代理
  * <p>
  * 字节码增强
- *
  */
-public class CglibProxy implements MethodInterceptor {
+@Slf4j
+public class MyMethodInterceptor implements MethodInterceptor {
 
     private Object target;
 
@@ -29,6 +30,7 @@ public class CglibProxy implements MethodInterceptor {
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         Object result;
 
+        log.info("o: {} \ntarget:{} \nmethod: {} \nsignature: {}", o.getClass().getName(), target.getClass().getName(), method.getName(), methodProxy.getSignature().getName());
         before();
         result = method.invoke(target, objects);
         after();
@@ -37,12 +39,11 @@ public class CglibProxy implements MethodInterceptor {
     }
 
     private void before() {
-        System.out.println(String.format("%s : %s", this.getClass().getName(), " --- before ---"));
+        log.info("{} {}", this.getClass().getName(), " --- before ---");
     }
 
     private void after() {
-        System.out.println(String.format("%s : %s", this.getClass().getName(), " --- after ---"));
+        log.info("{} {}", this.getClass().getName(), " --- after ---");
     }
-
 
 }

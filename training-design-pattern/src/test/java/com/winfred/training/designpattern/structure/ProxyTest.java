@@ -1,12 +1,13 @@
 package com.winfred.training.designpattern.structure;
 
-import com.winfred.training.designpattern.structure.proxy.cglib.CglibProxy;
 import com.winfred.training.designpattern.structure.proxy.base.UserService;
 import com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl;
+import com.winfred.training.designpattern.structure.proxy.cglib.MyMethodInterceptor;
 import com.winfred.training.designpattern.structure.proxy.jdk.MyInvocationHandler;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-
+@Slf4j
 public class ProxyTest {
 
     @Test
@@ -16,7 +17,6 @@ public class ProxyTest {
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler(userService);
 
         UserService proxy = (UserService) myInvocationHandler.getProxy();
-
         proxy.testBefore();
         System.out.println("=====================");
         proxy.testAfter();
@@ -28,7 +28,7 @@ public class ProxyTest {
     @Test
     public void cglibProxyTest() {
 
-        CglibProxy cgLibProxy = new CglibProxy();
+        MyMethodInterceptor cgLibProxy = new MyMethodInterceptor();
         UserService userService = (UserService) cgLibProxy.createProxyObject(new UserServiceImpl());
 
         userService.testAround();

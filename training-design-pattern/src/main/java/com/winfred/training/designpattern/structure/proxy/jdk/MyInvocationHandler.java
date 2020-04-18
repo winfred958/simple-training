@@ -1,5 +1,7 @@
 package com.winfred.training.designpattern.structure.proxy.jdk;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -22,6 +24,7 @@ import java.lang.reflect.Proxy;
  *
  * @author z
  */
+@Slf4j
 public class MyInvocationHandler implements InvocationHandler {
 
     private Object target;
@@ -38,29 +41,30 @@ public class MyInvocationHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+
         Object result;
         if (null != method.getAnnotation(TestBefore.class)) {
-            before(args);
+            before(proxy, method);
             result = method.invoke(target, args);
         } else if (null != method.getAnnotation(TestAfter.class)) {
             result = method.invoke(target, args);
-            after(args);
+            after(proxy, method);
         } else if (null != method.getAnnotation(TestAround.class)) {
-            before(args);
+            before(proxy, method);
             result = method.invoke(target, args);
-            after(args);
+            after(proxy, method);
         } else {
             result = method.invoke(target, args);
         }
         return result;
     }
 
-    private void before(Object[] args) {
-        System.out.println(String.format("%s : %s", this.getClass().getName(), " --- before ---"));
+    private void before(Object proxy, Method method) {
+        log.info("{}.{} {}", proxy.getClass().getName(), method.getName(), " --- before ---");
     }
 
-    private void after(Object[] args) {
-        System.out.println(String.format("%s : %s", this.getClass().getName(), " --- after ---"));
+    private void after(Object proxy, Method method) {
+        log.info("{}.{} {}", proxy.getClass().getName(), method.getName(), " --- after ---");
     }
 
 }
