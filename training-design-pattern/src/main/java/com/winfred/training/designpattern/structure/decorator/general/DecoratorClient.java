@@ -15,7 +15,7 @@ import org.junit.Test;
 public class DecoratorClient {
 
     @Test
-    public void decorator() {
+        public void decorator() {
         // 被装饰的对象
         ISource source = new Source();
 

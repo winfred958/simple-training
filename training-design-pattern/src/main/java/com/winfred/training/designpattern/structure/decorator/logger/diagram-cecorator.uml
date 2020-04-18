@@ -3,27 +3,65 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="0.0" y="79.0">com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator</node>
-    <node x="212.0" y="232.0">com.winfred.training.designpattern.structure.decorator.logger.Client</node>
-    <node x="0.0" y="232.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory</node>
-    <node x="31.5" y="0.0">org.slf4j.Logger</node>
-    <node x="17.5" y="158.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLogger</node>
+    <node x="0.0" y="89.0">com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator</node>
+    <node x="137.77272727272728" y="326.0">com.winfred.training.designpattern.structure.decorator.logger.Client</node>
+    <node x="47.518939393939405" y="247.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory</node>
+    <node x="110.6439393939394" y="0.0">org.slf4j.Logger</node>
+    <node x="51.99242424242425" y="168.0">com.winfred.training.designpattern.structure.decorator.logger.JsonLogger</node>
   </nodes>
   <notes />
   <edges>
+    <edge source="com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory" target="org.slf4j.Logger">
+      <point x="55.66666666666666" y="-14.5" />
+      <point x="186.68560606060606" y="222.0" />
+      <point x="194.22727272727275" y="222.0" />
+      <point x="194.22727272727275" y="59.0" />
+      <point x="178.1439393939394" y="59.0" />
+      <point x="22.5" y="14.5" />
+    </edge>
     <edge source="com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator" target="org.slf4j.Logger">
       <point x="0.0" y="-14.5" />
-      <point x="0.0" y="14.5" />
+      <point x="76.5" y="59.0" />
+      <point x="133.1439393939394" y="59.0" />
+      <point x="-22.5" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.structure.decorator.logger.JsonLogger" target="org.slf4j.Logger">
+      <point x="39.33333333333334" y="-14.5" />
+      <point x="150.3257575757576" y="143.0" />
+      <point x="178.3257575757576" y="143.0" />
+      <point x="178.3257575757576" y="69.0" />
+      <point x="163.1439393939394" y="69.0" />
+      <point x="7.5" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory" target="com.winfred.training.designpattern.structure.decorator.logger.JsonLogger">
+      <point x="0.0" y="-14.5" />
+      <point x="131.0189393939394" y="222.0" />
+      <point x="140.49242424242425" y="222.0" />
+      <point x="29.5" y="14.5" />
     </edge>
     <edge source="com.winfred.training.designpattern.structure.decorator.logger.JsonLogger" target="com.winfred.training.designpattern.structure.decorator.logger.LoggerDecorator">
       <point x="0.0" y="-14.5" />
+      <point x="110.99242424242425" y="143.0" />
+      <point x="114.75" y="143.0" />
+      <point x="38.25" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.structure.decorator.logger.Client" target="com.winfred.training.designpattern.structure.decorator.logger.JsonLoggerFactory">
+      <point x="-22.5" y="-14.5" />
+      <point x="160.27272727272728" y="301.0" />
+      <point x="131.0189393939394" y="301.0" />
       <point x="0.0" y="14.5" />
     </edge>
+    <edge source="com.winfred.training.designpattern.structure.decorator.logger.Client" target="org.slf4j.Logger">
+      <point x="22.5" y="-14.5" />
+      <point x="205.27272727272728" y="301.0" />
+      <point x="225.0189393939394" y="301.0" />
+      <point x="225.0189393939394" y="49.0" />
+      <point x="193.1439393939394" y="49.0" />
+      <point x="37.5" y="14.5" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="431.0" y="68.5" />
-  <SelectedNodes>
-    <node>org.slf4j.Logger</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="526.5" y="137.5" />
+  <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

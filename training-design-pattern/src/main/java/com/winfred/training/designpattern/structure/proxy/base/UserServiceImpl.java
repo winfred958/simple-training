@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.structure.proxy.cglib;
+package com.winfred.training.designpattern.structure.proxy.base;
 
 public class UserServiceImpl implements UserService {
     @Override

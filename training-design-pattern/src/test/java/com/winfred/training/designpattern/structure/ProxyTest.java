@@ -1,8 +1,8 @@
 package com.winfred.training.designpattern.structure;
 
 import com.winfred.training.designpattern.structure.proxy.cglib.CglibProxy;
-import com.winfred.training.designpattern.structure.proxy.cglib.UserService;
-import com.winfred.training.designpattern.structure.proxy.cglib.UserServiceImpl;
+import com.winfred.training.designpattern.structure.proxy.base.UserService;
+import com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl;
 import com.winfred.training.designpattern.structure.proxy.jdk.MyInvocationHandler;
 import org.junit.Test;
 

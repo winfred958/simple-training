@@ -1,15 +1,15 @@
-package com.winfred.training.designpattern.behavioral;
+package com.winfred.training.designpattern.behavioral.chain;
 
-import com.winfred.training.designpattern.behavioral.chain.HtmlFilter;
-import com.winfred.training.designpattern.behavioral.chain.TermFilter;
 import com.winfred.training.designpattern.behavioral.chain.base.FilterChain;
 import com.winfred.training.designpattern.behavioral.chain.base.FilterChainImpl;
 import com.winfred.training.designpattern.behavioral.chain.entity.Request;
 import com.winfred.training.designpattern.behavioral.chain.entity.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
-public class ChainOfResponsibility {
-    
+@Slf4j
+public class ChainClient {
+
     @Test
     public void filterChainTest() {
         FilterChain filterChain = new FilterChainImpl();
@@ -24,8 +24,7 @@ public class ChainOfResponsibility {
         filterChain.add(new TermFilter());
         filterChain.doFilter(request, response);
 
-        System.out.printf(request.getBody());
-        System.out.println();
-        System.out.printf(response.getBody());
+        log.info(request.getBody());
+        log.info(response.getBody());
     }
 }

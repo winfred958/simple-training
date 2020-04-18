@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.structure.proxy.cglib;
+package com.winfred.training.designpattern.structure.proxy.base;
 
 import com.winfred.training.designpattern.structure.proxy.jdk.TestAfter;
 import com.winfred.training.designpattern.structure.proxy.jdk.TestAround;

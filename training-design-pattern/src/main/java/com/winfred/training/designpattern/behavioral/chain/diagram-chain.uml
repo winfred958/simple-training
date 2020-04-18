@@ -4,11 +4,11 @@
   <OriginalElement />
   <nodes>
     <node x="83.0" y="0.0">com.winfred.training.designpattern.behavioral.chain.base.Filter</node>
-    <node x="138.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.TermFilter</node>
-    <node x="0.0" y="306.0">com.winfred.training.designpattern.behavioral.ChainOfResponsibility</node>
+    <node x="0.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.TermFilter</node>
     <node x="0.0" y="232.0">com.winfred.training.designpattern.behavioral.chain.base.FilterChainImpl</node>
+    <node x="198.0" y="153.0">com.winfred.training.designpattern.behavioral.chain.ChainClient</node>
     <node x="14.0" y="153.0">com.winfred.training.designpattern.behavioral.chain.base.FilterChain</node>
-    <node x="0.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.HtmlFilter</node>
+    <node x="138.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.HtmlFilter</node>
   </nodes>
   <notes />
   <edges>
@@ -18,19 +18,21 @@
     </edge>
     <edge source="com.winfred.training.designpattern.behavioral.chain.TermFilter" target="com.winfred.training.designpattern.behavioral.chain.base.Filter">
       <point x="0.0" y="-14.5" />
-      <point x="197.0" y="54.0" />
-      <point x="150.5" y="54.0" />
-      <point x="22.5" y="14.5" />
-    </edge>
-    <edge source="com.winfred.training.designpattern.behavioral.chain.HtmlFilter" target="com.winfred.training.designpattern.behavioral.chain.base.Filter">
-      <point x="0.0" y="-14.5" />
       <point x="59.0" y="54.0" />
       <point x="105.5" y="54.0" />
       <point x="-22.5" y="14.5" />
     </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.HtmlFilter" target="com.winfred.training.designpattern.behavioral.chain.base.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="197.0" y="54.0" />
+      <point x="150.5" y="54.0" />
+      <point x="22.5" y="14.5" />
+    </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="128.0" y="167.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="1.0" x="432.5" y="169.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.behavioral.chain.ChainClient</node>
+  </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>
