@@ -1,5 +1,5 @@
 package com.winfred.training.designpattern.structure.proxy.staticproxy;
 
-public interface IA {
+public interface IProxyable {
     void doSomething();
 }
