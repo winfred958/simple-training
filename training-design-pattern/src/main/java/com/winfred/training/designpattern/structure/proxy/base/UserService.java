@@ -1,17 +1,13 @@
 package com.winfred.training.designpattern.structure.proxy.base;
 
-import com.winfred.training.designpattern.structure.proxy.jdk.TestAfter;
-import com.winfred.training.designpattern.structure.proxy.jdk.TestAround;
-import com.winfred.training.designpattern.structure.proxy.jdk.TestBefore;
-
 public interface UserService {
 
     @TestBefore
-    void testBefore();
+    void testBefore(ProxyEntity entity);
 
     @TestAfter
-    void testAfter();
+    void testAfter(ProxyEntity entity);
 
     @TestAround
-    void testAround();
+    void testAround(ProxyEntity entity);
 }

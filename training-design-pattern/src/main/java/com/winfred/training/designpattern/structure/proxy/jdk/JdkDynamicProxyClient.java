@@ -1,5 +1,6 @@
 package com.winfred.training.designpattern.structure.proxy.jdk;
 
+import com.winfred.training.designpattern.structure.proxy.base.ProxyEntity;
 import com.winfred.training.designpattern.structure.proxy.base.UserService;
 import com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -25,11 +26,13 @@ public class JdkDynamicProxyClient {
 
         writeClassFile(proxy);
 
-        proxy.testBefore();
+        ProxyEntity entity = new ProxyEntity();
+        entity.setName("xxx");
+        proxy.testBefore(entity);
         System.out.println("=====================");
-        proxy.testAfter();
+        proxy.testAfter(entity);
         System.out.println("=====================");
-        proxy.testAround();
+        proxy.testAround(entity);
         System.out.println("=====================");
     }
 

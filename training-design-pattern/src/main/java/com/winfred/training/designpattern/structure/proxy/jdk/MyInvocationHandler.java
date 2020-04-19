@@ -1,5 +1,8 @@
 package com.winfred.training.designpattern.structure.proxy.jdk;
 
+import com.winfred.training.designpattern.structure.proxy.base.TestAfter;
+import com.winfred.training.designpattern.structure.proxy.base.TestAround;
+import com.winfred.training.designpattern.structure.proxy.base.TestBefore;
 import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.InvocationHandler;

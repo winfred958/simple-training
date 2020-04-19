@@ -3,12 +3,12 @@
   <ID>JAVA</ID>
   <OriginalElement />
   <nodes>
-    <node x="226.0" y="79.0">com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl</node>
+    <node x="201.0" y="158.0">com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl</node>
     <node x="38.5" y="0.0">net.sf.cglib.proxy.Callback</node>
-    <node x="0.0" y="232.0">com.winfred.training.designpattern.structure.proxy.cglib.CglibDynamicProxyClient</node>
+    <node x="102.125" y="237.0">com.winfred.training.designpattern.structure.proxy.cglib.CglibDynamicProxyClient</node>
     <node x="7.0" y="79.0">net.sf.cglib.proxy.MethodInterceptor</node>
     <node x="0.0" y="158.0">com.winfred.training.designpattern.structure.proxy.cglib.MyMethodInterceptor</node>
-    <node x="240.0" y="0.0">com.winfred.training.designpattern.structure.proxy.base.UserService</node>
+    <node x="258.75" y="79.0">com.winfred.training.designpattern.structure.proxy.base.UserService</node>
   </nodes>
   <notes />
   <edges>
@@ -16,18 +16,40 @@
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
+    <edge source="com.winfred.training.designpattern.structure.proxy.cglib.CglibDynamicProxyClient" target="com.winfred.training.designpattern.structure.proxy.base.UserService">
+      <point x="78.375" y="-14.5" />
+      <point x="285.0" y="212.0" />
+      <point x="364.5" y="212.0" />
+      <point x="364.5" y="133.0" />
+      <point x="352.5" y="133.0" />
+      <point x="31.25" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.structure.proxy.cglib.CglibDynamicProxyClient" target="com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl">
+      <point x="26.125" y="-14.5" />
+      <point x="232.75" y="212.0" />
+      <point x="277.5" y="212.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
     <edge source="com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl" target="com.winfred.training.designpattern.structure.proxy.base.UserService">
       <point x="0.0" y="-14.5" />
-      <point x="0.0" y="14.5" />
+      <point x="277.5" y="133.0" />
+      <point x="290.0" y="133.0" />
+      <point x="-31.25" y="14.5" />
     </edge>
     <edge source="com.winfred.training.designpattern.structure.proxy.cglib.MyMethodInterceptor" target="net.sf.cglib.proxy.MethodInterceptor">
       <point x="0.0" y="-14.5" />
       <point x="0.0" y="14.5" />
     </edge>
+    <edge source="com.winfred.training.designpattern.structure.proxy.cglib.CglibDynamicProxyClient" target="com.winfred.training.designpattern.structure.proxy.cglib.MyMethodInterceptor">
+      <point x="-78.375" y="-14.5" />
+      <point x="128.25" y="212.0" />
+      <point x="45.25" y="212.0" />
+      <point x="-45.25" y="14.5" />
+    </edge>
   </edges>
   <settings layout="Hierarchic Group" zoom="1.0" x="304.5" y="44.5" />
   <SelectedNodes>
-    <node>com.winfred.training.designpattern.structure.proxy.base.UserServiceImpl</node>
+    <node>net.sf.cglib.proxy.Callback</node>
   </SelectedNodes>
   <Categories />
   <SCOPE>All</SCOPE>

@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.structure.proxy.jdk;
+package com.winfred.training.designpattern.structure.proxy.base;
 
 import java.lang.annotation.*;
 
