@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="51.5" y="79.0">com.winfred.training.designpattern.structure.adapter.classadapter.Adapter</node>
+    <node x="0.0" y="153.0">com.winfred.training.designpattern.structure.adapter.classadapter.AdapterClient</node>
+    <node x="0.0" y="0.0">com.winfred.training.designpattern.structure.adapter.classadapter.Source</node>
+    <node x="110.0" y="0.0">com.winfred.training.designpattern.structure.adapter.classadapter.Target</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.structure.adapter.classadapter.Adapter" target="com.winfred.training.designpattern.structure.adapter.classadapter.Source">
+      <point x="-24.25" y="-14.5" />
+      <point x="75.75" y="54.0" />
+      <point x="45.0" y="54.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.structure.adapter.classadapter.Adapter" target="com.winfred.training.designpattern.structure.adapter.classadapter.Target">
+      <point x="24.25" y="-14.5" />
+      <point x="124.25" y="54.0" />
+      <point x="155.0" y="54.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="304.5" y="1.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.structure.adapter.classadapter.AdapterClient</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
