@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="0.0" y="158.0">com.winfred.training.designpattern.behavioral.chain.general.base.FilterChainImpl</node>
+    <node x="173.00000000000006" y="158.0">com.winfred.training.designpattern.behavioral.chain.general.TermFilter</node>
+    <node x="80.10000000000002" y="79.0">com.winfred.training.designpattern.behavioral.chain.general.base.Filter</node>
+    <node x="43.10000000000002" y="0.0">com.winfred.training.designpattern.behavioral.chain.general.base.FilterChain</node>
+    <node x="197.2525" y="237.0">com.winfred.training.designpattern.behavioral.chain.general.ChainClient</node>
+    <node x="311.00000000000006" y="158.0">com.winfred.training.designpattern.behavioral.chain.general.HtmlFilter</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.base.Filter" target="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChain">
+      <point x="-22.5" y="-14.5" />
+      <point x="102.60000000000002" y="54.0" />
+      <point x="105.60000000000002" y="54.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChainImpl" target="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChain">
+      <point x="-61.19999999999999" y="-14.5" />
+      <point x="15.300000000000011" y="128.0" />
+      <point x="58.60000000000002" y="128.0" />
+      <point x="58.60000000000002" y="54.0" />
+      <point x="55.60000000000002" y="54.0" />
+      <point x="-50.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.ChainClient" target="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChain">
+      <point x="46.87500000000002" y="-14.5" />
+      <point x="306.62750000000005" y="217.0" />
+      <point x="439.50000000000006" y="217.0" />
+      <point x="439.50000000000006" y="54.0" />
+      <point x="155.60000000000002" y="54.0" />
+      <point x="50.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.HtmlFilter" target="com.winfred.training.designpattern.behavioral.chain.general.base.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="370.00000000000006" y="128.0" />
+      <point x="161.10000000000002" y="128.0" />
+      <point x="36.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChain" target="com.winfred.training.designpattern.behavioral.chain.general.base.Filter">
+      <point x="25.0" y="14.5" />
+      <point x="130.60000000000002" y="54.0" />
+      <point x="147.60000000000002" y="54.0" />
+      <point x="22.5" y="-14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChainImpl" target="com.winfred.training.designpattern.behavioral.chain.general.base.Filter">
+      <point x="1.4210854715202004E-14" y="-14.5" />
+      <point x="76.5" y="138.0" />
+      <point x="89.10000000000002" y="138.0" />
+      <point x="-36.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.ChainClient" target="com.winfred.training.designpattern.behavioral.chain.general.base.FilterChainImpl">
+      <point x="-46.87499999999997" y="-14.5" />
+      <point x="212.87750000000003" y="217.0" />
+      <point x="76.5" y="217.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.TermFilter" target="com.winfred.training.designpattern.behavioral.chain.general.base.Filter">
+      <point x="0.0" y="-14.5" />
+      <point x="232.00000000000006" y="138.0" />
+      <point x="143.10000000000002" y="138.0" />
+      <point x="18.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.ChainClient" target="com.winfred.training.designpattern.behavioral.chain.general.HtmlFilter">
+      <point x="15.625000000000028" y="-14.5" />
+      <point x="275.37750000000005" y="207.0" />
+      <point x="370.00000000000006" y="207.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.general.ChainClient" target="com.winfred.training.designpattern.behavioral.chain.general.TermFilter">
+      <point x="-15.624999999999972" y="-14.5" />
+      <point x="244.12750000000003" y="217.0" />
+      <point x="232.00000000000006" y="217.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="370.5" y="168.5" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

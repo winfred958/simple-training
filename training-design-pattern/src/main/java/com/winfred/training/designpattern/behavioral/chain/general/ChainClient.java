@@ -1,9 +1,9 @@
-package com.winfred.training.designpattern.behavioral.chain;
+package com.winfred.training.designpattern.behavioral.chain.general;
 
-import com.winfred.training.designpattern.behavioral.chain.base.FilterChain;
-import com.winfred.training.designpattern.behavioral.chain.base.FilterChainImpl;
-import com.winfred.training.designpattern.behavioral.chain.entity.Request;
-import com.winfred.training.designpattern.behavioral.chain.entity.Response;
+import com.winfred.training.designpattern.behavioral.chain.general.base.FilterChain;
+import com.winfred.training.designpattern.behavioral.chain.general.base.FilterChainImpl;
+import com.winfred.training.designpattern.behavioral.chain.general.entity.Request;
+import com.winfred.training.designpattern.behavioral.chain.general.entity.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 

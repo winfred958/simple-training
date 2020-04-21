@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="145.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.auth.LoginHandler</node>
+    <node x="297.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.auth.ValidateHandler</node>
+    <node x="198.0" y="153.0">com.winfred.training.designpattern.behavioral.chain.auth.ChainClient</node>
+    <node x="0.0" y="79.0">com.winfred.training.designpattern.behavioral.chain.auth.AuthHandler</node>
+    <node x="0.0" y="153.0">com.winfred.training.designpattern.behavioral.chain.auth.HandlerPipeline</node>
+    <node x="162.5" y="0.0">com.winfred.training.designpattern.behavioral.chain.auth.Handler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.auth.AuthHandler" target="com.winfred.training.designpattern.behavioral.chain.auth.Handler">
+      <point x="0.0" y="-14.5" />
+      <point x="62.5" y="54.0" />
+      <point x="178.66666666666666" y="54.0" />
+      <point x="-32.33333333333334" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.auth.ValidateHandler" target="com.winfred.training.designpattern.behavioral.chain.auth.Handler">
+      <point x="0.0" y="-14.5" />
+      <point x="373.5" y="54.0" />
+      <point x="243.33333333333337" y="54.0" />
+      <point x="32.33333333333337" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.chain.auth.LoginHandler" target="com.winfred.training.designpattern.behavioral.chain.auth.Handler">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="268.0" y="4.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.behavioral.chain.auth.ChainClient</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

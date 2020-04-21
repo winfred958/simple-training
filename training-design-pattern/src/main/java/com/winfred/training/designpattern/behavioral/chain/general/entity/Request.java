@@ -1,4 +1,4 @@
-package com.winfred.training.designpattern.behavioral.chain.entity;
+package com.winfred.training.designpattern.behavioral.chain.general.entity;
 
 import lombok.Data;
 
