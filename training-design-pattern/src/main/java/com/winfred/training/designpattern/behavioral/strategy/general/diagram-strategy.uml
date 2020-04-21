@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="69.0" y="0.0">com.winfred.training.designpattern.behavioral.strategy.general.Strategy</node>
+    <node x="0.0" y="79.0">com.winfred.training.designpattern.behavioral.strategy.general.impl.StrategyB</node>
+    <node x="131.0" y="79.0">com.winfred.training.designpattern.behavioral.strategy.general.impl.StrategyA</node>
+    <node x="0.0" y="153.0">com.winfred.training.designpattern.behavioral.strategy.general.StrategyClient</node>
+    <node x="0.0" y="227.0">com.winfred.training.designpattern.behavioral.strategy.general.Context</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.behavioral.strategy.general.impl.StrategyB" target="com.winfred.training.designpattern.behavioral.strategy.general.Strategy">
+      <point x="0.0" y="-14.5" />
+      <point x="55.5" y="54.0" />
+      <point x="95.0" y="54.0" />
+      <point x="-26.0" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.strategy.general.impl.StrategyA" target="com.winfred.training.designpattern.behavioral.strategy.general.Strategy">
+      <point x="0.0" y="-14.5" />
+      <point x="186.5" y="54.0" />
+      <point x="147.0" y="54.0" />
+      <point x="26.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="404.5" y="1.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.behavioral.strategy.general.StrategyClient</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

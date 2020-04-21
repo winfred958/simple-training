@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="360.0" y="79.0">com.winfred.training.designpattern.behavioral.strategy.promotion.impl.CouponStrategy</node>
+    <node x="459.0" y="153.0">com.winfred.training.designpattern.behavioral.strategy.promotion.StrategyClient</node>
+    <node x="526.0" y="79.0">com.winfred.training.designpattern.behavioral.strategy.promotion.impl.EmptyStrategy</node>
+    <node x="180.0" y="79.0">com.winfred.training.designpattern.behavioral.strategy.promotion.impl.GroupbuyStrategy</node>
+    <node x="0.0" y="153.0">com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionStrategyFactory</node>
+    <node x="0.0" y="79.0">com.winfred.training.designpattern.behavioral.strategy.promotion.impl.CashbackStrategy</node>
+    <node x="263.0" y="0.0">com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionStrategy</node>
+    <node x="261.0" y="153.0">com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionActive</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.winfred.training.designpattern.behavioral.strategy.promotion.impl.GroupbuyStrategy" target="com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionStrategy">
+      <point x="0.0" y="-14.5" />
+      <point x="260.0" y="59.0" />
+      <point x="325.625" y="59.0" />
+      <point x="-20.875" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.strategy.promotion.impl.CouponStrategy" target="com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionStrategy">
+      <point x="0.0" y="-14.5" />
+      <point x="433.0" y="59.0" />
+      <point x="367.375" y="59.0" />
+      <point x="20.875" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.strategy.promotion.impl.CashbackStrategy" target="com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionStrategy">
+      <point x="0.0" y="-14.5" />
+      <point x="80.0" y="49.0" />
+      <point x="283.875" y="49.0" />
+      <point x="-62.625" y="14.5" />
+    </edge>
+    <edge source="com.winfred.training.designpattern.behavioral.strategy.promotion.impl.EmptyStrategy" target="com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionStrategy">
+      <point x="0.0" y="-14.5" />
+      <point x="595.5" y="49.0" />
+      <point x="409.125" y="49.0" />
+      <point x="62.625" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="428.0" y="13.5" />
+  <SelectedNodes>
+    <node>com.winfred.training.designpattern.behavioral.strategy.promotion.PromotionActive</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
