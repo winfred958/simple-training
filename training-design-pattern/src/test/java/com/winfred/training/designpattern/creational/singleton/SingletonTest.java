@@ -1,13 +1,16 @@
 package com.winfred.training.designpattern.creational.singleton;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.concurrent.ExecutorService;
 
+@Slf4j
 public class SingletonTest {
 
     @Test
     public void threadPoolTest() {
+
         ExecutorService instance1 = ThreadPoolUtil.getInstance();
         ExecutorService instance2 = ThreadPoolUtil.getInstance();
         ExecutorService instance3 = ThreadPoolUtil.getInstance();
@@ -19,20 +22,18 @@ public class SingletonTest {
     }
 
     @Test
-    public void hungrySingletonTest(){
+    public void hungrySingletonTest() {
         int hashcode1 = HungrySingleton.getHashcode();
         int hashcode2 = HungrySingleton.getHashcode();
         int hashcode3 = HungrySingleton.getHashcode();
     }
 
     @Test
-    public void hungrySingletonTestV2(){
+    public void hungrySingletonTestV2() {
         int hashcode1 = HungrySingletonV2.getHashcode();
         int hashcode2 = HungrySingletonV2.getHashcode();
         int hashcode3 = HungrySingletonV2.getHashcode();
     }
-
-
 
 
     class TestRunnable implements Runnable {
@@ -44,7 +45,7 @@ public class SingletonTest {
 
         @Override
         public void run() {
-            System.out.println(i);
+            log.info("{}", i);
         }
     }
 }
