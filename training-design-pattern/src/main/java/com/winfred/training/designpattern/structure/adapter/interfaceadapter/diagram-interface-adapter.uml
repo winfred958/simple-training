@@ -14,10 +14,8 @@
       <point x="0.0" y="14.5" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="304.5" y="1.5" />
-  <SelectedNodes>
-    <node>com.winfred.training.designpattern.structure.adapter.interfaceadapter.Source</node>
-  </SelectedNodes>
+  <settings layout="Hierarchic Group" zoom="1.0" x="305.0" y="2.0" />
+  <SelectedNodes />
   <Categories />
   <SCOPE>All</SCOPE>
   <VISIBILITY>private</VISIBILITY>

@@ -14,5 +14,4 @@ public class AdapterClient {
         int output = target.output5v();
         log.info("{}", output);
     }
-
 }

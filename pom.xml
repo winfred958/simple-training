@@ -14,14 +14,15 @@
         <module>training-netty</module>
         <module>training-neo4j</module>
         <module>leetcode</module>
+        <module>training-guice</module>
     </modules>
 
     <repositories>
-<!--        <repository>-->
-<!--            <id>neo4j-snapshot-repository</id>-->
-<!--            <name>Neo4j Maven 2 snapshot repository</name>-->
-<!--            <url>http://m2.neo4j.org/content/repositories/snapshots</url>-->
-<!--        </repository>-->
+        <!--        <repository>-->
+        <!--            <id>neo4j-snapshot-repository</id>-->
+        <!--            <name>Neo4j Maven 2 snapshot repository</name>-->
+        <!--            <url>http://m2.neo4j.org/content/repositories/snapshots</url>-->
+        <!--        </repository>-->
 
         <repository>
             <id>central</id>
@@ -66,6 +67,10 @@
         <!-- spring -->
         <spring.version>5.1.10.RELEASE</spring.version>
         <jackson-databind.version>2.9.4</jackson-databind.version>
+
+        <!-- guice -->
+        <guice.version>4.2.2</guice.version>
+        <cglib.version>3.2.9</cglib.version>
 
         <!-- spring boot -->
         <spring-boot.version>2.2.5.RELEASE</spring-boot.version>
@@ -173,7 +178,7 @@
             <dependency>
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
-                <version>3.2.5</version>
+                <version>${cglib.version}</version>
             </dependency>
 
             <dependency>
@@ -214,6 +219,12 @@
                 <groupId>io.netty</groupId>
                 <artifactId>netty-all</artifactId>
                 <version>${netty.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.inject</groupId>
+                <artifactId>guice</artifactId>
+                <version>${guice.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
