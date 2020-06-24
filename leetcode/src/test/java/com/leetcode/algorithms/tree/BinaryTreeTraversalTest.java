@@ -2,8 +2,8 @@ package com.leetcode.algorithms.tree;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class BinaryTreeTraversalTest {
   /**
    * 构造中序遍历二叉树
    */
-  @Before
+  @BeforeEach
   public void buildInorderTraversalTestData() {
     BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
     BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
@@ -98,7 +98,7 @@ public class BinaryTreeTraversalTest {
   /**
    * 构造先序遍历二叉树
    */
-  @Before
+  @BeforeEach
   public void buildPreorderTraversalTestData() {
     BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
     BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);
@@ -120,7 +120,7 @@ public class BinaryTreeTraversalTest {
   /**
    * 构造后序遍历二叉树
    */
-  @Before
+  @BeforeEach
   public void buildPostorderTraversalTestData() {
     
     BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
@@ -147,7 +147,7 @@ public class BinaryTreeTraversalTest {
   /**
    * 构造广度搜索优先树
    */
-  @Before
+  @BeforeEach
   public void buildLevelOrderTraversalTestData() {
     BinaryTreeNode<Integer> value1 = new BinaryTreeNode<>(1);
     BinaryTreeNode<Integer> value2 = new BinaryTreeNode<>(2);

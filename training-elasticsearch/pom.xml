@@ -93,6 +93,16 @@
       <artifactId>spring-boot-starter-test</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit-jupiter.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-commons</artifactId>
+      <version>1.6.2</version>
+    </dependency>
     
     <!-- 权限控制 -->
     <!--        <dependency>-->

@@ -3,13 +3,12 @@ package com.winfred.elastic.service.imp;
 import com.winfred.elastic.annotation.Id;
 import com.winfred.elastic.common.ReflectUtils;
 import com.winfred.elastic.common.ResultsExtractor;
-import com.winfred.elastic.service.ElasticsearchService;
+import com.winfred.elastic.service.ElasticsearchBaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchRequest;
-import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
@@ -23,7 +22,7 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class ElasticsearchServiceImpl implements ElasticsearchService {
+public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
   
   @Autowired
   @Qualifier("getElasticClient")
@@ -66,8 +65,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService {
   }
   
   @Override
-  public <T> T query(SearchRequestBuilder requestBuilder, ResultsExtractor<T> resultsExtractor) {
-    SearchRequest searchRequest = requestBuilder.request();
+  public <T> T query(SearchRequest searchRequest, ResultsExtractor<T> resultsExtractor) {
     T t = null;
     try {
       SearchResponse searchResponse = restHighLevelClient.search(searchRequest, RequestOptions.DEFAULT);
