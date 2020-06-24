@@ -6,8 +6,4 @@ server.undertow.direct-buffers: true
 server.undertow.threads.io: 32
 server.undertow.threads.worker: 128
 
-
-
 logging.level.com.winfred.spring.service: INFO
-
-
