@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 @Data
 public class InvokeProtocol implements Serializable {
-
-    private String className;
-    private String methodName;
-    private Class<?>[] parameterTypes;
-    private Object[] parameterValues;
+  
+  private String className;
+  private String methodName;
+  private Class<?>[] parameterTypes;
+  private Object[] parameterValues;
 }

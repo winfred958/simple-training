@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class MemberEntity {
-    private String userName;
-    private String password;
-    private String token;
-    private String role;
-    private String permission;
+  private String userName;
+  private String password;
+  private String token;
+  private String role;
+  private String permission;
 }

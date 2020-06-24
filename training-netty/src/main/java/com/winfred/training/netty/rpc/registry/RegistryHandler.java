@@ -23,95 +23,95 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class RegistryHandler extends ChannelInboundHandlerAdapter {
-
-    private List<String> classPaths = new ArrayList<>();
-    private Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-
-    public RegistryHandler() {
-        scanClass("com.winfred.training.netty.rpc.provider");
-        doRegistry();
+  
+  private List<String> classPaths = new ArrayList<>();
+  private Map<String, Object> serviceMap = new ConcurrentHashMap<>();
+  
+  public RegistryHandler() {
+    scanClass("com.winfred.training.netty.rpc.provider");
+    doRegistry();
+  }
+  
+  /**
+   * 触发读事件的回调
+   *
+   * @param ctx
+   * @param msg
+   * @throws Exception
+   */
+  @Override
+  public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    Object result = null;
+    
+    InvokeProtocol invokeProtocol = (InvokeProtocol) msg;
+    String className = invokeProtocol.getClassName();
+    if (serviceMap.containsKey(className)) {
+      Object service = serviceMap.get(className);
+      Method method = service.getClass().getDeclaredMethod(invokeProtocol.getMethodName(), invokeProtocol.getParameterTypes());
+      method.setAccessible(true);
+      result = method.invoke(service, invokeProtocol.getParameterValues());
     }
-
-    /**
-     * 触发读事件的回调
-     *
-     * @param ctx
-     * @param msg
-     * @throws Exception
-     */
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        Object result = null;
-
-        InvokeProtocol invokeProtocol = (InvokeProtocol) msg;
-        String className = invokeProtocol.getClassName();
-        if (serviceMap.containsKey(className)) {
-            Object service = serviceMap.get(className);
-            Method method = service.getClass().getDeclaredMethod(invokeProtocol.getMethodName(), invokeProtocol.getParameterTypes());
-            method.setAccessible(true);
-            result = method.invoke(service, invokeProtocol.getParameterValues());
-        }
-        log.info("{} => {}", ctx.channel().remoteAddress(), String.valueOf(result));
-        ctx.write(result);
+    log.info("{} => {}", ctx.channel().remoteAddress(), String.valueOf(result));
+    ctx.write(result);
+  }
+  
+  @Override
+  public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+    ctx.flush();
+    ctx.close();
+  }
+  
+  /**
+   * 连接发生异常时的回调
+   *
+   * @param ctx
+   * @param cause
+   * @throws Exception
+   */
+  @Override
+  public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    log.error("", cause);
+  }
+  
+  /**
+   * 扫描指定包class
+   * <p>
+   * 正常情况下应该写到配置文件
+   *
+   * @param packageName
+   */
+  private void scanClass(String packageName) {
+    URL url = this.getClass()
+            .getClassLoader()
+            .getResource(StringUtils.replacePattern(packageName, "\\.", "/"));
+    
+    File classPath = new File(url.getFile());
+    for (File file : classPath.listFiles()) {
+      if (file.isDirectory()) {
+        scanClass(packageName + "." + file.getName());
+      } else {
+        classPaths.add(packageName + "." + file.getName().replace(".class", ""));
+      }
     }
-
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush();
-        ctx.close();
+  }
+  
+  private void doRegistry() {
+    if (classPaths.isEmpty()) {
+      return;
     }
-
-    /**
-     * 连接发生异常时的回调
-     *
-     * @param ctx
-     * @param cause
-     * @throws Exception
-     */
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        log.error("", cause);
+    for (String classPath : classPaths) {
+      try {
+        Class<?> clazz = Class.forName(classPath);
+        Class<?> clazzInterface = clazz.getInterfaces()[0];
+        String interfaceName = clazzInterface.getName();
+        serviceMap.put(interfaceName, clazz.newInstance());
+      } catch (ClassNotFoundException e) {
+        log.error("", e);
+      } catch (IllegalAccessException e) {
+        log.error("", e);
+      } catch (InstantiationException e) {
+        log.error("", e);
+      }
     }
-
-    /**
-     * 扫描指定包class
-     * <p>
-     * 正常情况下应该写到配置文件
-     *
-     * @param packageName
-     */
-    private void scanClass(String packageName) {
-        URL url = this.getClass()
-                .getClassLoader()
-                .getResource(StringUtils.replacePattern(packageName, "\\.", "/"));
-
-        File classPath = new File(url.getFile());
-        for (File file : classPath.listFiles()) {
-            if (file.isDirectory()) {
-                scanClass(packageName + "." + file.getName());
-            } else {
-                classPaths.add(packageName + "." + file.getName().replace(".class", ""));
-            }
-        }
-    }
-
-    private void doRegistry() {
-        if (classPaths.isEmpty()) {
-            return;
-        }
-        for (String classPath : classPaths) {
-            try {
-                Class<?> clazz = Class.forName(classPath);
-                Class<?> clazzInterface = clazz.getInterfaces()[0];
-                String interfaceName = clazzInterface.getName();
-                serviceMap.put(interfaceName, clazz.newInstance());
-            } catch (ClassNotFoundException e) {
-                log.error("", e);
-            } catch (IllegalAccessException e) {
-                log.error("", e);
-            } catch (InstantiationException e) {
-                log.error("", e);
-            }
-        }
-    }
+  }
 }

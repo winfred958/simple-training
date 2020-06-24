@@ -6,12 +6,12 @@ import org.junit.Test;
 
 @Slf4j
 public class StrategyClient {
-
-    @Test
-    public void strategyTest() {
-        Strategy strategy = new StrategyA();
-        Context context = new Context(strategy);
-
-        context.algorithm();
-    }
+  
+  @Test
+  public void strategyTest() {
+    Strategy strategy = new StrategyA();
+    Context context = new Context(strategy);
+    
+    context.algorithm();
+  }
 }

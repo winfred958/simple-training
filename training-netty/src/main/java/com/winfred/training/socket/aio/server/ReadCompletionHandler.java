@@ -14,65 +14,65 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j(topic = "ReadCompletionHandler")
 public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuffer> {
-
-    private AsynchronousSocketChannel asynchronousSocketChannel;
-
-    private int sendCount = 0;
-
-    public ReadCompletionHandler(AsynchronousSocketChannel asynchronousSocketChannel) {
-        this.asynchronousSocketChannel = asynchronousSocketChannel;
+  
+  private AsynchronousSocketChannel asynchronousSocketChannel;
+  
+  private int sendCount = 0;
+  
+  public ReadCompletionHandler(AsynchronousSocketChannel asynchronousSocketChannel) {
+    this.asynchronousSocketChannel = asynchronousSocketChannel;
+  }
+  
+  @Override
+  public void completed(Integer result, ByteBuffer attachment) {
+    attachment.flip();
+    byte[] bytes = new byte[attachment.remaining()];
+    attachment.get(bytes);
+    // 客户端请求转码
+    String requestStr = new String(bytes, StandardCharsets.UTF_8);
+    
+    String remoteHost = "";
+    try {
+      remoteHost = asynchronousSocketChannel.getRemoteAddress().toString();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-
-    @Override
-    public void completed(Integer result, ByteBuffer attachment) {
-        attachment.flip();
-        byte[] bytes = new byte[attachment.remaining()];
-        attachment.get(bytes);
-        // 客户端请求转码
-        String requestStr = new String(bytes, StandardCharsets.UTF_8);
-
-        String remoteHost = "";
-        try {
-            remoteHost = asynchronousSocketChannel.getRemoteAddress().toString();
-        } catch (IOException e) {
-            e.printStackTrace();
+    log.info("server accept request {}-{}: {}", remoteHost, result, requestStr);
+    String response = "";
+    doWrite(response);
+  }
+  
+  @Override
+  public void failed(Throwable exc, ByteBuffer attachment) {
+  
+  }
+  
+  private void doWrite(String response) {
+    if (StringUtils.isNotBlank(response)) {
+      byte[] bytes = response.getBytes();
+      ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
+      writeBuffer.put(bytes);
+      asynchronousSocketChannel.write(writeBuffer, writeBuffer, new CompletionHandler<Integer, ByteBuffer>() {
+        @Override
+        public void completed(Integer result, ByteBuffer attachment) {
+          if (attachment.hasRemaining() || sendCount < 3) {
+            // 如果没有发送成功, 继续发送
+            asynchronousSocketChannel.write(attachment, attachment, this);
+            sendCount++;
+          }
         }
-        log.info("server accept request {}-{}: {}", remoteHost, result, requestStr);
-        String response = "";
-        doWrite(response);
-    }
-
-    @Override
-    public void failed(Throwable exc, ByteBuffer attachment) {
-
-    }
-
-    private void doWrite(String response) {
-        if (StringUtils.isNotBlank(response)) {
-            byte[] bytes = response.getBytes();
-            ByteBuffer writeBuffer = ByteBuffer.allocate(bytes.length);
-            writeBuffer.put(bytes);
-            asynchronousSocketChannel.write(writeBuffer, writeBuffer, new CompletionHandler<Integer, ByteBuffer>() {
-                @Override
-                public void completed(Integer result, ByteBuffer attachment) {
-                    if (attachment.hasRemaining() || sendCount < 3) {
-                        // 如果没有发送成功, 继续发送
-                        asynchronousSocketChannel.write(attachment, attachment, this);
-                        sendCount++;
-                    }
-                }
-
-                @Override
-                public void failed(Throwable exc, ByteBuffer attachment) {
-                    log.error("", exc);
-                    try {
-                        asynchronousSocketChannel.close();
-                    } catch (IOException e) {
-                        log.error("", e);
-                    }
-
-                }
-            });
+        
+        @Override
+        public void failed(Throwable exc, ByteBuffer attachment) {
+          log.error("", exc);
+          try {
+            asynchronousSocketChannel.close();
+          } catch (IOException e) {
+            log.error("", e);
+          }
+          
         }
+      });
     }
+  }
 }

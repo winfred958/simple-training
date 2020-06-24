@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class GroupbuyStrategy implements PromotionStrategy {
-    @Override
-    public void doPromotion() {
-        log.info("团购优惠: {}", "");
-    }
+  @Override
+  public void doPromotion() {
+    log.info("团购优惠: {}", "");
+  }
 }

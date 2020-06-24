@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RpcServiceImpl implements RpcService {
-    @Override
-    public int add(int a, int b) {
-        return a + b;
-    }
+  @Override
+  public int add(int a, int b) {
+    return a + b;
+  }
 }

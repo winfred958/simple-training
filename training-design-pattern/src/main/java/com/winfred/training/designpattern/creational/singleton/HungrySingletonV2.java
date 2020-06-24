@@ -9,20 +9,20 @@ package com.winfred.training.designpattern.creational.singleton;
  * 缺点: 不管用不用都会创建
  */
 public class HungrySingletonV2 {
-    private static final HungrySingletonV2 HUNGRY_SINGLETON;
-
-    static {
-        HUNGRY_SINGLETON = new HungrySingletonV2();
-    }
-
-    private HungrySingletonV2() {
-    }
-
-    public static HungrySingletonV2 getInstance() {
-        return HUNGRY_SINGLETON;
-    }
-
-    public static int getHashcode() {
-        return getInstance().hashCode();
-    }
+  private static final HungrySingletonV2 HUNGRY_SINGLETON;
+  
+  static {
+    HUNGRY_SINGLETON = new HungrySingletonV2();
+  }
+  
+  private HungrySingletonV2() {
+  }
+  
+  public static HungrySingletonV2 getInstance() {
+    return HUNGRY_SINGLETON;
+  }
+  
+  public static int getHashcode() {
+    return getInstance().hashCode();
+  }
 }

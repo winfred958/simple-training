@@ -29,45 +29,45 @@ import java.lang.reflect.Proxy;
  */
 @Slf4j
 public class MyInvocationHandler implements InvocationHandler {
-
-    private Object target;
-
-    public MyInvocationHandler(Object target) {
-        super();
-        this.target = target;
+  
+  private Object target;
+  
+  public MyInvocationHandler(Object target) {
+    super();
+    this.target = target;
+  }
+  
+  public Object getProxy() {
+    Class<?> clazz = target.getClass();
+    return Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), this);
+  }
+  
+  @Override
+  public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+    
+    Object result;
+    if (null != method.getAnnotation(TestBefore.class)) {
+      before(proxy, method);
+      result = method.invoke(target, args);
+    } else if (null != method.getAnnotation(TestAfter.class)) {
+      result = method.invoke(target, args);
+      after(proxy, method);
+    } else if (null != method.getAnnotation(TestAround.class)) {
+      before(proxy, method);
+      result = method.invoke(target, args);
+      after(proxy, method);
+    } else {
+      result = method.invoke(target, args);
     }
-
-    public Object getProxy() {
-        Class<?> clazz = target.getClass();
-        return Proxy.newProxyInstance(clazz.getClassLoader(), clazz.getInterfaces(), this);
-    }
-
-    @Override
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-        Object result;
-        if (null != method.getAnnotation(TestBefore.class)) {
-            before(proxy, method);
-            result = method.invoke(target, args);
-        } else if (null != method.getAnnotation(TestAfter.class)) {
-            result = method.invoke(target, args);
-            after(proxy, method);
-        } else if (null != method.getAnnotation(TestAround.class)) {
-            before(proxy, method);
-            result = method.invoke(target, args);
-            after(proxy, method);
-        } else {
-            result = method.invoke(target, args);
-        }
-        return result;
-    }
-
-    private void before(Object proxy, Method method) {
-        log.info("{}.{} {}", proxy.getClass().getName(), method.getName(), " --- before ---");
-    }
-
-    private void after(Object proxy, Method method) {
-        log.info("{}.{} {}", proxy.getClass().getName(), method.getName(), " --- after ---");
-    }
-
+    return result;
+  }
+  
+  private void before(Object proxy, Method method) {
+    log.info("{}.{} {}", proxy.getClass().getName(), method.getName(), " --- before ---");
+  }
+  
+  private void after(Object proxy, Method method) {
+    log.info("{}.{} {}", proxy.getClass().getName(), method.getName(), " --- after ---");
+  }
+  
 }

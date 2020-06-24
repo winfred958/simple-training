@@ -9,15 +9,15 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class BydCarFactory {
-
-    public Car buildCar(Class<? extends Car> clazz) {
-        try {
-            return clazz.newInstance();
-        } catch (InstantiationException e) {
-            log.error("", e);
-        } catch (IllegalAccessException e) {
-            log.error("", e);
-        }
-        return null;
+  
+  public Car buildCar(Class<? extends Car> clazz) {
+    try {
+      return clazz.newInstance();
+    } catch (InstantiationException e) {
+      log.error("", e);
+    } catch (IllegalAccessException e) {
+      log.error("", e);
     }
+    return null;
+  }
 }

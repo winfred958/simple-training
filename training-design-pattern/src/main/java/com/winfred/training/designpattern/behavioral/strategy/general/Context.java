@@ -5,14 +5,14 @@ package com.winfred.training.designpattern.behavioral.strategy.general;
  * 单一委派
  */
 public class Context {
-
-    private Strategy strategy;
-
-    public Context(Strategy strategy) {
-        this.strategy = strategy;
-    }
-
-    public void algorithm() {
-        strategy.algorithm();
-    }
+  
+  private Strategy strategy;
+  
+  public Context(Strategy strategy) {
+    this.strategy = strategy;
+  }
+  
+  public void algorithm() {
+    strategy.algorithm();
+  }
 }

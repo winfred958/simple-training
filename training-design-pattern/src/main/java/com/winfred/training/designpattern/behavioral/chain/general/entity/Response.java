@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Response {
-
-    private String header;
-    private String body;
+  
+  private String header;
+  private String body;
 }

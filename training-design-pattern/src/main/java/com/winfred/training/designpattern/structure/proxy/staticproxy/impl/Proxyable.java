@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Proxyable implements IProxyable {
-    @Override
-    public void doSomething() {
-        log.info("doSomething");
-    }
+  @Override
+  public void doSomething() {
+    log.info("doSomething");
+  }
 }

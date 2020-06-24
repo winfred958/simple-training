@@ -9,16 +9,16 @@ import org.junit.Test;
  */
 @Slf4j
 public class ChainClient {
-
-    @Test
-    public void chainTest() {
-        HandlerPipeline.Builder builder = new HandlerPipeline.Builder()
-                .addLast(new ValidateHandler())
-                .addLast(new LoginHandler())
-                .addLast(new AuthHandler());
-
-        HandlerPipeline handlerPipeline = builder.create();
-
-        handlerPipeline.doHandler(new MemberEntity());
-    }
+  
+  @Test
+  public void chainTest() {
+    HandlerPipeline.Builder builder = new HandlerPipeline.Builder()
+            .addLast(new ValidateHandler())
+            .addLast(new LoginHandler())
+            .addLast(new AuthHandler());
+    
+    HandlerPipeline handlerPipeline = builder.create();
+    
+    handlerPipeline.doHandler(new MemberEntity());
+  }
 }

@@ -7,18 +7,27 @@ import com.winfred.guice.bind.link.UserService;
 import com.winfred.guice.bind.link.entity.UserInfo;
 
 public class TokenImpl implements Token {
-
-
-    private UserService userService;
-
-    @Inject
-    public TokenImpl(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Override
-    public String getToken(String userId) {
-        UserInfo userInfo = userService.getUserInfo(userId);
-        return JSON.toJSONString(userInfo);
-    }
+  
+  
+  /**
+   * field inject
+   */
+  @Inject
+  private UserService userService;
+  
+  /**
+   * construct inject
+   *
+   * @param userService
+   */
+  @Inject
+  public TokenImpl(UserService userService) {
+    this.userService = userService;
+  }
+  
+  @Override
+  public String getToken(String userId) {
+    UserInfo userInfo = userService.getUserInfo(userId);
+    return JSON.toJSONString(userInfo);
+  }
 }
