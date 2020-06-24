@@ -1,5 +1,5 @@
 server.port: 19998
-server.servlet.context-path: /simple
+server.servlet.context-path: /elastic-learn
 
 server.undertow.buffer-size: 10240
 server.undertow.direct-buffers: true
