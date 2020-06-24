@@ -1,5 +1,7 @@
 package com.winfred.elastic.service.imp;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.winfred.elastic.annotation.Id;
 import com.winfred.elastic.common.ReflectUtils;
 import com.winfred.elastic.common.ResultsExtractor;
@@ -56,7 +58,7 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
           indexRequest.index(indexName);
           String id = ReflectUtils.getAnnotationFiledValue(obj, Id.class);
           indexRequest.id(id);
-          indexRequest.source(XContentType.JSON, obj);
+          indexRequest.source(JSON.toJSONBytes(obj, SerializerFeature.SortField, SerializerFeature.DisableCircularReferenceDetect), XContentType.JSON);
           return indexRequest;
         })
         .forEach(bulkRequest::add);

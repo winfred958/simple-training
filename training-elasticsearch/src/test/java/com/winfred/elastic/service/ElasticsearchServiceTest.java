@@ -1,6 +1,7 @@
 package com.winfred.elastic.service;
 
 import com.winfred.elastic.base.BaseTest;
+import com.winfred.elastic.entity.ItemInfo;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -9,9 +10,11 @@ import org.elasticsearch.search.SearchHits;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.suggest.Suggest;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,10 +25,17 @@ public class ElasticsearchServiceTest extends BaseTest {
   @Autowired
   private ElasticsearchBaseService elasticsearchService;
   
+  List<ItemInfo> data = new ArrayList<>();
+  
+  @Before
+  public void createData() {
+    data.add(new ItemInfo("1", "ttttttttttttttt1"));
+    data.add(new ItemInfo("2", "ttttttttttttttt2"));
+  }
+  
   @Test
   public void bulkIndexTest() {
-    
-  
+    elasticsearchService.bulkIndex(data, "bulk_index_test");
   }
   
   @Test
