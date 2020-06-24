@@ -18,7 +18,7 @@ public class ReflectUtils {
     Object value = null;
     Field[] declaredFields = obj.getClass().getDeclaredFields();
     for (Field field : declaredFields) {
-      Annotation annotation = field.getAnnotation(clazz);
+      Annotation annotation = field.getDeclaredAnnotation(clazz);
       if (null != annotation) {
         field.setAccessible(true);
         try {
