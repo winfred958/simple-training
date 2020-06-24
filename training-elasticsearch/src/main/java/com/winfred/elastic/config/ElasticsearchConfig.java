@@ -16,7 +16,9 @@ public class ElasticsearchConfig {
   
   @Bean
   public RestHighLevelClient getElasticClient() {
-    RestClientBuilder restClientBuilder = RestClient.builder(new HttpHost("es-8gp5f0ej.public.tencentelasticsearch.com", 9200, "https"));
+    RestClientBuilder restClientBuilder = RestClient.builder(
+        new HttpHost("es-8gp5f0ej.public.tencentelasticsearch.com", 9200, "https")
+    );
     
     List<BasicHeader> headers = new ArrayList<>();
     headers.add(new BasicHeader("Authorization", "Basic ZWxhc3RpYzptYyFWYVlAOW5nI2tJXlEq"));
@@ -27,6 +29,7 @@ public class ElasticsearchConfig {
           clientBuilder.setDefaultHeaders(headers);
           return clientBuilder;
         });
+    
     return new RestHighLevelClient(restClientBuilder);
   }
   
