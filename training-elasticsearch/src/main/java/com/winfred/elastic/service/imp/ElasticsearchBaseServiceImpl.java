@@ -30,8 +30,16 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
   @Qualifier("getElasticClient")
   private RestHighLevelClient restHighLevelClient;
   
+  /**
+   * 批量索引数据
+   *
+   * @param data
+   * @param indexName
+   * @return
+   */
   @Override
   public BulkResponse bulkIndex(List<?> data, String indexName) {
+    // TODO: 可以考虑 data 切分, 控制每个请求粒度
     BulkRequest bulkRequest = buildBulkRequest(data, indexName);
     BulkResponse bulkResponse = null;
     try {
