@@ -32,9 +32,4 @@ public class ElasticsearchConfig {
     
     return new RestHighLevelClient(restClientBuilder);
   }
-  
-  @Bean
-  public RestClient getElasticLowClient() {
-    return getElasticClient().getLowLevelClient();
-  }
 }
