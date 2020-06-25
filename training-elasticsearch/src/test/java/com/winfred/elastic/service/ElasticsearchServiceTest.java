@@ -1,7 +1,7 @@
 package com.winfred.elastic.service;
 
 import com.winfred.elastic.base.BaseTest;
-import com.winfred.elastic.entity.ItemInfo;
+import com.winfred.elastic.entity.OrderItem;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -25,12 +25,12 @@ public class ElasticsearchServiceTest extends BaseTest {
   @Autowired
   private ElasticsearchBaseService elasticsearchService;
   
-  List<ItemInfo> data = new ArrayList<>();
+  List<OrderItem> data = new ArrayList<>();
   
   @Before
   public void createData() {
-    data.add(new ItemInfo("1", "ttttttttttttttt1"));
-    data.add(new ItemInfo("2", "ttttttttttttttt2"));
+    data.add(new OrderItem("1", "ttttttttttttttt1"));
+    data.add(new OrderItem("2", "ttttttttttttttt2"));
   }
   
   @Test
