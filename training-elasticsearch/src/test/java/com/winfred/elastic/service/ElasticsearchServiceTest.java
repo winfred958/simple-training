@@ -29,8 +29,6 @@ public class ElasticsearchServiceTest extends BaseTest {
   
   @Before
   public void createData() {
-    data.add(new OrderItem("1", "ttttttttttttttt1"));
-    data.add(new OrderItem("2", "ttttttttttttttt2"));
   }
   
   @Test
