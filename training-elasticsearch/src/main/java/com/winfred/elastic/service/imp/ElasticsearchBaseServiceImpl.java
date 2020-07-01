@@ -3,6 +3,7 @@ package com.winfred.elastic.service.imp;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.winfred.elastic.annotation.Id;
+import com.winfred.elastic.common.ForkJoinUtils;
 import com.winfred.elastic.common.ReflectUtils;
 import com.winfred.elastic.common.ResultsExtractor;
 import com.winfred.elastic.service.ElasticsearchBaseService;
@@ -21,6 +22,11 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveTask;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -38,17 +44,28 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
    * @return
    */
   @Override
-  public BulkResponse bulkIndex(List<?> data, String indexName) {
-    // TODO: 可以考虑 data 切分, 控制每个请求粒度
-    BulkRequest bulkRequest = buildBulkRequest(data, indexName);
-    BulkResponse bulkResponse = null;
+  public List<BulkResponse> bulkIndex(List<?> data, String indexName) {
+    ForkJoinTask<List<BulkResponse>> forkJoinTask = ForkJoinUtils
+        .getInstance()
+        .submit(new BulkIndexTask(data, indexName));
+    
     try {
-      bulkResponse = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
-      log.info("[bulkIndex] bulk index took {} ms", bulkResponse.getIngestTookInMillis());
-    } catch (IOException e) {
-      log.error("[elasticsearch] index failed.", e);
+      List<BulkResponse> bulkResponses = forkJoinTask.get();
+      List<Long> longList = bulkResponses
+          .stream()
+          .map(response -> {
+            return response.getIngestTookInMillis();
+          })
+          .collect(Collectors.toList());
+      
+      log.info("[bulkIndex] bulk index  partition={} took {} ms", bulkResponses.size(), JSON.toJSONString(longList));
+      return bulkResponses;
+    } catch (InterruptedException e) {
+      log.error("[bulkIndex] bulk index failed.", e);
+    } catch (ExecutionException e) {
+      log.error("[bulkIndex] bulk index failed.", e);
     }
-    return bulkResponse;
+    return null;
   }
   
   /**
@@ -85,5 +102,55 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
       log.error("[elasticsearch] query failed.", e);
     }
     return t;
+  }
+  
+  @Override
+  public void bulkUpdate() {
+  
+  }
+  
+  
+  class BulkIndexTask extends RecursiveTask<List<BulkResponse>> {
+    private List<?> data;
+    private String indexName;
+    
+    public BulkIndexTask(List<?> data, String indexName) {
+      this.data = data;
+      this.indexName = indexName;
+    }
+    
+    @Override
+    protected List<BulkResponse> compute() {
+      int size = data.size();
+      if (size < 1000) {
+        BulkRequest bulkRequest = buildBulkRequest(this.data, this.indexName);
+        BulkResponse bulkResponse = null;
+        try {
+          bulkResponse = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
+          log.info("[bulkIndex] bulk index took {} ms", bulkResponse == null ? "xxx" : bulkResponse.getIngestTookInMillis());
+        } catch (IOException e) {
+          log.error("[elasticsearch] index failed.", e);
+        }
+        List<BulkResponse> result = new CopyOnWriteArrayList<>();
+        result.add(bulkResponse);
+        return result;
+      } else {
+        BulkIndexTask bulkIndexTask1 = new BulkIndexTask(data.subList(0, size / 2), indexName);
+        BulkIndexTask bulkIndexTask2 = new BulkIndexTask(data.subList(size / 2, size), indexName);
+        
+        bulkIndexTask1.fork();
+        bulkIndexTask2.fork();
+        
+        List<BulkResponse> join1 = bulkIndexTask1.join();
+        List<BulkResponse> join2 = bulkIndexTask2.join();
+        join1.addAll(join2);
+        return join1
+            .stream()
+            .filter(entity -> {
+              return entity != null;
+            })
+            .collect(Collectors.toList());
+      }
+    }
   }
 }

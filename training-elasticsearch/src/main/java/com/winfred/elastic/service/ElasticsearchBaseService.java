@@ -8,7 +8,10 @@ import java.util.List;
 
 public interface ElasticsearchBaseService {
   
-  BulkResponse bulkIndex(List<?> data, String indexName);
-  
   <T> T query(SearchRequest searchRequest, ResultsExtractor<T> resultsExtractor);
+  
+  List<BulkResponse> bulkIndex(List<?> data, String indexName);
+  
+  
+  void bulkUpdate();
 }
