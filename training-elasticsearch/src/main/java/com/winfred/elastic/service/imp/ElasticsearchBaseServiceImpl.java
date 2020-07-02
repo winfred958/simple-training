@@ -8,6 +8,7 @@ import com.winfred.elastic.common.ReflectUtils;
 import com.winfred.elastic.common.ResultsExtractor;
 import com.winfred.elastic.service.ElasticsearchBaseService;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.ActionListener;
 import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -31,6 +32,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
+  
+  private int MAX_BULK_SIZE = 1500;
   
   @Autowired
   @Qualifier("getElasticClient")
@@ -122,12 +125,13 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
     @Override
     protected List<BulkResponse> compute() {
       int size = data.size();
-      if (size < 1000) {
+      if (size < MAX_BULK_SIZE) {
         BulkRequest bulkRequest = buildBulkRequest(this.data, this.indexName);
         BulkResponse bulkResponse = null;
         try {
-          bulkResponse = restHighLevelClient.bulk(bulkRequest, RequestOptions.DEFAULT);
-          log.info("[bulkIndex] bulk index took {} ms", bulkResponse == null ? "xxx" : bulkResponse.getIngestTookInMillis());
+          bulkResponse = restHighLevelClient
+              .bulk(bulkRequest, RequestOptions.DEFAULT);
+          log.info("[bulkIndex] bulk index success took {} ms", bulkResponse == null ? "xxx" : bulkResponse.getIngestTookInMillis());
         } catch (IOException e) {
           log.error("[elasticsearch] index failed.", e);
         }
@@ -151,6 +155,49 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
             })
             .collect(Collectors.toList());
       }
+    }
+  }
+  
+  class BulkIndexTaskAsync extends RecursiveTask<Void> {
+    private List<?> data;
+    private String indexName;
+    
+    public BulkIndexTaskAsync(List<?> data, String indexName) {
+      this.data = data;
+      this.indexName = indexName;
+    }
+    
+    @Override
+    protected Void compute() {
+      int size = data.size();
+      if (size < MAX_BULK_SIZE) {
+        BulkRequest bulkRequest = buildBulkRequest(this.data, this.indexName);
+        BulkResponse bulkResponse = null;
+        
+        // Async index
+        restHighLevelClient
+            .bulkAsync(bulkRequest, RequestOptions.DEFAULT, new ActionListener<BulkResponse>() {
+              @Override
+              public void onResponse(BulkResponse bulkItemResponses) {
+                log.info("[bulkIndex] bulk index success took {} ms", bulkItemResponses.getIngestTookInMillis());
+              }
+              
+              @Override
+              public void onFailure(Exception e) {
+                log.error("[bulkIndex] bulk index failed.", e);
+              }
+            });
+      } else {
+        BulkIndexTask bulkIndexTask1 = new BulkIndexTask(data.subList(0, size / 2), indexName);
+        BulkIndexTask bulkIndexTask2 = new BulkIndexTask(data.subList(size / 2, size), indexName);
+        
+        bulkIndexTask1.fork();
+        bulkIndexTask2.fork();
+        
+        bulkIndexTask1.join();
+        bulkIndexTask2.join();
+      }
+      return null;
     }
   }
 }
