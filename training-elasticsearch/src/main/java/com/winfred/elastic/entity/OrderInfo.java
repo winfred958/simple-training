@@ -25,7 +25,7 @@ public class OrderInfo {
   private Integer payStatus;
   private Integer shippingStatus;
   
-  private String orderAmount;
+  private Double orderAmount;
   
   private String country;
   private String province;

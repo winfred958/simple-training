@@ -1,0 +1,131 @@
+{
+  "mappings": {
+    "properties": {
+      "orderId": {
+        "type": "keyword"
+      },
+      "orderTimestamp": {
+        "type": "date"
+      },
+      "transactionId": {
+        "type": "keyword"
+      },
+      "transactionTimestamp": {
+        "type": "date"
+      },
+      "userId": {
+        "type": "keyword"
+      },
+      "orderStatus": {
+        "type": "short"
+      },
+      "payStatus": {
+        "type": "short"
+      },
+      "shippingStatus": {
+        "type": "short"
+      },
+      "orderAmount": {
+        "type": "double"
+      },
+      "country": {
+        "type": "keyword"
+      },
+      "province": {
+        "type": "keyword"
+      },
+      "city": {
+        "type": "keyword"
+      },
+      "address": {
+        "type": "text"
+      },
+      "address2": {
+        "type": "text"
+      },
+      "ip": {
+        "type": "keyword"
+      },
+      "sourceFlag": {
+        "type": "keyword"
+      },
+      "version": {
+        "type": "keyword"
+      },
+      "orderShippingLocation": {
+        "type": "geo_point"
+      },
+      "orderIpLocation": {
+        "type": "geo_point"
+      },
+      "lastUpdateTimestamp": {
+        "type": "date"
+      },
+      "orderItems": {
+        "type": "nested",
+        "properties": {
+          "sku": {
+            "type": "keyword"
+          },
+          "spu": {
+            "type": "keyword"
+          },
+          "itemDescribe": {
+            "type": "text"
+          },
+          "itemImage": {
+            "type": "text",
+            "index": false
+          },
+          "isGift": {
+            "type": "boolean"
+          },
+          "salePrice": {
+            "type": "double"
+          },
+          "originalPrice": {
+            "type": "double"
+          },
+          "disbursements": {
+            "type": "double"
+          },
+          "quantity": {
+            "type": "integer"
+          },
+          "brandInfo": {
+            "properties": {
+              "brandId": {
+                "type": "integer"
+              },
+              "brandName": {
+                "type": "keyword"
+              }
+            }
+          },
+          "categoryInfo": {
+            "properties": {
+              "categoryId": {
+                "type": "integer"
+              },
+              "categoryName": {
+                "type": "keyword"
+              }
+            }
+          },
+          "shopInfo": {
+            "properties": {
+              "shopId": {
+                "type": "integer"
+              },
+              "shopName": {
+                "type": "keyword"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "settings": {
+  }
+}
