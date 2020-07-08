@@ -35,8 +35,9 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
   
   private int MAX_BULK_SIZE = 1500;
   
+  
   @Autowired
-  @Qualifier("getElasticClient")
+  @Qualifier(value = "restHighLevelClient")
   private RestHighLevelClient restHighLevelClient;
   
   /**
