@@ -48,7 +48,7 @@ public class ElasticsearchConfig implements FactoryBean<RestHighLevelClient>, In
         new HttpHost("es-8gp5f0ej.public.tencentelasticsearch.com", 9200, "https")
     );
     
-    List<BasicHeader> headers = new ArrayList<>();
+    List<BasicHeader> headers = new ArrayList<>(16);
     headers.add(new BasicHeader("Authorization", "Basic ZWxhc3RpYzptYyFWYVlAOW5nI2tJXlEq"));
     
     restClientBuilder

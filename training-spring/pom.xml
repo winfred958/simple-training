@@ -113,7 +113,7 @@
       <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
-
+    
     <!-- 读取配置文件 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -128,16 +128,25 @@
       <version>${spring-boot.version}</version>
     </dependency>
     
+    <!-- zookeeper -->
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
       <artifactId>zookeeper</artifactId>
-      <version>3.6.1</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.kafka</groupId>
-      <artifactId>kafka-clients</artifactId>
-      <version>2.5.0</version>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-framework</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-recipes</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.curator</groupId>
+      <artifactId>curator-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  
   </dependencies>
   
   <build>

@@ -90,6 +90,10 @@
     <!-- netty -->
     <netty.version>4.1.46.Final</netty.version>
     
+    <!--  zookeeper  -->
+    <zookeeper.versio>3.6.1</zookeeper.versio>
+    <curator.version>5.1.0</curator.version>
+    
     <!-- plugins -->
     <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
     <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
@@ -118,7 +122,7 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
       </dependency>
-  
+      
       <!-- 去掉默认log -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -131,7 +135,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-  
+      
       <!-- web容器配置, 去掉默认tomcat, 加入 undertom, 并替换原始依赖 spring-web -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -239,7 +243,6 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
-        <scope>test</scope>
       </dependency>
       
       <dependency>
@@ -254,10 +257,27 @@
         <version>2.23.2</version>
       </dependency>
       
+      <!-- zookeeper -->
       <dependency>
         <groupId>org.apache.zookeeper</groupId>
         <artifactId>zookeeper</artifactId>
-        <version>3.6.1</version>
+        <version>${zookeeper.versio}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-framework</artifactId>
+        <version>${curator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-recipes</artifactId>
+        <version>${curator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.curator</groupId>
+        <artifactId>curator-test</artifactId>
+        <version>${curator.version}</version>
+        <scope>test</scope>
       </dependency>
       
       <!-- web -->
