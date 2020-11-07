@@ -18,14 +18,14 @@
     <module>training-elasticsearch</module>
     <module>training-webflux</module>
   </modules>
-  
+
   <repositories>
     <!--        <repository>-->
     <!--            <id>neo4j-snapshot-repository</id>-->
     <!--            <name>Neo4j Maven 2 snapshot repository</name>-->
     <!--            <url>http://m2.neo4j.org/content/repositories/snapshots</url>-->
     <!--        </repository>-->
-    
+
     <repository>
       <id>central</id>
       <name>aliyun maven</name>
@@ -41,69 +41,69 @@
       </snapshots>
     </repository>
   </repositories>
-  
-  
+
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    
+
     <java.version>1.8</java.version>
     <junit-jupiter.version>5.6.2</junit-jupiter.version>
     <junit.version>4.13</junit.version>
-    
+
     <lombok.version>1.18.4</lombok.version>
     <alibaba.fastjson.version>1.2.68</alibaba.fastjson.version>
     <jedis.client.version>2.8.2</jedis.client.version>
     <swagger.version>2.8.0</swagger.version>
-    
+
     <!-- commons -->
     <commons-lang3.version>3.7</commons-lang3.version>
-    
+
     <!-- web -->
     <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
-    
+
     <!-- logging -->
     <slf4j.version>1.7.30</slf4j.version>
     <log4j.version>2.11.2</log4j.version>
-    
+
     <!-- spring -->
     <spring.version>5.2.7.RELEASE</spring.version>
     <jackson-databind.version>2.9.4</jackson-databind.version>
-    
+
     <!-- Elasticsearch -->
     <elasticsearch.client.version>7.8.0</elasticsearch.client.version>
-    
+
     <!-- guice -->
     <guice.version>4.2.2</guice.version>
     <cglib.version>3.2.9</cglib.version>
-    
+
     <!-- spring boot -->
     <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
-    
+
     <!-- DB -->
     <mysql.connection.version>5.1.44</mysql.connection.version>
     <alibaba.druid.version>1.1.6</alibaba.druid.version>
-    
+
     <mybatis.version>3.4.6</mybatis.version>
     <mybatis-spring.version>2.0.4</mybatis-spring.version>
-    
+
     <!-- netty -->
-    <netty.version>4.1.46.Final</netty.version>
-    
+    <netty.version>4.1.53.Final</netty.version>
+
     <!--  zookeeper  -->
     <zookeeper.versio>3.6.1</zookeeper.versio>
     <curator.version>5.1.0</curator.version>
-    
+
     <!-- plugins -->
     <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
     <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
     <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
-    
+
     <!-- others -->
     <maxmind.geoip2.version>2.9.0</maxmind.geoip2.version>
     <httpclient.version>4.5.3</httpclient.version>
   </properties>
-  
+
   <dependencies>
     <!-- 引入 lombok -->
     <dependency>
@@ -113,7 +113,7 @@
       <optional>true</optional>
     </dependency>
   </dependencies>
-  
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -122,7 +122,7 @@
         <version>${spring-boot.version}</version>
         <type>pom</type>
       </dependency>
-      
+
       <!-- 去掉默认log -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -135,7 +135,7 @@
           </exclusion>
         </exclusions>
       </dependency>
-      
+
       <!-- web容器配置, 去掉默认tomcat, 加入 undertom, 并替换原始依赖 spring-web -->
       <dependency>
         <groupId>org.springframework.boot</groupId>
@@ -219,20 +219,20 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-thymeleaf</artifactId>
       </dependency>
-      
+
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>3.8.1</version>
       </dependency>
-      
+
       <!-- json -->
       <dependency>
         <groupId>com.alibaba</groupId>
         <artifactId>fastjson</artifactId>
         <version>${alibaba.fastjson.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter-api</artifactId>
@@ -244,19 +244,19 @@
         <artifactId>junit</artifactId>
         <version>${junit.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.elasticsearch.client</groupId>
         <artifactId>elasticsearch-rest-high-level-client</artifactId>
         <version>${elasticsearch.client.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-etcd</artifactId>
         <version>2.23.2</version>
       </dependency>
-      
+
       <!-- zookeeper -->
       <dependency>
         <groupId>org.apache.zookeeper</groupId>
@@ -279,27 +279,27 @@
         <version>${curator.version}</version>
         <scope>test</scope>
       </dependency>
-      
+
       <!-- web -->
       <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
         <version>${javax.servlet-api.version}</version>
       </dependency>
-      
+
       <!-- neo4j -->
       <dependency>
         <groupId>org.neo4j</groupId>
         <artifactId>neo4j</artifactId>
         <version>3.5.6</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.neo4j</groupId>
         <artifactId>neo4j-ogm-core</artifactId>
         <version>3.1.11</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.neo4j</groupId>
         <artifactId>neo4j-ogm-bolt-driver</artifactId>
@@ -316,14 +316,14 @@
         <artifactId>neo4j-java-driver</artifactId>
         <version>1.7.5</version>
       </dependency>
-      
+
       <!-- https://mvnrepository.com/artifact/cglib/cglib -->
       <dependency>
         <groupId>cglib</groupId>
         <artifactId>cglib</artifactId>
         <version>${cglib.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
@@ -339,14 +339,14 @@
         <artifactId>slf4j-log4j12</artifactId>
         <version>${slf4j.version}</version>
       </dependency>
-      
+
       <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
         <version>${spring.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
@@ -357,13 +357,13 @@
         <artifactId>mybatis-spring</artifactId>
         <version>${mybatis-spring.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>io.netty</groupId>
         <artifactId>netty-all</artifactId>
         <version>${netty.version}</version>
       </dependency>
-      
+
       <dependency>
         <groupId>com.google.inject</groupId>
         <artifactId>guice</artifactId>
@@ -371,7 +371,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <build>
     <resources>
       <resource>
@@ -407,7 +407,7 @@
           <outputDirectory>${project.build.outputDirectory}</outputDirectory>
         </configuration>
       </plugin>
-      
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
