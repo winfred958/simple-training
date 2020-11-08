@@ -1,5 +1,6 @@
 package com.winfred.training.concurrent.control;
 
+import com.alibaba.fastjson.JSON;
 import com.winfred.training.base.ForkJoinUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,11 +29,11 @@ import java.util.function.Supplier;
 
 @Slf4j
 public class CompletableFutureAnd {
-  
-  
+
+
   @Test
   public void thenCombine() {
-    
+
     CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A", 1000L);
     CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("B", 3000L);
     CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("C", 2000L);
@@ -66,17 +67,17 @@ public class CompletableFutureAnd {
                 }, ForkJoinUtils.getInstance());
               }
             }, ForkJoinUtils.getInstance());
-    
+
     try {
       AllResponse response = allCombine.get();
-      response.getResponseA();
+      log.info("result = {}", JSON.toJSONString(response));
     } catch (InterruptedException e) {
       e.printStackTrace();
     } catch (ExecutionException e) {
       e.printStackTrace();
     }
   }
-  
+
   private CompletableFuture<SimpleResponse> getCompletableFuture(String apiName, Long took) {
     return CompletableFuture
             .supplyAsync(new Supplier<SimpleResponse>() {
@@ -99,18 +100,18 @@ public class CompletableFutureAnd {
               }
             }, ForkJoinUtils.getInstance());
   }
-  
-  
+
+
   public
-  
-  
+
+
   @Data
   @AllArgsConstructor
   static class SimpleResponse {
     private String context;
     private Integer code;
   }
-  
+
   @Data
   static class AllResponse {
     private SimpleResponse responseA;
