@@ -61,6 +61,8 @@ public class MyHttpHandler extends ChannelInboundHandlerAdapter {
     FullHttpResponse response = null;
     try {
       String value = "hello, this a netty http server";
+      log.info("request url: {}", ctx.channel().remoteAddress());
+
       response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(value.getBytes("UTF-8")));
       response.headers().set("Content-Type", "application/json");
       response.headers().setInt("Content-Length", response.content().readableBytes());
