@@ -1,10 +1,7 @@
-package com.winfred.training.aop;
+package com.winfred.training.bytebuddy;
 
-import com.winfred.training.bytebuddy.aop.MyLoggerAdvisor;
-import com.winfred.training.bytebuddy.aop.TestService;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.asm.Advice;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.matcher.ElementMatchers;
@@ -19,10 +16,6 @@ import java.io.IOException;
 @Slf4j
 public class ByteBuddyTest {
 
-    private ClassLoader getCurrentClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
-    }
-
     @Test
     public void simpleTest() {
         final DynamicType.Unloaded<Object> dynamicType = new ByteBuddy()
@@ -30,7 +23,6 @@ public class ByteBuddyTest {
             .method(ElementMatchers.isToString())
             .intercept(FixedValue.value("Hello Word!"))
             .make();
-
         try {
             dynamicType.toJar(new File("/tmp.jar"));
         } catch (IOException e) {
@@ -39,7 +31,7 @@ public class ByteBuddyTest {
 
         try {
             final Object obj = dynamicType
-                .load(getCurrentClassLoader())
+                .load(this.getClass().getClassLoader())
                 .getLoaded()
                 .newInstance();
             log.info(obj.toString());
@@ -48,22 +40,5 @@ public class ByteBuddyTest {
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    @Test
-    public void defineMethodTest() throws IllegalAccessException, InstantiationException {
-        final TestService testService = new ByteBuddy()
-            .subclass(TestService.class)
-            .method(ElementMatchers.any())
-            .intercept(Advice.to(MyLoggerAdvisor.class))
-            .make()
-            .load(getCurrentClassLoader())
-            .getLoaded()
-            .newInstance();
-
-        testService.setName("xxx");
-        testService.getUuid();
-        final String name = testService.getName();
-        log.info(name);
     }
 }

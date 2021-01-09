@@ -4,20 +4,23 @@ import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.asm.Advice;
 import net.bytebuddy.matcher.ElementMatchers;
+import org.junit.Test;
 
 /**
- * Byte-Buddy 实现 AOP (Aspect-Oriented Programming)
- *
  * @author winfred958
  */
 @Slf4j
-public class TestClient {
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException {
+public class ByteBuddyAopTest {
+
+    private ClassLoader getCurrentClassLoader() {
+        return Thread.currentThread().getContextClassLoader();
+    }
+
+    @Test
+    public void defineMethodTest() throws IllegalAccessException, InstantiationException {
         final TestService testService = new ByteBuddy()
             .subclass(TestService.class)
-            // 匹配指定注解的方法
-            .method(ElementMatchers.isAnnotatedWith(MyLogger.class))
-            // 拦截方法实现类
+            .method(ElementMatchers.any())
             .intercept(Advice.to(MyLoggerAdvisor.class))
             .make()
             .load(getCurrentClassLoader())
@@ -29,9 +32,4 @@ public class TestClient {
         final String name = testService.getName();
         log.info(name);
     }
-
-    private static ClassLoader getCurrentClassLoader() {
-        return Thread.currentThread().getContextClassLoader();
-    }
-
 }
