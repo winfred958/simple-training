@@ -1,2 +1,11 @@
-# simple-training
-java 学习记录
+# 目录
+
+- ## Java 基础
+    - ### 字节码
+    - ### JVM
+    - ### JUC & 并发
+    - ### I/O
+- ## OOP
+    - ### 设计原则
+    - ### 设计模式
+    - ### OOA -> OOD -> OOP

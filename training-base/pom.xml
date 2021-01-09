@@ -8,31 +8,36 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  
+
   <artifactId>training-base</artifactId>
-  
+
   <dependencies>
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
     </dependency>
-    
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-log4j2</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
-  
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
-    
-    <!--        <dependency>-->
-    <!--            <groupId>org.apache.camel</groupId>-->
-    <!--            <artifactId>camel-etcd</artifactId>-->
-    <!--        </dependency>-->
-  
+
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>net.bytebuddy</groupId>
+      <artifactId>byte-buddy-agent</artifactId>
+    </dependency>
+
   </dependencies>
 
 </project>
