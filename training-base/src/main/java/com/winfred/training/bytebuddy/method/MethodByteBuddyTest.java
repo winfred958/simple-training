@@ -40,7 +40,7 @@ public class MethodByteBuddyTest {
             .getLoaded()
             .newInstance();
         final String uuid1 = testService.getUuid();
-        final Object key = ReflectUtils.invoke(testService, "getKey");
+        final Object key = ReflectUtils.invoke(testService, methodName);
         log.info("{}", JSON.toJSONString(testService));
     }
 
