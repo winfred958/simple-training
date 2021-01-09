@@ -1,4 +1,4 @@
-package com.winfred.training.condition;
+package com.winfred.training.juc.condition;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,13 +9,13 @@ import java.util.concurrent.locks.Lock;
 public class ConditionWait implements Runnable {
   private Lock lock;
   private Condition condition;
-  
-  
+
+
   public ConditionWait(Lock lock, Condition condition) {
     this.lock = lock;
     this.condition = condition;
   }
-  
+
   @Override
   public void run() {
     lock.lock();
@@ -29,6 +29,6 @@ public class ConditionWait implements Runnable {
     } finally {
       lock.unlock();
     }
-    
+
   }
 }

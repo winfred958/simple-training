@@ -1,4 +1,4 @@
-package com.winfred.training.concurrent.pool;
+package com.winfred.training.juc.concurrent.pool;
 
 import lombok.extern.slf4j.Slf4j;
 

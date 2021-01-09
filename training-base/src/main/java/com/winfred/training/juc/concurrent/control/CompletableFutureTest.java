@@ -1,4 +1,4 @@
-package com.winfred.training.concurrent.control;
+package com.winfred.training.juc.concurrent.control;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.function.Function;
 
 public class CompletableFutureTest {
-  
+
   @Test
   public void allOf() {
     CompletableFuture<String> cf1 = CompletableFuture.supplyAsync(() -> {
@@ -19,7 +19,7 @@ public class CompletableFutureTest {
       System.out.println(1);
       return "1";
     });
-    
+
     CompletableFuture<String> cf2 = CompletableFuture.supplyAsync(() -> {
       try {
         Thread.sleep(500L);
@@ -29,7 +29,7 @@ public class CompletableFutureTest {
       System.out.println(2);
       return "2";
     });
-    
+
     CompletableFuture<String> cf3 = CompletableFuture.supplyAsync(() -> {
       try {
         Thread.sleep(2000L);
@@ -39,19 +39,19 @@ public class CompletableFutureTest {
       System.out.println(3);
       return "3";
     });
-    
-    
+
+
     CompletableFuture<String> cf4 = CompletableFuture.supplyAsync(() -> {
       System.out.println(4);
       return "4";
     });
-    
-    
+
+
     CompletableFuture<String> cf5 = CompletableFuture.supplyAsync(() -> {
       System.out.println(5);
       return "5";
     });
-    
+
     CompletableFuture<Void> allOf = CompletableFuture
             .allOf(
                     cf1,
@@ -60,12 +60,12 @@ public class CompletableFutureTest {
                     cf4,
                     cf5
             );
-    
-    
+
+
     System.out.println("================xxx=1");
     allOf.join();
     System.out.println("================xxx=2");
-    
+
     allOf
             .thenApplyAsync(new Function<Void, Object>() {
               @Override
@@ -82,6 +82,6 @@ public class CompletableFutureTest {
                 return null;
               }
             });
-    
+
   }
 }

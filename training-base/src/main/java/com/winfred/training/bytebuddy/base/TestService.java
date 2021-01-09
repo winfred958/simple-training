@@ -1,5 +1,6 @@
-package com.winfred.training.bytebuddy.aop;
+package com.winfred.training.bytebuddy.base;
 
+import com.winfred.training.bytebuddy.aop.MyLogger;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,6 +1,6 @@
-package com.winfred.training.condition;
+package com.winfred.training.juc.condition;
 
-import com.winfred.training.concurrent.pool.ThreadPoolUtil;
+import com.winfred.training.juc.concurrent.pool.ThreadPoolUtil;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;

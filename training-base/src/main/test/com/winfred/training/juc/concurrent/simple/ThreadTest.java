@@ -1,4 +1,4 @@
-package com.winfred.training.concurrent.simple;
+package com.winfred.training.juc.concurrent.simple;
 
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

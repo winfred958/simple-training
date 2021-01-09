@@ -1,6 +1,6 @@
-package com.winfred.training.lock;
+package com.winfred.training.juc.lock;
 
-import com.winfred.training.concurrent.pool.ThreadPoolUtil;
+import com.winfred.training.juc.concurrent.pool.ThreadPoolUtil;
 
 import java.util.concurrent.locks.StampedLock;
 
