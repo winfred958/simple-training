@@ -15,6 +15,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 /**
+ * 字节码增强
+ * 新增 Field: key
+ * 新增 Method: getKey
+ *
  * @author winfred958
  */
 @Slf4j
@@ -37,7 +41,7 @@ public class MethodByteBuddyTest {
             .newInstance();
         final String uuid1 = testService.getUuid();
         final Object key = ReflectUtils.invoke(testService, "getKey");
-        log.info("{}", JSON.toJSONString(key));
+        log.info("{}", JSON.toJSONString(testService));
     }
 
     public static class KeyDelegation {
@@ -58,6 +62,7 @@ public class MethodByteBuddyTest {
         @RuntimeType
         public static String getKey(@This Object obj, @Origin Method method) throws CloneNotSupportedException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException {
             final Object uuid = ReflectUtils.invoke(obj, "getUuid");
+            ReflectUtils.setFieldValue(obj, fieldName, uuid);
             return String.valueOf(uuid);
         }
     }

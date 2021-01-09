@@ -1,7 +1,8 @@
 # Byte-Buddy
 
-## [新增 Field & Method](../../training-base/src/main/java/com/windred/training/bytebuddy/method/MethodByteBuddyTest.java)
+## 新增 Field & Method
 
+- [示例代码](https://github.com/winfred958/simple-training/blob/master/training-base/src/main/java/com/winfred/training/bytebuddy/method/MethodByteBuddyTest.java)
 - MethodDelegation 的方式实现拦截器, 委托方法常用注解
 
 | 注解 | 作用 |
@@ -15,4 +16,6 @@
 | @Super | 当前被拦截的、动态生成的那个对象的父类对象 |
 | @FieldValue | 注入被拦截对象的一个字段的值 |
 
-## [Byte-Buddy 实现AOP]()
+## Byte-Buddy 实现AOP
+
+- [示例代码](https://github.com/winfred958/simple-training/blob/master/training-base/src/main/java/com/winfred/training/bytebuddy/aop/TestClient.java)
