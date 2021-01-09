@@ -1,4 +1,4 @@
-package com.winfred.training.base;
+package com.winfred.training.concurrent.pool;
 
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;

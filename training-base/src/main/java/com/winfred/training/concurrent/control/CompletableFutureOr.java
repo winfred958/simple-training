@@ -1,6 +1,6 @@
 package com.winfred.training.concurrent.control;
 
-import com.winfred.training.base.ForkJoinUtils;
+import com.winfred.training.concurrent.pool.ForkJoinUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -25,14 +25,14 @@ import java.util.function.Supplier;
  */
 @Slf4j
 public class CompletableFutureOr {
-  
+
   @Test
   public void applyToEitherAsync() {
-    
+
     CompletableFuture<SimpleResponse> completableFutureA = getCompletableFuture("A-1", 3000L);
     CompletableFuture<SimpleResponse> completableFutureB = getCompletableFuture("A-2", 1000L);
     CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("A-3", 2000L);
-    
+
     CompletableFuture<SimpleResponse> completableFuture = completableFutureA
             .applyToEitherAsync(completableFutureB, new Function<SimpleResponse, SimpleResponse>() {
               @Override
@@ -46,7 +46,7 @@ public class CompletableFutureOr {
                 return simpleResponse;
               }
             });
-    
+
     try {
       SimpleResponse simpleResponse = completableFuture.get();
       simpleResponse.getCode();
@@ -55,9 +55,9 @@ public class CompletableFutureOr {
     } catch (ExecutionException e) {
       e.printStackTrace();
     }
-    
+
   }
-  
+
   private CompletableFuture<SimpleResponse> getCompletableFuture(String apiName, Long took) {
     return CompletableFuture
             .supplyAsync(new Supplier<SimpleResponse>() {
@@ -80,16 +80,16 @@ public class CompletableFutureOr {
               }
             }, ForkJoinUtils.getInstance());
   }
-  
-  
+
+
   public
-  
-  
+
+
   @Data
   @AllArgsConstructor
   static class SimpleResponse {
     private String context;
     private Integer code;
   }
-  
+
 }

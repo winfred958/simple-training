@@ -23,6 +23,7 @@ public class ByteBuddyTest {
             .method(ElementMatchers.isToString())
             .intercept(FixedValue.value("Hello Word!"))
             .make();
+
         try {
             dynamicType.toJar(new File("/tmp.jar"));
         } catch (IOException e) {

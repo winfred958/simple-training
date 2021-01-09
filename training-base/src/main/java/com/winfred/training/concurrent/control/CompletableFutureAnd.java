@@ -1,7 +1,7 @@
 package com.winfred.training.concurrent.control;
 
 import com.alibaba.fastjson.JSON;
-import com.winfred.training.base.ForkJoinUtils;
+import com.winfred.training.concurrent.pool.ForkJoinUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

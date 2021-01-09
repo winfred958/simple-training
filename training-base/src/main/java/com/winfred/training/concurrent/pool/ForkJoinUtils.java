@@ -1,4 +1,4 @@
-package com.winfred.training.base;
+package com.winfred.training.concurrent.pool;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -12,13 +12,13 @@ import java.util.concurrent.ForkJoinPool;
  */
 @Slf4j
 public class ForkJoinUtils {
-  
+
   private static ForkJoinPool forkJoinPool = Single.forkJoin;
-  
+
   private static class Single {
-    
+
     private static int maxWorks = 2048;
-    
+
     private static ForkJoinPool forkJoin = new ForkJoinPool(maxWorks - 1,
             ForkJoinPool.defaultForkJoinWorkerThreadFactory,
             new Thread.UncaughtExceptionHandler() {
@@ -39,7 +39,7 @@ public class ForkJoinUtils {
 //                TimeUnit.SECONDS
     );
   }
-  
+
   public static ForkJoinPool getInstance() {
     return forkJoinPool;
   }

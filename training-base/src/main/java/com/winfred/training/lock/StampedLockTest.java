@@ -1,6 +1,6 @@
 package com.winfred.training.lock;
 
-import com.winfred.training.base.ThreadPoolUtil;
+import com.winfred.training.concurrent.pool.ThreadPoolUtil;
 
 import java.util.concurrent.locks.StampedLock;
 
@@ -8,15 +8,15 @@ import java.util.concurrent.locks.StampedLock;
  * @author kevin
  */
 public class StampedLockTest {
-  
+
   private StampedLock stampedLock = new StampedLock();
-  
+
   private CacheTest cache = null;
-  
-  
+
+
   public static void main(String[] args) {
     StampedLockTest stampedLockTest = new StampedLockTest();
-    
+
     int max = 100;
 
 //        for (int i = 0; i < max; i++) {
@@ -27,8 +27,8 @@ public class StampedLockTest {
 //                }
 //            });
 //        }
-    
-    
+
+
     for (int i = 0; i < max; i++) {
       ThreadPoolUtil.doExecutor(() -> {
         CacheTest test = stampedLockTest.getOrCreateCacheWithLockV1();
@@ -47,18 +47,18 @@ public class StampedLockTest {
 //                }
 //            });
 //        }
-    
+
     ThreadPoolUtil.destroy();
-    
+
   }
-  
-  
+
+
   public CacheTest getCache() {
     return cache;
   }
-  
+
   public CacheTest createCache() {
-    
+
     CacheTest cacheTest = new CacheTest();
     try {
       System.out.println("------------> 开始创建缓存");
@@ -76,7 +76,7 @@ public class StampedLockTest {
     cache = cacheTest;
     return cache;
   }
-  
+
   public CacheTest getOrCreateCache() {
     CacheTest cache = getCache();
     if (cache != null) {
@@ -84,7 +84,7 @@ public class StampedLockTest {
     }
     return createCache();
   }
-  
+
   public CacheTest getOrCreateCacheWithLockV1() {
     // 乐观读
     long lockKey = stampedLock.tryOptimisticRead();
@@ -121,11 +121,11 @@ public class StampedLockTest {
     }
     return cache;
   }
-  
+
   public CacheTest getOrCreateCacheWithLockV2() {
-    
+
     CacheTest cache;
-    
+
     cache = getCache();
     if (cache != null) {
       return cache;
@@ -145,32 +145,32 @@ public class StampedLockTest {
     }
     return cache;
   }
-  
+
   class CacheTest {
     private String key;
     private String field;
     private String value;
-    
+
     public String getKey() {
       return key;
     }
-    
+
     public void setKey(String key) {
       this.key = key;
     }
-    
+
     public String getField() {
       return field;
     }
-    
+
     public void setField(String field) {
       this.field = field;
     }
-    
+
     public String getValue() {
       return value;
     }
-    
+
     public void setValue(String value) {
       this.value = value;
     }

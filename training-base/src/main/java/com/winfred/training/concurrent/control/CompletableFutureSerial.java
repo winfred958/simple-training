@@ -1,6 +1,6 @@
 package com.winfred.training.concurrent.control;
 
-import com.winfred.training.base.ForkJoinUtils;
+import com.winfred.training.concurrent.pool.ForkJoinUtils;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -14,23 +14,23 @@ import java.util.function.Supplier;
 
 @Slf4j
 public class CompletableFutureSerial {
-  
+
   String actionOne = "穿衣服";
   String actionTwo = "穿袜子";
   String actionThree = "穿鞋子";
-  
-  
+
+
   /**
    * 串行, 相当于 map
    * CompletableFuture<T> 转化为 CompletableFuture<U>
    */
   @Test
   public void thenApply() {
-    
+
     CompletableFuture<Message> completableFuture = getApplyCompletableFuture(actionOne, 2000L);
     Object join = completableFuture.join();
   }
-  
+
   static class PostRecode<T, R> implements Function<T, R> {
     @Override
     public R apply(T str) {
@@ -39,14 +39,14 @@ public class CompletableFutureSerial {
       return (R) new Message(value, true);
     }
   }
-  
+
   /**
    * then compose 连接两个 CompletableFuture, 构成串行依赖
    */
   @Test
   public void thenComposeAsync() {
     CompletableFuture<Message> completableFutureFirst = getApplyCompletableFuture(actionOne, 2000L);
-    
+
     CompletableFuture<Message> messageCompletableFuture = completableFutureFirst
             .thenComposeAsync(new Function<Message, CompletionStage<Message>>() {
               @Override
@@ -60,7 +60,7 @@ public class CompletableFutureSerial {
                 return getApplyCompletableFuture(actionThree, 1000L);
               }
             });
-    
+
     try {
       Message message = messageCompletableFuture.get();
     } catch (InterruptedException e) {
@@ -69,20 +69,20 @@ public class CompletableFutureSerial {
       e.printStackTrace();
     }
   }
-  
+
   @Data
   @AllArgsConstructor
   static class Message {
     private String action;
     private Boolean isSuccess;
   }
-  
+
   private CompletableFuture<Message> getApplyCompletableFuture(String actionName, Long took) {
     CompletableFuture<Message> completableFuture = CompletableFuture
             .supplyAsync(new Supplier<String>() {
               @Override
               public String get() {
-                
+
                 log.info("{} 开始 ...", actionName);
                 try {
                   Thread.sleep(took);
@@ -92,7 +92,7 @@ public class CompletableFutureSerial {
                 return actionName;
               }
             }, ForkJoinUtils.getInstance())
-            
+
             .thenApplyAsync(new PostRecode<String, Message>(), ForkJoinUtils.getInstance())
             .exceptionally(new Function<Throwable, Message>() {
               @Override
@@ -103,6 +103,6 @@ public class CompletableFutureSerial {
             });
     return completableFuture;
   }
-  
-  
+
+
 }
