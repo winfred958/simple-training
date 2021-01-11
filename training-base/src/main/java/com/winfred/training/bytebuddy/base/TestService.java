@@ -9,6 +9,7 @@ import java.util.UUID;
 /**
  * @author winfred958
  */
+@TheKey(key = "uuid")
 public class TestService {
 
     @Setter
@@ -19,7 +20,9 @@ public class TestService {
 
     @MyLogger
     public String getUuid() {
-        uuid = UUID.randomUUID().toString();
+        if (null == uuid) {
+            uuid = UUID.randomUUID().toString();
+        }
         return uuid;
     }
 
