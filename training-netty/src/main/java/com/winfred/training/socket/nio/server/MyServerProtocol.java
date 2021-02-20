@@ -5,9 +5,9 @@ import java.nio.channels.SelectionKey;
 
 
 public interface MyServerProtocol {
-  
+
   void handleConnect(SelectionKey key);
-  
+
   /**
    * 处理客户端连接
    *
@@ -15,8 +15,8 @@ public interface MyServerProtocol {
    * @throws IOException
    */
   void handleAccept(SelectionKey key);
-  
+
   void handleRead(SelectionKey key);
-  
+
   void handleWrite(SelectionKey key, String message) throws IOException;
 }

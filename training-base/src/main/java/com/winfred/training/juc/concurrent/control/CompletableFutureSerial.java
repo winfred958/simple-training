@@ -48,18 +48,18 @@ public class CompletableFutureSerial {
     CompletableFuture<Message> completableFutureFirst = getApplyCompletableFuture(actionOne, 2000L);
 
     CompletableFuture<Message> messageCompletableFuture = completableFutureFirst
-            .thenComposeAsync(new Function<Message, CompletionStage<Message>>() {
-              @Override
-              public CompletionStage<Message> apply(Message message) {
-                return getApplyCompletableFuture(actionTwo, 3000L);
-              }
-            }, ForkJoinUtils.getInstance())
-            .thenComposeAsync(new Function<Message, CompletionStage<Message>>() {
-              @Override
-              public CompletionStage<Message> apply(Message message) {
-                return getApplyCompletableFuture(actionThree, 1000L);
-              }
-            });
+        .thenComposeAsync(new Function<Message, CompletionStage<Message>>() {
+          @Override
+          public CompletionStage<Message> apply(Message message) {
+            return getApplyCompletableFuture(actionTwo, 3000L);
+          }
+        }, ForkJoinUtils.getInstance())
+        .thenComposeAsync(new Function<Message, CompletionStage<Message>>() {
+          @Override
+          public CompletionStage<Message> apply(Message message) {
+            return getApplyCompletableFuture(actionThree, 1000L);
+          }
+        });
 
     try {
       Message message = messageCompletableFuture.get();
@@ -79,28 +79,28 @@ public class CompletableFutureSerial {
 
   private CompletableFuture<Message> getApplyCompletableFuture(String actionName, Long took) {
     CompletableFuture<Message> completableFuture = CompletableFuture
-            .supplyAsync(new Supplier<String>() {
-              @Override
-              public String get() {
+        .supplyAsync(new Supplier<String>() {
+          @Override
+          public String get() {
 
-                log.info("{} 开始 ...", actionName);
-                try {
-                  Thread.sleep(took);
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                }
-                return actionName;
-              }
-            }, ForkJoinUtils.getInstance())
+            log.info("{} 开始 ...", actionName);
+            try {
+              Thread.sleep(took);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            return actionName;
+          }
+        }, ForkJoinUtils.getInstance())
 
-            .thenApplyAsync(new PostRecode<String, Message>(), ForkJoinUtils.getInstance())
-            .exceptionally(new Function<Throwable, Message>() {
-              @Override
-              public Message apply(Throwable throwable) {
-                log.error("", throwable);
-                return new Message("", false);
-              }
-            });
+        .thenApplyAsync(new PostRecode<String, Message>(), ForkJoinUtils.getInstance())
+        .exceptionally(new Function<Throwable, Message>() {
+          @Override
+          public Message apply(Throwable throwable) {
+            log.error("", throwable);
+            return new Message("", false);
+          }
+        });
     return completableFuture;
   }
 

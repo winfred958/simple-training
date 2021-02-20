@@ -74,8 +74,8 @@ public class MyHttpHandler extends ChannelInboundHandlerAdapter {
       if (fullRequest != null) {
         if (!HttpUtil.isKeepAlive(fullRequest)) {
           ctx
-                  .write(response)
-                  .addListener(ChannelFutureListener.CLOSE);
+              .write(response)
+              .addListener(ChannelFutureListener.CLOSE);
         } else {
           response.headers().set(CONNECTION, KEEP_ALIVE);
           ctx.write(response);

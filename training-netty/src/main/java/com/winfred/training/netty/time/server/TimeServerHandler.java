@@ -8,8 +8,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class TimeServerHandler extends ChannelInboundHandlerAdapter {
-  
-  
+
+
   /**
    * 建立连接时
    *
@@ -24,7 +24,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
      */
     final ByteBuf byteBuf = ctx.alloc().buffer(4);
     byteBuf.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
-    
+
     /**
      * 写入并刷新
      */
@@ -35,16 +35,16 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
      * 可以用预定义侦听器代替: addListener(ChannelFutureListener.CLOSE)
      */
     channelFuture
-            .addListener(new ChannelFutureListener() {
-              
-              @Override
-              public void operationComplete(ChannelFuture future) {
-                assert channelFuture == future;
-                ctx.close();
-              }
-            });
+        .addListener(new ChannelFutureListener() {
+
+          @Override
+          public void operationComplete(ChannelFuture future) {
+            assert channelFuture == future;
+            ctx.close();
+          }
+        });
   }
-  
+
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     super.channelRead(ctx, msg);

@@ -12,13 +12,13 @@ public class SearchInsert {
   public static void main(String[] args) {
     int[] nums = {1, 3, 5, 6};
     int target = 7;
-    
+
     Solution solution = new Solution();
     int index = solution.searchInsert(nums, target);
-    
+
     System.out.println(index);
   }
-  
+
   static class Solution {
     public int searchInsert(int[] nums, int target) {
       int low = 0;
@@ -37,7 +37,7 @@ public class SearchInsert {
           break;
         }
       }
-      
+
       // 如果 targetIndex == -1, insertIndex = low
       return targetIndex == -1 ? low : targetIndex;
     }

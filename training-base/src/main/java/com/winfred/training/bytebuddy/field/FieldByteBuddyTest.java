@@ -18,22 +18,22 @@ import java.lang.reflect.Modifier;
 @Slf4j
 public class FieldByteBuddyTest {
 
-    private static final String fieldName = "key";
+  private static final String fieldName = "key";
 
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
-        final TestService testService = new ByteBuddy()
-            .subclass(TestService.class)
-            .defineField(fieldName, String.class, Modifier.PRIVATE)
-            .make()
-            .load(ClassLoader.getSystemClassLoader())
-            .getLoaded()
-            .newInstance();
+  public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
+    final TestService testService = new ByteBuddy()
+        .subclass(TestService.class)
+        .defineField(fieldName, String.class, Modifier.PRIVATE)
+        .make()
+        .load(ClassLoader.getSystemClassLoader())
+        .getLoaded()
+        .newInstance();
 
-        ReflectUtils.setFieldValue(testService, fieldName, testService.getUuid());
-        final Object value = ReflectUtils.getFieldValue(testService, fieldName);
-        log.info("{} = {}", fieldName, value);
-        log.info("{}", JSON.toJSONString(testService));
-    }
+    ReflectUtils.setFieldValue(testService, fieldName, testService.getUuid());
+    final Object value = ReflectUtils.getFieldValue(testService, fieldName);
+    log.info("{} = {}", fieldName, value);
+    log.info("{}", JSON.toJSONString(testService));
+  }
 
 
 }

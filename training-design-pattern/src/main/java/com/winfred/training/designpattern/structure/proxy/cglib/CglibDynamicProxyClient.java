@@ -8,16 +8,16 @@ import org.junit.Test;
 
 @Slf4j
 public class CglibDynamicProxyClient {
-  
-  
+
+
   @Test
   public void cglibProxyTest() {
     MyMethodInterceptor cgLibProxy = new MyMethodInterceptor();
     UserService userService = (UserService) cgLibProxy.createProxyObject(new UserServiceImpl());
-    
+
     ProxyEntity entity = new ProxyEntity();
     entity.setName("xxx");
-    
+
     userService.testAround(entity);
   }
 }

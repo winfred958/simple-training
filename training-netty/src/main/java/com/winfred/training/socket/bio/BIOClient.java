@@ -17,12 +17,12 @@ public class BIOClient {
     int port = 6666;
     ThreadPoolUtil.doExecutor(() -> {
       try (
-              Socket socket = new Socket(ip, port);
-              InputStream inputStream = socket.getInputStream();
-              OutputStream outputStream = socket.getOutputStream();
+          Socket socket = new Socket(ip, port);
+          InputStream inputStream = socket.getInputStream();
+          OutputStream outputStream = socket.getOutputStream();
       ) {
         while (true) {
-          
+
           // 写
           SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
           Calendar calendar = Calendar.getInstance();
@@ -39,7 +39,7 @@ public class BIOClient {
 //                        log.info("get: {}", response);
 //                    }
 //                    inputStream.reset();
-          
+
           Thread.sleep(2000);
         }
       } catch (IOException e) {

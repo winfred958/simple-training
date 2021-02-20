@@ -16,27 +16,27 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class ShutdownHookTest {
-  
+
   @Test
   public void shutdownHook() {
-    
+
     log.info(" test java shutdown hook");
-    
+
     Runtime
-            .getRuntime()
-            .addShutdownHook(new Thread(new Runnable() {
-              @Override
-              public void run() {
-                log.info("start shutdown hook");
-                try {
-                  TimeUnit.SECONDS.sleep(3);
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                }
-                log.info("end shutdown hook");
-                // jvm ShutdownHook 中调用 System.exit(), 会卡住JVM, 导致进程无法退出.
-                //  System.exit(0);
-              }
-            }));
+        .getRuntime()
+        .addShutdownHook(new Thread(new Runnable() {
+          @Override
+          public void run() {
+            log.info("start shutdown hook");
+            try {
+              TimeUnit.SECONDS.sleep(3);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            log.info("end shutdown hook");
+            // jvm ShutdownHook 中调用 System.exit(), 会卡住JVM, 导致进程无法退出.
+            //  System.exit(0);
+          }
+        }));
   }
 }

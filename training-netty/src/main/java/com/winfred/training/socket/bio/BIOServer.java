@@ -37,7 +37,7 @@ public class BIOServer {
       }
     });
   }
-  
+
   /**
    * Socket.InputStream.read 客户端未发送或未发送完毕, 服务端线程阻塞
    * 或
@@ -47,8 +47,8 @@ public class BIOServer {
    */
   private static void handler(Socket socket) {
     try (
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
+        InputStream inputStream = socket.getInputStream();
+        OutputStream outputStream = socket.getOutputStream();
     ) {
       // 读取
       byte[] data = new byte[4096];

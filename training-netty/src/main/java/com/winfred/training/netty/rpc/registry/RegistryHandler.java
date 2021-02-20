@@ -23,15 +23,15 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Slf4j
 public class RegistryHandler extends ChannelInboundHandlerAdapter {
-  
+
   private List<String> classPaths = new ArrayList<>();
   private Map<String, Object> serviceMap = new ConcurrentHashMap<>();
-  
+
   public RegistryHandler() {
     scanClass("com.winfred.training.netty.rpc.provider");
     doRegistry();
   }
-  
+
   /**
    * 触发读事件的回调
    *
@@ -42,7 +42,7 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
     Object result = null;
-    
+
     InvokeProtocol invokeProtocol = (InvokeProtocol) msg;
     String className = invokeProtocol.getClassName();
     if (serviceMap.containsKey(className)) {
@@ -54,13 +54,13 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
     log.info("{} => {}", ctx.channel().remoteAddress(), String.valueOf(result));
     ctx.write(result);
   }
-  
+
   @Override
   public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
     ctx.flush();
     ctx.close();
   }
-  
+
   /**
    * 连接发生异常时的回调
    *
@@ -72,7 +72,7 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
   public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
     log.error("", cause);
   }
-  
+
   /**
    * 扫描指定包class
    * <p>
@@ -82,9 +82,9 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
    */
   private void scanClass(String packageName) {
     URL url = this.getClass()
-            .getClassLoader()
-            .getResource(StringUtils.replacePattern(packageName, "\\.", "/"));
-    
+        .getClassLoader()
+        .getResource(StringUtils.replacePattern(packageName, "\\.", "/"));
+
     File classPath = new File(url.getFile());
     for (File file : classPath.listFiles()) {
       if (file.isDirectory()) {
@@ -94,7 +94,7 @@ public class RegistryHandler extends ChannelInboundHandlerAdapter {
       }
     }
   }
-  
+
   private void doRegistry() {
     if (classPaths.isEmpty()) {
       return;

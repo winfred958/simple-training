@@ -22,26 +22,26 @@ import java.util.LinkedList;
  * 则中位数是 (2 + 3)/2 = 2.5
  */
 public class FindMedianSortedArrays {
-  
-  
+
+
   public static void main(String[] args) {
     Solution1 solution = new Solution1();
-    
+
     int[] nums1 = {1};
     int[] nums2 = {2, 3, 4};
-    
+
     double median = solution.findMedianSortedArrays(nums1, nums2);
     System.out.println(median);
   }
-  
-  
+
+
   static class Solution1 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
       int[] mergeArray = mergeArray(nums1, nums2);
       Double median = getMedian(mergeArray);
       return median;
     }
-    
+
     public Double getMedian(int[] array) {
       if (null == array) {
         return null;
@@ -57,33 +57,33 @@ public class FindMedianSortedArrays {
       } else {
         return (double) array[length / 2];
       }
-      
+
     }
-    
+
     public int[] mergeArray(int[] nums1, int[] nums2) {
-      
+
       int length1 = null == nums1 ? 0 : nums1.length;
       int length2 = null == nums2 ? 0 : nums2.length;
-      
+
       if (length1 == 0) {
         return nums2;
       }
-      
+
       if (length2 == 0) {
         return nums1;
       }
-      
+
       int mergeLength = length1 + length2;
       int[] tmpArray = new int[mergeLength];
       int index1 = 0;
       int index2 = 0;
-      
+
       int value1 = 0;
       int value2 = 0;
-      
+
       for (int i = 0; i < mergeLength; i++) {
         // 1. 分别从两个数组中获取, 如果length==0 或 index >=length, 跳过
-        
+
         if (index1 < length1) {
           value1 = nums1[index1];
         } else {
@@ -92,7 +92,7 @@ public class FindMedianSortedArrays {
           index2++;
           continue;
         }
-        
+
         if (index2 < length2) {
           value2 = nums2[index2];
         } else {
@@ -110,21 +110,21 @@ public class FindMedianSortedArrays {
           index2++;
         }
       }
-      
+
       return tmpArray;
     }
   }
-  
+
   static class Solution2 {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
       Deque<Integer> deque1 = buildDeque(nums1);
       Deque<Integer> deque2 = buildDeque(nums2);
-      
+
       deque1.pollFirst();
-      
+
       return 0.0;
     }
-    
+
     private Deque<Integer> buildDeque(int[] nums1) {
       Deque<Integer> deque1 = new LinkedList<Integer>();
       if (null == nums1 || nums1.length == 0) {
@@ -135,6 +135,6 @@ public class FindMedianSortedArrays {
       });
       return deque1;
     }
-    
+
   }
 }

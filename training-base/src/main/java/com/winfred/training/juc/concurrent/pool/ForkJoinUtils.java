@@ -20,16 +20,16 @@ public class ForkJoinUtils {
     private static int maxWorks = 2048;
 
     private static ForkJoinPool forkJoin = new ForkJoinPool(maxWorks - 1,
-            ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-            new Thread.UncaughtExceptionHandler() {
-              @Override
-              public void uncaughtException(Thread t, Throwable e) {
-                t.interrupt();
-                log.error(" fork/join task error: {} - {} : {}", t.getId(), t.getName(), e);
-              }
-            },
-            true
-            // @since 1.9 +
+        ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+        new Thread.UncaughtExceptionHandler() {
+          @Override
+          public void uncaughtException(Thread t, Throwable e) {
+            t.interrupt();
+            log.error(" fork/join task error: {} - {} : {}", t.getId(), t.getName(), e);
+          }
+        },
+        true
+        // @since 1.9 +
 //                ,
 //                64,
 //                maxWorks,

@@ -9,9 +9,9 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * @author kevin
  */
 public class TrieTree {
-  
+
   private TrieNode trie;
-  
+
   /**
    * build trie use word
    *
@@ -25,7 +25,7 @@ public class TrieTree {
     }
     addChars(trie, chars, 0);
   }
-  
+
   private void addChars(TrieNode trie, char[] chars, int index) {
     if (index >= chars.length) {
       return;
@@ -46,7 +46,7 @@ public class TrieTree {
     }
     addChars(leaf.get(key), chars, index + 1);
   }
-  
+
   /**
    * word in trie ?
    *
@@ -56,12 +56,12 @@ public class TrieTree {
   public boolean containsWord(String word) {
     return containsWord(this.trie, word.toCharArray(), 0);
   }
-  
+
   private boolean containsWord(TrieNode node, char[] chars, int index) {
     if (null == node) {
       return false;
     }
-    
+
     if (index >= chars.length) {
       return true;
     }
@@ -74,37 +74,37 @@ public class TrieTree {
       return false;
     }
   }
-  
-  
+
+
   public TrieNode getTrie() {
     return trie;
   }
-  
+
   public void setTrie(TrieNode trie) {
     this.trie = trie;
   }
-  
+
   static class TrieNode {
-    
+
     private TrieNode parent;
     private Map<String, TrieNode> child;
-    
+
     public TrieNode getParent() {
       return parent;
     }
-    
+
     public void setParent(TrieNode parent) {
       this.parent = parent;
     }
-    
+
     public Map<String, TrieNode> getChild() {
       return child;
     }
-    
+
     public void setChild(Map<String, TrieNode> child) {
       this.child = child;
     }
-    
+
     public void addChildNode(String key, TrieNode node) {
       if (this.child == null) {
         child = new ConcurrentSkipListMap<>();
@@ -113,7 +113,7 @@ public class TrieTree {
         child.put(key, node);
       }
     }
-    
+
     public boolean constanceKey(String key) {
       return child == null ? false : child.containsKey(key);
     }

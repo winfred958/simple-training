@@ -5,9 +5,9 @@ import org.junit.Test;
 
 @Slf4j
 public class BubbleSort {
-  
+
   private int[] array = {3, 10, 6, 19, 1};
-  
+
   @Test
   public void sort() {
     int length = array.length;
@@ -20,7 +20,7 @@ public class BubbleSort {
         }
       }
     }
-    
+
     for (int i = 0; i < array.length; i++) {
       log.info("{}", array[i]);
     }

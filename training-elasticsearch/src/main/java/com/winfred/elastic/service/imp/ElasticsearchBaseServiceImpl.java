@@ -32,14 +32,14 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
-  
+
   private int MAX_BULK_SIZE = 1500;
-  
-  
+
+
   @Autowired
   @Qualifier(value = "restHighLevelClient")
   private RestHighLevelClient restHighLevelClient;
-  
+
   /**
    * 批量索引数据
    *
@@ -52,7 +52,7 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
     ForkJoinTask<List<BulkResponse>> forkJoinTask = ForkJoinUtils
         .getInstance()
         .submit(new BulkIndexTask(data, indexName));
-    
+
     try {
       List<BulkResponse> bulkResponses = forkJoinTask.get();
       List<Long> longList = bulkResponses
@@ -61,7 +61,7 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
             return response.getIngestTookInMillis();
           })
           .collect(Collectors.toList());
-      
+
       log.info("[bulkIndex] bulk index  partition={} took {} ms", bulkResponses.size(), JSON.toJSONString(longList));
       return bulkResponses;
     } catch (InterruptedException e) {
@@ -71,7 +71,7 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
     }
     return null;
   }
-  
+
   /**
    * @param data      数据列表
    * @param indexName Elasticsearch 索引名称
@@ -79,7 +79,7 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
    */
   private BulkRequest buildBulkRequest(List<?> data, String indexName) {
     BulkRequest bulkRequest = new BulkRequest(indexName);
-    
+
     data
         .stream()
         .map(obj -> {
@@ -91,10 +91,10 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
           return indexRequest;
         })
         .forEach(bulkRequest::add);
-    
+
     return bulkRequest;
   }
-  
+
   @Override
   public <T> T query(SearchRequest searchRequest, ResultsExtractor<T> resultsExtractor) {
     T t = null;
@@ -107,22 +107,22 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
     }
     return t;
   }
-  
+
   @Override
   public void bulkUpdate() {
-  
+
   }
-  
-  
+
+
   class BulkIndexTask extends RecursiveTask<List<BulkResponse>> {
     private List<?> data;
     private String indexName;
-    
+
     public BulkIndexTask(List<?> data, String indexName) {
       this.data = data;
       this.indexName = indexName;
     }
-    
+
     @Override
     protected List<BulkResponse> compute() {
       int size = data.size();
@@ -142,10 +142,10 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
       } else {
         BulkIndexTask bulkIndexTask1 = new BulkIndexTask(data.subList(0, size / 2), indexName);
         BulkIndexTask bulkIndexTask2 = new BulkIndexTask(data.subList(size / 2, size), indexName);
-        
+
         bulkIndexTask1.fork();
         bulkIndexTask2.fork();
-        
+
         List<BulkResponse> join1 = bulkIndexTask1.join();
         List<BulkResponse> join2 = bulkIndexTask2.join();
         join1.addAll(join2);
@@ -158,23 +158,23 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
       }
     }
   }
-  
+
   class BulkIndexTaskAsync extends RecursiveTask<Void> {
     private List<?> data;
     private String indexName;
-    
+
     public BulkIndexTaskAsync(List<?> data, String indexName) {
       this.data = data;
       this.indexName = indexName;
     }
-    
+
     @Override
     protected Void compute() {
       int size = data.size();
       if (size < MAX_BULK_SIZE) {
         BulkRequest bulkRequest = buildBulkRequest(this.data, this.indexName);
         BulkResponse bulkResponse = null;
-        
+
         // Async index
         restHighLevelClient
             .bulkAsync(bulkRequest, RequestOptions.DEFAULT, new ActionListener<BulkResponse>() {
@@ -182,7 +182,7 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
               public void onResponse(BulkResponse bulkItemResponses) {
                 log.info("[bulkIndex] bulk index success took {} ms", bulkItemResponses.getIngestTookInMillis());
               }
-              
+
               @Override
               public void onFailure(Exception e) {
                 log.error("[bulkIndex] bulk index failed.", e);
@@ -191,10 +191,10 @@ public class ElasticsearchBaseServiceImpl implements ElasticsearchBaseService {
       } else {
         BulkIndexTask bulkIndexTask1 = new BulkIndexTask(data.subList(0, size / 2), indexName);
         BulkIndexTask bulkIndexTask2 = new BulkIndexTask(data.subList(size / 2, size), indexName);
-        
+
         bulkIndexTask1.fork();
         bulkIndexTask2.fork();
-        
+
         bulkIndexTask1.join();
         bulkIndexTask2.join();
       }

@@ -34,18 +34,18 @@ public class CompletableFutureOr {
     CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("A-3", 2000L);
 
     CompletableFuture<SimpleResponse> completableFuture = completableFutureA
-            .applyToEitherAsync(completableFutureB, new Function<SimpleResponse, SimpleResponse>() {
-              @Override
-              public SimpleResponse apply(SimpleResponse simpleResponse) {
-                return simpleResponse;
-              }
-            })
-            .applyToEitherAsync(completableFutureC, new Function<SimpleResponse, SimpleResponse>() {
-              @Override
-              public SimpleResponse apply(SimpleResponse simpleResponse) {
-                return simpleResponse;
-              }
-            });
+        .applyToEitherAsync(completableFutureB, new Function<SimpleResponse, SimpleResponse>() {
+          @Override
+          public SimpleResponse apply(SimpleResponse simpleResponse) {
+            return simpleResponse;
+          }
+        })
+        .applyToEitherAsync(completableFutureC, new Function<SimpleResponse, SimpleResponse>() {
+          @Override
+          public SimpleResponse apply(SimpleResponse simpleResponse) {
+            return simpleResponse;
+          }
+        });
 
     try {
       SimpleResponse simpleResponse = completableFuture.get();
@@ -60,25 +60,25 @@ public class CompletableFutureOr {
 
   private CompletableFuture<SimpleResponse> getCompletableFuture(String apiName, Long took) {
     return CompletableFuture
-            .supplyAsync(new Supplier<SimpleResponse>() {
-              @Override
-              public SimpleResponse get() {
-                log.info("request: {}", apiName);
-                try {
-                  Thread.sleep(took);
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                }
-                return new SimpleResponse(apiName, 200);
-              }
-            }, ForkJoinUtils.getInstance())
-            .thenApplyAsync(new Function<SimpleResponse, SimpleResponse>() {
-              @Override
-              public SimpleResponse apply(SimpleResponse simpleResponse) {
-                log.info("\t \t response: {} response", apiName);
-                return simpleResponse;
-              }
-            }, ForkJoinUtils.getInstance());
+        .supplyAsync(new Supplier<SimpleResponse>() {
+          @Override
+          public SimpleResponse get() {
+            log.info("request: {}", apiName);
+            try {
+              Thread.sleep(took);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            return new SimpleResponse(apiName, 200);
+          }
+        }, ForkJoinUtils.getInstance())
+        .thenApplyAsync(new Function<SimpleResponse, SimpleResponse>() {
+          @Override
+          public SimpleResponse apply(SimpleResponse simpleResponse) {
+            log.info("\t \t response: {} response", apiName);
+            return simpleResponse;
+          }
+        }, ForkJoinUtils.getInstance());
   }
 
 

@@ -21,42 +21,42 @@ import java.util.stream.Collectors;
 
 
 public class ElasticsearchServiceTest extends BaseTest {
-  
+
   @Autowired
   private ElasticsearchBaseService elasticsearchService;
-  
+
   List<OrderItem> data = new ArrayList<>();
-  
+
   @Before
   public void createData() {
   }
-  
+
   @Test
   public void bulkIndexTest() {
     elasticsearchService.bulkIndex(data, "bulk_index_test");
   }
-  
+
   @Test
   public void queryTest() {
-    
+
     SearchRequest searchRequest = new SearchRequest();
     SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
     searchSourceBuilder.query(QueryBuilders.matchAllQuery());
     searchSourceBuilder.size(10);
     searchRequest.indices(".monitoring-es-7-2020.06.24");
     searchRequest.source(searchSourceBuilder);
-    
+
     SearchResponse searchResponse = elasticsearchService
         .query(searchRequest, (response -> {
           SearchHits searchHits = response.getHits();
-          
+
           SearchHit[] hits = searchHits.getHits();
           List<String> collect = Arrays.stream(hits).map(hit -> {
             String sourceStr = hit.getSourceAsString();
             return sourceStr;
           }).collect(Collectors.toList());
-          
-          
+
+
           return response;
         }));
     SearchHits searchHits = searchResponse.getHits();
@@ -64,5 +64,5 @@ public class ElasticsearchServiceTest extends BaseTest {
     Suggest suggest = searchResponse.getSuggest();
     int totalShards = searchResponse.getTotalShards();
   }
-  
+
 }

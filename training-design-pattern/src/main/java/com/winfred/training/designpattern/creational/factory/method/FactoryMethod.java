@@ -12,7 +12,7 @@ public class FactoryMethod {
   public static void main(String[] args) {
     ICarFactory aCarFactory = new ACarFactory();
     ICarFactory bCarFactory = new BCarFactory();
-    
+
     aCarFactory.create().goAhead(10);
     bCarFactory.create().goAhead(100);
   }

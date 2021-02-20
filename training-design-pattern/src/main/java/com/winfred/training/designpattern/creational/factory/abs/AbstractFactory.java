@@ -8,6 +8,6 @@ package com.winfred.training.designpattern.creational.factory.abs;
  */
 public class AbstractFactory {
   public static void main(String[] args) {
-    
+
   }
 }

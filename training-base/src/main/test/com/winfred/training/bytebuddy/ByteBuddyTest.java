@@ -16,30 +16,30 @@ import java.io.IOException;
 @Slf4j
 public class ByteBuddyTest {
 
-    @Test
-    public void simpleTest() {
-        final DynamicType.Unloaded<Object> dynamicType = new ByteBuddy()
-            .subclass(Object.class)
-            .method(ElementMatchers.isToString())
-            .intercept(FixedValue.value("Hello Word!"))
-            .make();
+  @Test
+  public void simpleTest() {
+    final DynamicType.Unloaded<Object> dynamicType = new ByteBuddy()
+        .subclass(Object.class)
+        .method(ElementMatchers.isToString())
+        .intercept(FixedValue.value("Hello Word!"))
+        .make();
 
-        try {
-            dynamicType.toJar(new File("/tmp.jar"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            final Object obj = dynamicType
-                .load(this.getClass().getClassLoader())
-                .getLoaded()
-                .newInstance();
-            log.info(obj.toString());
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    try {
+      dynamicType.toJar(new File("/tmp.jar"));
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+
+    try {
+      final Object obj = dynamicType
+          .load(this.getClass().getClassLoader())
+          .getLoaded()
+          .newInstance();
+      log.info(obj.toString());
+    } catch (InstantiationException e) {
+      e.printStackTrace();
+    } catch (IllegalAccessException e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -10,35 +10,35 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public final class ThreadPoolUtil {
 
-    private static Integer CORE_POOL_SIZE = 64;
-    private static Integer MAX_POOL_SIZE = 2048;
+  private static Integer CORE_POOL_SIZE = 64;
+  private static Integer MAX_POOL_SIZE = 2048;
 
-    private static class SingleClass {
-        private static ExecutorService executor = new ThreadPoolExecutor(
-                CORE_POOL_SIZE, MAX_POOL_SIZE,
-                30L, TimeUnit.SECONDS,
-                new LinkedBlockingDeque<>(MAX_POOL_SIZE * 4),
-                new ThreadFactory() {
-                    private final AtomicLong tid = new AtomicLong(1);
+  private static class SingleClass {
+    private static ExecutorService executor = new ThreadPoolExecutor(
+        CORE_POOL_SIZE, MAX_POOL_SIZE,
+        30L, TimeUnit.SECONDS,
+        new LinkedBlockingDeque<>(MAX_POOL_SIZE * 4),
+        new ThreadFactory() {
+          private final AtomicLong tid = new AtomicLong(1);
 
-                    @Override
-                    public Thread newThread(Runnable r) {
-                        Thread thread = new Thread(r, "ud-thread-pool-" + tid.getAndDecrement());
-                        return thread;
-                    }
-                }
-        );
-    }
+          @Override
+          public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r, "ud-thread-pool-" + tid.getAndDecrement());
+            return thread;
+          }
+        }
+    );
+  }
 
-    private static ExecutorService getInstance() {
-        return SingleClass.executor;
-    }
+  private static ExecutorService getInstance() {
+    return SingleClass.executor;
+  }
 
-    public static Future<?> doExecutor(Callable<?> callable) {
-        return getInstance().submit(callable);
-    }
+  public static Future<?> doExecutor(Callable<?> callable) {
+    return getInstance().submit(callable);
+  }
 
-    public static void doExecutor(Runnable runnable) {
-        getInstance().execute(runnable);
-    }
+  public static void doExecutor(Runnable runnable) {
+    getInstance().execute(runnable);
+  }
 }

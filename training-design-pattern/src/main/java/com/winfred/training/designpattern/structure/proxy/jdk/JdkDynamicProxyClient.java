@@ -15,17 +15,17 @@ import java.nio.file.Paths;
 
 @Slf4j
 public class JdkDynamicProxyClient {
-  
+
   @Test
   public void jdkProxyTest() {
     // jdk proxy 只支持被代理的对象必须要实现接口
     UserService userService = new UserServiceImpl();
     MyInvocationHandler myInvocationHandler = new MyInvocationHandler(userService);
-    
+
     UserService proxy = (UserService) myInvocationHandler.getProxy();
-    
+
     writeClassFile(proxy);
-    
+
     ProxyEntity entity = new ProxyEntity();
     entity.setName("xxx");
     proxy.testBefore(entity);
@@ -35,7 +35,7 @@ public class JdkDynamicProxyClient {
     proxy.testAround(entity);
     System.out.println("=====================");
   }
-  
+
   /**
    * 代理类字节码写入文件, 方便反编译查看
    *
@@ -44,10 +44,10 @@ public class JdkDynamicProxyClient {
   private void writeClassFile(UserService proxy) {
     String classSimpleName = proxy.getClass().getSimpleName();
     byte[] bytes = ProxyGenerator.generateProxyClass(classSimpleName, new Class[]{UserService.class});
-    
+
     //
     Path path = Paths.get("./").getFileSystem().getPath("src", "main", "resources", "proxy", "Proxy21.class");
-    
+
     try (FileOutputStream fileOutputStream = new FileOutputStream(path.toFile(), false);) {
       fileOutputStream.write(bytes);
     } catch (FileNotFoundException e) {
@@ -56,5 +56,5 @@ public class JdkDynamicProxyClient {
       e.printStackTrace();
     }
   }
-  
+
 }

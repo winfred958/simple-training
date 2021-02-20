@@ -12,23 +12,23 @@ import java.util.concurrent.ForkJoinPool;
  */
 @Slf4j
 public class ForkJoinUtils {
-    private static ForkJoinPool forkJoinPool = Single.forkJoin;
+  private static ForkJoinPool forkJoinPool = Single.forkJoin;
 
-    private static class Single {
-        private static ForkJoinPool forkJoin = new ForkJoinPool(2048,
-                ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-                new Thread.UncaughtExceptionHandler() {
-                    @Override
-                    public void uncaughtException(Thread t, Throwable e) {
-                        t.interrupt();
-                        log.error(" fork/join task error: {} - {} : {}", t.getId(), t.getName(), e);
-                    }
-                },
-                true
-        );
-    }
+  private static class Single {
+    private static ForkJoinPool forkJoin = new ForkJoinPool(2048,
+        ForkJoinPool.defaultForkJoinWorkerThreadFactory,
+        new Thread.UncaughtExceptionHandler() {
+          @Override
+          public void uncaughtException(Thread t, Throwable e) {
+            t.interrupt();
+            log.error(" fork/join task error: {} - {} : {}", t.getId(), t.getName(), e);
+          }
+        },
+        true
+    );
+  }
 
-    public static ForkJoinPool getInstance() {
-        return forkJoinPool;
-    }
+  public static ForkJoinPool getInstance() {
+    return forkJoinPool;
+  }
 }

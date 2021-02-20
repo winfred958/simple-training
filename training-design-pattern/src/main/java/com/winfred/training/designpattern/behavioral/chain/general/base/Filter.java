@@ -5,7 +5,7 @@ import com.winfred.training.designpattern.behavioral.chain.general.entity.Reques
 import com.winfred.training.designpattern.behavioral.chain.general.entity.Response;
 
 public interface Filter {
-  
+
   /**
    * 执行过滤
    *
@@ -19,8 +19,8 @@ public interface Filter {
     filterChain.doFilter(request, response);
     responseHandeler(response);
   }
-  
+
   void requestHandler(Request request);
-  
+
   void responseHandeler(Response response);
 }

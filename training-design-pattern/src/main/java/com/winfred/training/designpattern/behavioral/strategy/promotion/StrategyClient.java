@@ -5,15 +5,15 @@ import org.junit.Test;
 
 @Slf4j
 public class StrategyClient {
-  
+
   private String promotionKey = "COUPON";
-  
+
   @Test
   public void strategyTest() {
-    
+
     PromotionStrategy promotionStrategy = PromotionStrategyFactory.getPromotion(promotionKey);
     PromotionActive promotionActive = new PromotionActive(promotionStrategy);
     promotionActive.doPromotion();
-    
+
   }
 }

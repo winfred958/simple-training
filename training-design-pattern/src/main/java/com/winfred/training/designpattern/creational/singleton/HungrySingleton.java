@@ -10,14 +10,14 @@ package com.winfred.training.designpattern.creational.singleton;
  */
 public class HungrySingleton {
   private static final HungrySingleton HUNGRY_SINGLETON = new HungrySingleton();
-  
+
   private HungrySingleton() {
   }
-  
+
   public static HungrySingleton getInstance() {
     return HUNGRY_SINGLETON;
   }
-  
+
   public static int getHashcode() {
     return getInstance().hashCode();
   }

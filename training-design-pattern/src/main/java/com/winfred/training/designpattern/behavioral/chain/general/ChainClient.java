@@ -9,21 +9,21 @@ import org.junit.Test;
 
 @Slf4j
 public class ChainClient {
-  
+
   @Test
   public void filterChainTest() {
     FilterChain filterChain = new FilterChainImpl();
-    
+
     Request request = new Request();
     request.setBody("request: ");
-    
+
     Response response = new Response();
     response.setBody("response: ");
-    
+
     filterChain.add(new HtmlFilter());
     filterChain.add(new TermFilter());
     filterChain.doFilter(request, response);
-    
+
     log.info(request.getBody());
     log.info(response.getBody());
   }

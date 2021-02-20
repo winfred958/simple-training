@@ -66,6 +66,39 @@ public class DeadLock {
   }
 
   public static void main(String[] args) {
+
+    ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1, new ThreadFactory() {
+      @Override
+      public Thread newThread(Runnable r) {
+        return new Thread("single scheduler pool");
+      }
+    });
+    // 每隔10s 检测一次该jvm 死锁
+    scheduledExecutorService
+        .scheduleAtFixedRate(new Runnable() {
+          @Override
+          public void run() {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            log.info("================ WARNING ==================== " + simpleDateFormat.format(Calendar.getInstance().getTime()));
+
+            ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
+            // 获取死锁线程thread id
+            long[] tids = threadMXBean.findDeadlockedThreads();
+            ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(tids);
+            for (ThreadInfo threadInfo : threadInfos) {
+
+              log.info("deadlock thread :: " + threadInfo.getThreadName() +
+                  " :: lockName=" + threadInfo.getLockName() +
+                  " | ThreadId=" + threadInfo.getThreadId() +
+                  " | LockOwnerId=" + threadInfo.getLockOwnerId() +
+                  " | LockOwnerName=" + threadInfo.getLockOwnerName());
+            }
+
+//                showMemoryInfo();
+
+          }
+        }, 10L, 10L, TimeUnit.SECONDS);
+
     String lock1 = "lock1";
     String lock2 = "lock2";
 
@@ -82,36 +115,7 @@ public class DeadLock {
 //            e.printStackTrace();
 //        }
 
-    ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(1, new ThreadFactory() {
-      @Override
-      public Thread newThread(Runnable r) {
-        return new Thread("single scheduler pool");
-      }
-    });
-    // 每隔10s 检测一次该jvm 死锁
-    scheduledExecutorService.scheduleAtFixedRate(new Runnable() {
-      @Override
-      public void run() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        log.info("================ WARNING ==================== " + simpleDateFormat.format(Calendar.getInstance().getTime()));
 
-        ThreadMXBean threadMXBean = ManagementFactory.getThreadMXBean();
-        // 获取死锁线程thread id
-        long[] tids = threadMXBean.findDeadlockedThreads();
-        ThreadInfo[] threadInfos = threadMXBean.getThreadInfo(tids);
-        for (ThreadInfo threadInfo : threadInfos) {
-
-          log.info("deadlock thread :: " + threadInfo.getThreadName() +
-                  " :: lockName=" + threadInfo.getLockName() +
-                  " | ThreadId=" + threadInfo.getThreadId() +
-                  " | LockOwnerId=" + threadInfo.getLockOwnerId() +
-                  " | LockOwnerName=" + threadInfo.getLockOwnerName());
-        }
-
-//                showMemoryInfo();
-
-      }
-    }, 10L, 10L, TimeUnit.SECONDS);
   }
 
 
@@ -120,9 +124,9 @@ public class DeadLock {
     MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
 
     log.info(
-            "heapMemoryUsage max " + heapMemoryUsage.getMax() +
-                    "\nheapMemoryUsage init " + heapMemoryUsage.getInit() +
-                    "\nheapMemoryUsage used " + heapMemoryUsage.getUsed()
+        "heapMemoryUsage max " + heapMemoryUsage.getMax() +
+            "\nheapMemoryUsage init " + heapMemoryUsage.getInit() +
+            "\nheapMemoryUsage used " + heapMemoryUsage.getUsed()
     );
 
     MemoryUsage nonHeapMemoryUsage = memoryMXBean.getNonHeapMemoryUsage();
@@ -130,9 +134,9 @@ public class DeadLock {
     nonHeapMemoryUsage.getInit();
     nonHeapMemoryUsage.getUsed();
     log.info(
-            "nonHeapMemoryUsage max " + nonHeapMemoryUsage.getMax() +
-                    "\nnonHeapMemoryUsage init " + nonHeapMemoryUsage.getInit() +
-                    "\nnonHeapMemoryUsage used " + nonHeapMemoryUsage.getUsed()
+        "nonHeapMemoryUsage max " + nonHeapMemoryUsage.getMax() +
+            "\nnonHeapMemoryUsage init " + nonHeapMemoryUsage.getInit() +
+            "\nnonHeapMemoryUsage used " + nonHeapMemoryUsage.getUsed()
     );
   }
 }

@@ -13,8 +13,8 @@ import io.netty.handler.logging.LoggingHandler;
  * @author kevin
  */
 public class MyTestServerHandler extends ChannelInitializer<SocketChannel> {
-  
-  
+
+
   @Override
   protected void initChannel(SocketChannel socketChannel) throws Exception {
     ChannelPipeline channelPipeline = socketChannel.pipeline();

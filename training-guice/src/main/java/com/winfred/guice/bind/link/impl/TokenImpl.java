@@ -7,14 +7,14 @@ import com.winfred.guice.bind.link.UserService;
 import com.winfred.guice.bind.link.entity.UserInfo;
 
 public class TokenImpl implements Token {
-  
-  
+
+
   /**
    * field inject
    */
   @Inject
   private UserService userService;
-  
+
   /**
    * construct inject
    *
@@ -24,7 +24,7 @@ public class TokenImpl implements Token {
   public TokenImpl(UserService userService) {
     this.userService = userService;
   }
-  
+
   @Override
   public String getToken(String userId) {
     UserInfo userInfo = userService.getUserInfo(userId);

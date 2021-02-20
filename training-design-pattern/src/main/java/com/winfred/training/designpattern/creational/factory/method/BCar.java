@@ -5,5 +5,5 @@ public class BCar implements ICar {
   public void goAhead(Integer speed) {
     System.out.println("B go ahead: " + speed + "km/h");
   }
-  
+
 }

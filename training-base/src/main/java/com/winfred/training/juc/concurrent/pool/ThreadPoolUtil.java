@@ -24,18 +24,19 @@ public final class ThreadPoolUtil {
 
   private static class SingleClass {
     private static ExecutorService executor = new ThreadPoolExecutor(
-            CORE_POOL_SIZE, MAX_POOL_SIZE,
-            30L, TimeUnit.SECONDS,
-            new LinkedBlockingDeque<>(MAX_POOL_SIZE * 1024),
-            new ThreadFactory() {
-              private final AtomicLong tid = new AtomicLong(1);
+        CORE_POOL_SIZE, MAX_POOL_SIZE,
+        30L, TimeUnit.SECONDS,
+        new LinkedBlockingDeque<>(MAX_POOL_SIZE * 1024),
+        new ThreadFactory() {
+          private final AtomicLong tid = new AtomicLong(0);
+          private static final String name = "ud-pool-1-thread-";
 
-              @Override
-              public Thread newThread(Runnable r) {
-                Thread thread = new Thread(r, "ud-thread-pool-" + tid.getAndDecrement());
-                return thread;
-              }
-            }
+          @Override
+          public Thread newThread(Runnable r) {
+            Thread thread = new Thread(r, name + tid.incrementAndGet());
+            return thread;
+          }
+        }
     );
   }
 

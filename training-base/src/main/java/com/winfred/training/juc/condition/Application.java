@@ -17,9 +17,9 @@ public class Application {
     Condition condition = lock.newCondition();
 
     ThreadPoolUtil
-            .doExecutor(new ConditionWait(lock, condition));
+        .doExecutor(new ConditionWait(lock, condition));
     ThreadPoolUtil
-            .doExecutor(new ConditionNotify(lock, condition));
+        .doExecutor(new ConditionNotify(lock, condition));
 
     try {
       countDownLatch.await(5, TimeUnit.SECONDS);

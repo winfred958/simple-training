@@ -47,27 +47,27 @@ public class HttpServer {
 
       serverBootstrap = new ServerBootstrap();
       serverBootstrap
-              .option(ChannelOption.SO_BACKLOG, 128)
-              .option(ChannelOption.TCP_NODELAY, true)
-              .option(ChannelOption.SO_KEEPALIVE, true)
-              .option(ChannelOption.SO_REUSEADDR, true)
-              .option(ChannelOption.SO_RCVBUF, 32 * 1024)
-              .option(ChannelOption.SO_SNDBUF, 32 * 1024)
-              .option(EpollChannelOption.SO_REUSEPORT, true)
-              .childOption(ChannelOption.SO_KEEPALIVE, true);
+          .option(ChannelOption.SO_BACKLOG, 128)
+          .option(ChannelOption.TCP_NODELAY, true)
+          .option(ChannelOption.SO_KEEPALIVE, true)
+          .option(ChannelOption.SO_REUSEADDR, true)
+          .option(ChannelOption.SO_RCVBUF, 32 * 1024)
+          .option(ChannelOption.SO_SNDBUF, 32 * 1024)
+          .option(EpollChannelOption.SO_REUSEPORT, true)
+          .childOption(ChannelOption.SO_KEEPALIVE, true);
 
       serverBootstrap
-              .group(boosGroup, workGroup)
-              .channel(NioServerSocketChannel.class)
-              .handler(new LoggingHandler(LogLevel.DEBUG))
-              // FIXME: add http handler
-              .childHandler(new HttpInitializer(sslContext))
+          .group(boosGroup, workGroup)
+          .channel(NioServerSocketChannel.class)
+          .handler(new LoggingHandler(LogLevel.DEBUG))
+          // FIXME: add http handler
+          .childHandler(new HttpInitializer(sslContext))
       ;
 
       Channel channel = serverBootstrap
-              .bind(port)
-              .sync()
-              .channel();
+          .bind(port)
+          .sync()
+          .channel();
 
       log.info("Netty http server 0.0.0.0:{}", port);
 

@@ -9,11 +9,11 @@ package com.winfred.training.designpattern.structure.adapter.objectatapter;
  */
 public class Adapter implements Target {
   private Source source;
-  
+
   public Adapter(Source source) {
     this.source = source;
   }
-  
+
   @Override
   public int output() {
     int outputVoltage = source.outputVoltage();

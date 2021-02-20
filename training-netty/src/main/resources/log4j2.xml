@@ -5,7 +5,7 @@
     <Property name="LOG_FILE_NAME">simple-training</Property>
     <Property name="log.layout">%d %-5p %t (%c:%L) - %m%n</Property>
   </Properties>
-  
+
   <Appenders>
     <Appender type="Console"
               name="STDOUT">
@@ -26,12 +26,12 @@
       </Layout>
     </Appender>
   </Appenders>
-  
+
   <Loggers>
     <Logger name="log_file" level="info" additivity="false">
       <AppenderRef ref="FILE"/>
     </Logger>
-    
+
     <Root level="info">
       <AppenderRef ref="STDOUT"/>
       <AppenderRef ref="FILE"/>

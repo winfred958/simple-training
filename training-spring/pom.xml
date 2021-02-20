@@ -8,15 +8,15 @@
     <version>1.0.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  
+
   <artifactId>training-spring</artifactId>
-  
+
   <properties>
-    
+
     <!-- others -->
     <zookeeper.version>3.5.5</zookeeper.version>
   </properties>
-  
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -27,7 +27,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  
+
   <dependencies>
     <!-- 去掉默认log -->
     <dependency>
@@ -41,7 +41,7 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <!-- web容器配置, 去掉默认tomcat, 加入 undertom, 并替换原始依赖 spring-web -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -65,7 +65,7 @@
       <artifactId>spring-boot-starter-log4j2</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
-    
+
     <!-- 加入 undertom -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -78,27 +78,27 @@
         </exclusion>
       </exclusions>
     </dependency>
-    
+
     <!-- web -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
       <version>${javax.servlet-api.version}</version>
     </dependency>
-    
+
     <!--aop-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-aop</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
-    
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
-    
+
     <!-- 权限控制 -->
     <!--        <dependency>-->
     <!--            <groupId>org.springframework.boot</groupId>-->
@@ -113,7 +113,7 @@
       <scope>runtime</scope>
       <optional>true</optional>
     </dependency>
-    
+
     <!-- 读取配置文件 -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -127,7 +127,7 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
       <version>${spring-boot.version}</version>
     </dependency>
-    
+
     <!-- zookeeper -->
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
@@ -146,9 +146,9 @@
       <artifactId>curator-test</artifactId>
       <scope>test</scope>
     </dependency>
-  
+
   </dependencies>
-  
+
   <build>
     <plugins>
       <plugin>

@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 public @interface TheKey {
-    String key() default "key";
+  String key() default "key";
 }

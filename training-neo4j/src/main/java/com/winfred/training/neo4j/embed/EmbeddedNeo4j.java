@@ -8,39 +8,39 @@ import java.io.File;
 import java.io.IOException;
 
 public class EmbeddedNeo4j {
-  
+
   private static final File databaseDirectory = new File("target/neo4j-hello-db");
-  
+
   public String greeting;
-  
+
   // tag::vars[]
   GraphDatabaseService graphDb;
   Node firstNode;
   Node secondNode;
   Relationship relationship;
   // end::vars[]
-  
+
   // tag::createReltype[]
   private enum RelTypes implements RelationshipType {
     KNOWS
   }
   // end::createReltype[]
-  
+
   public static void main(final String[] args) throws IOException {
     EmbeddedNeo4j hello = new EmbeddedNeo4j();
     hello.createDb();
     hello.removeData();
     hello.shutDown();
   }
-  
+
   void createDb() throws IOException {
     FileUtils.deleteRecursively(databaseDirectory);
-    
+
     // tag::startDb[]
     graphDb = new GraphDatabaseFactory().newEmbeddedDatabase(databaseDirectory);
     registerShutdownHook(graphDb);
     // end::startDb[]
-    
+
     // tag::transaction[]
     try (Transaction tx = graphDb.beginTx()) {
       // Database operations go here
@@ -50,29 +50,29 @@ public class EmbeddedNeo4j {
       firstNode.setProperty("message", "Hello, ");
       secondNode = graphDb.createNode();
       secondNode.setProperty("message", "World!");
-      
+
       relationship = firstNode.createRelationshipTo(secondNode, RelTypes.KNOWS);
-      
-      
+
+
       relationship.setProperty("message", "brave Neo4j ");
       // end::addData[]
-      
+
       // tag::readData[]
       System.out.print(firstNode.getProperty("message"));
       System.out.print(relationship.getProperty("message"));
       System.out.print(secondNode.getProperty("message"));
       // end::readData[]
-      
+
       greeting = ((String) firstNode.getProperty("message"))
-              + ((String) relationship.getProperty("message"))
-              + ((String) secondNode.getProperty("message"));
-      
+          + ((String) relationship.getProperty("message"))
+          + ((String) secondNode.getProperty("message"));
+
       // tag::transaction[]
       tx.success();
     }
     // end::transaction[]
   }
-  
+
   void removeData() {
     try (Transaction tx = graphDb.beginTx()) {
       // tag::removingData[]
@@ -81,11 +81,11 @@ public class EmbeddedNeo4j {
       firstNode.delete();
       secondNode.delete();
       // end::removingData[]
-      
+
       tx.success();
     }
   }
-  
+
   void shutDown() {
     System.out.println();
     System.out.println("Shutting down database ...");
@@ -93,7 +93,7 @@ public class EmbeddedNeo4j {
     graphDb.shutdown();
     // end::shutdownServer[]
   }
-  
+
   // tag::shutdownHook[]
   private static void registerShutdownHook(final GraphDatabaseService graphDb) {
     // Registers a shutdown hook for the Neo4j instance so that it

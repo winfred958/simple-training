@@ -47,9 +47,9 @@ public class SimpleHttpServerV1 {
 
 
     try (
-            PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), false);
-            InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), false);
+        InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
     ) {
 
       String str = null;

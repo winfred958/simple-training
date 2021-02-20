@@ -39,34 +39,34 @@ public class CompletableFutureAnd {
     CompletableFuture<SimpleResponse> completableFutureC = getCompletableFuture("C", 2000L);
     AllResponse allResponse = new AllResponse();
     CompletableFuture<AllResponse> allCombine = completableFutureA
-            .thenCombineAsync(completableFutureB, new BiFunction<SimpleResponse, SimpleResponse, AllResponse>() {
+        .thenCombineAsync(completableFutureB, new BiFunction<SimpleResponse, SimpleResponse, AllResponse>() {
+          @Override
+          public AllResponse apply(SimpleResponse simpleResponse, SimpleResponse simpleResponse2) {
+            allResponse.setResponseA(simpleResponse);
+            allResponse.setResponseB(simpleResponse2);
+            return allResponse;
+          }
+        }, ForkJoinUtils.getInstance())
+        .thenCombineAsync(completableFutureC, new BiFunction<AllResponse, SimpleResponse, AllResponse>() {
+          @Override
+          public AllResponse apply(AllResponse allResponse, SimpleResponse simpleResponse2) {
+            allResponse.setResponseC(simpleResponse2);
+            return allResponse;
+          }
+        }, ForkJoinUtils.getInstance())
+        .thenComposeAsync(new Function<AllResponse, CompletionStage<AllResponse>>() {
+          @Override
+          public CompletionStage<AllResponse> apply(AllResponse allResponse) {
+            log.info("组装数据");
+            return CompletableFuture.supplyAsync(new Supplier<AllResponse>() {
               @Override
-              public AllResponse apply(SimpleResponse simpleResponse, SimpleResponse simpleResponse2) {
-                allResponse.setResponseA(simpleResponse);
-                allResponse.setResponseB(simpleResponse2);
+              public AllResponse get() {
+                log.info("处理");
                 return allResponse;
-              }
-            }, ForkJoinUtils.getInstance())
-            .thenCombineAsync(completableFutureC, new BiFunction<AllResponse, SimpleResponse, AllResponse>() {
-              @Override
-              public AllResponse apply(AllResponse allResponse, SimpleResponse simpleResponse2) {
-                allResponse.setResponseC(simpleResponse2);
-                return allResponse;
-              }
-            }, ForkJoinUtils.getInstance())
-            .thenComposeAsync(new Function<AllResponse, CompletionStage<AllResponse>>() {
-              @Override
-              public CompletionStage<AllResponse> apply(AllResponse allResponse) {
-                log.info("组装数据");
-                return CompletableFuture.supplyAsync(new Supplier<AllResponse>() {
-                  @Override
-                  public AllResponse get() {
-                    log.info("处理");
-                    return allResponse;
-                  }
-                }, ForkJoinUtils.getInstance());
               }
             }, ForkJoinUtils.getInstance());
+          }
+        }, ForkJoinUtils.getInstance());
 
     try {
       AllResponse response = allCombine.get();
@@ -80,25 +80,25 @@ public class CompletableFutureAnd {
 
   private CompletableFuture<SimpleResponse> getCompletableFuture(String apiName, Long took) {
     return CompletableFuture
-            .supplyAsync(new Supplier<SimpleResponse>() {
-              @Override
-              public SimpleResponse get() {
-                log.info("request: {}", apiName);
-                try {
-                  Thread.sleep(took);
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                }
-                return new SimpleResponse(apiName, 200);
-              }
-            }, ForkJoinUtils.getInstance())
-            .thenApplyAsync(new Function<SimpleResponse, SimpleResponse>() {
-              @Override
-              public SimpleResponse apply(SimpleResponse simpleResponse) {
-                log.info("\t \t response: {} response", apiName);
-                return simpleResponse;
-              }
-            }, ForkJoinUtils.getInstance());
+        .supplyAsync(new Supplier<SimpleResponse>() {
+          @Override
+          public SimpleResponse get() {
+            log.info("request: {}", apiName);
+            try {
+              Thread.sleep(took);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            return new SimpleResponse(apiName, 200);
+          }
+        }, ForkJoinUtils.getInstance())
+        .thenApplyAsync(new Function<SimpleResponse, SimpleResponse>() {
+          @Override
+          public SimpleResponse apply(SimpleResponse simpleResponse) {
+            log.info("\t \t response: {} response", apiName);
+            return simpleResponse;
+          }
+        }, ForkJoinUtils.getInstance());
   }
 
 

@@ -10,7 +10,7 @@ import java.util.Observer;
  * @author winfred
  */
 public class SubscriberTwo implements Observer, ObserverExt {
-  
+
   @Override
   public void update(Observable observable, Object arg) {
     doSomething(arg);

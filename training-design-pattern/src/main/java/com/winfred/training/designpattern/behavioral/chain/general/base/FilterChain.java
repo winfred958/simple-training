@@ -4,7 +4,7 @@ import com.winfred.training.designpattern.behavioral.chain.general.entity.Reques
 import com.winfred.training.designpattern.behavioral.chain.general.entity.Response;
 
 public interface FilterChain {
-  
+
   /**
    * 添加过滤器
    *
@@ -12,7 +12,7 @@ public interface FilterChain {
    * @return
    */
   FilterChain add(Filter filter);
-  
+
   /**
    * 执行filter
    *
@@ -21,5 +21,5 @@ public interface FilterChain {
    * @throws RuntimeException
    */
   void doFilter(Request request, Response response) throws RuntimeException;
-  
+
 }

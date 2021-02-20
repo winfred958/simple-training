@@ -6,7 +6,7 @@ import com.winfred.guice.bind.link.impl.UserServiceImpl;
 
 
 public class InjectorBind extends AbstractModule {
-  
+
   /**
    * 配置类之间关系
    */

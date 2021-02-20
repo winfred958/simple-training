@@ -12,12 +12,12 @@ import java.util.concurrent.ConcurrentSkipListMap;
  * 策略工厂
  */
 public class PromotionStrategyFactory {
-  
-  
+
+
   private static class Singleton {
-    
+
     private static Map<String, PromotionStrategy> promotionStrategyMap = new ConcurrentSkipListMap();
-    
+
     static {
       promotionStrategyMap.put(PromotionKey.COUPON, new CouponStrategy());
       promotionStrategyMap.put(PromotionKey.CASHBACK, new CashbackStrategy());
@@ -25,14 +25,14 @@ public class PromotionStrategyFactory {
       promotionStrategyMap.put(PromotionKey.EMPTY, new EmptyStrategy());
     }
   }
-  
+
   private PromotionStrategyFactory() {
   }
-  
+
   public static PromotionStrategy getPromotion(String promotionKey) {
     return Singleton.promotionStrategyMap.get(promotionKey);
   }
-  
+
   public interface PromotionKey {
     String EMPTY = "EMPTY";
     String COUPON = "COUPON";

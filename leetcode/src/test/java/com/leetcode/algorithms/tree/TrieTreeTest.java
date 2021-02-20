@@ -9,9 +9,9 @@ import org.junit.Test;
 
 @Slf4j
 public class TrieTreeTest {
-  
+
   TrieTree trieTree;
-  
+
   @Before
   public void buildTree() {
     trieTree = new TrieTree();
@@ -28,18 +28,18 @@ public class TrieTreeTest {
     trieTree.addWord("appropriate");
     trieTree.addWord("approach");
   }
-  
+
   @Test
   public void trieTest() {
     TrieTree.TrieNode trie = trieTree.getTrie();
-    
+
     String jsonString = JSON.toJSONString(trie, SerializerFeature.SortField, SerializerFeature.IgnoreNonFieldGetter);
     System.out.println(jsonString);
-    
-    
+
+
     boolean good = trieTree.containsWord("good");
     boolean goose = trieTree.containsWord("goody");
-    
+
     System.out.println(good);
     System.out.println(goose);
   }

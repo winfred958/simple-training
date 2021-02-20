@@ -15,46 +15,46 @@ import java.util.Map;
  * @author kevin
  */
 public class GraphDatabaeSession {
-  
+
   public Session getSession() {
     Driver driver = GraphDatabase
-            .driver(
-                    "bolt://cdh-172-16-1-36:7687",
-                    AuthTokens.basic("neo4j", "xxxxxxxxxxxxxxxxxx")
-            );
+        .driver(
+            "bolt://cdh-172-16-1-36:7687",
+            AuthTokens.basic("neo4j", "xxxxxxxxxxxxxxxxxx")
+        );
     return driver.session();
   }
-  
-  
+
+
   public Node createNode() {
     Session session = getSession();
-    
-    
+
+
     session.writeTransaction(new ItemTransactionWork(new ItemEntity()));
-    
+
     return null;
   }
-  
+
   static class ItemTransactionWork implements TransactionWork<StatementResult> {
-    
+
     private ItemEntity itemEntity;
-    
+
     public ItemTransactionWork(ItemEntity itemEntity) {
       itemEntity = itemEntity;
     }
-    
+
     @Override
     public StatementResult execute(Transaction tx) {
       Map<String, Object> parameterMap = new HashMap<>();
-      
+
       parameterMap.put("item_number", itemEntity.getItemNumber());
-      
+
       StatementResult statementResult = tx.run(
-              "CREATE (a:ItemEntity) SET id = {item_number} RETURN a",
-              parameterMap
+          "CREATE (a:ItemEntity) SET id = {item_number} RETURN a",
+          parameterMap
       );
       Record record = statementResult.next();
-      
+
       return statementResult;
     }
   }

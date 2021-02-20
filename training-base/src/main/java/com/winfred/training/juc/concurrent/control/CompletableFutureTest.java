@@ -53,13 +53,13 @@ public class CompletableFutureTest {
     });
 
     CompletableFuture<Void> allOf = CompletableFuture
-            .allOf(
-                    cf1,
-                    cf2,
-                    cf3,
-                    cf4,
-                    cf5
-            );
+        .allOf(
+            cf1,
+            cf2,
+            cf3,
+            cf4,
+            cf5
+        );
 
 
     System.out.println("================xxx=1");
@@ -67,21 +67,21 @@ public class CompletableFutureTest {
     System.out.println("================xxx=2");
 
     allOf
-            .thenApplyAsync(new Function<Void, Object>() {
-              @Override
-              public Object apply(Void aVoid) {
-                try {
-                  String str1 = cf1.get();
-                  String str2 = cf2.get();
-                  System.out.println(str1 + str2);
-                } catch (InterruptedException e) {
-                  e.printStackTrace();
-                } catch (ExecutionException e) {
-                  e.printStackTrace();
-                }
-                return null;
-              }
-            });
+        .thenApplyAsync(new Function<Void, Object>() {
+          @Override
+          public Object apply(Void aVoid) {
+            try {
+              String str1 = cf1.get();
+              String str2 = cf2.get();
+              System.out.println(str1 + str2);
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            } catch (ExecutionException e) {
+              e.printStackTrace();
+            }
+            return null;
+          }
+        });
 
   }
 }

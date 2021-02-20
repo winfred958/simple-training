@@ -8,12 +8,12 @@ public class UserServiceImpl implements UserService {
   public void testBefore(ProxyEntity entity) {
     log.info("{}: {} {}", this.getClass().getName(), "testBefore", entity.getName());
   }
-  
+
   @Override
   public void testAfter(ProxyEntity entity) {
     log.info("{}: {} {}", this.getClass().getName(), "testAfter", entity.getName());
   }
-  
+
   @Override
   public void testAround(ProxyEntity entity) {
     log.info("{}: {} {}", this.getClass().getName(), "testAround", entity.getName());

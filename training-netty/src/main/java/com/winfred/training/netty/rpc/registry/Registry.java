@@ -41,39 +41,39 @@ public class Registry {
     NioEventLoopGroup workGroup = new NioEventLoopGroup(workerPoolSize);
 
     serverBootstrap = serverBootstrap
-            .group(boosGroup, workGroup)
-            // 最大selector数
-            .option(ChannelOption.SO_BACKLOG, 128)
-            // 子线程池回收利用
-            .childOption(ChannelOption.SO_KEEPALIVE, true)
-            .channel(NioServerSocketChannel.class)
-            .childHandler(new ChannelInitializer<SocketChannel>() {
-              @Override
-              protected void initChannel(SocketChannel ch) throws Exception {
-                // netty, 所有业务逻辑归总到了一个队列中
-                // 这个队列包含一系列处理逻辑
-                // 封装成一个无锁的任务队列 Pipeline
-                ChannelPipeline channelPipeline = ch.pipeline();
+        .group(boosGroup, workGroup)
+        // 最大selector数
+        .option(ChannelOption.SO_BACKLOG, 128)
+        // 子线程池回收利用
+        .childOption(ChannelOption.SO_KEEPALIVE, true)
+        .channel(NioServerSocketChannel.class)
+        .childHandler(new ChannelInitializer<SocketChannel>() {
+          @Override
+          protected void initChannel(SocketChannel ch) throws Exception {
+            // netty, 所有业务逻辑归总到了一个队列中
+            // 这个队列包含一系列处理逻辑
+            // 封装成一个无锁的任务队列 Pipeline
+            ChannelPipeline channelPipeline = ch.pipeline();
 
-                // 数据解析 ↓
-                // 自定义协议的解码器
-                channelPipeline
-                        .addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
-                // 自定义协议的编码器
-                channelPipeline
-                        .addLast(new LengthFieldPrepender(4));
+            // 数据解析 ↓
+            // 自定义协议的解码器
+            channelPipeline
+                .addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+            // 自定义协议的编码器
+            channelPipeline
+                .addLast(new LengthFieldPrepender(4));
 
-                // 参数处理
-                channelPipeline.addLast("encoder", new ObjectEncoder());
-                channelPipeline.addLast("decode", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
-                // 数据解析 ↑
+            // 参数处理
+            channelPipeline.addLast("encoder", new ObjectEncoder());
+            channelPipeline.addLast("decode", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+            // 数据解析 ↑
 
-                log.info("client connected: {}", ch.remoteAddress());
-                // 业务逻辑处理
-                channelPipeline.addLast("rpc-handler", new RegistryHandler());
+            log.info("client connected: {}", ch.remoteAddress());
+            // 业务逻辑处理
+            channelPipeline.addLast("rpc-handler", new RegistryHandler());
 
-              }
-            });
+          }
+        });
 
 
     ChannelFuture channelFuture = null;

@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ValidateHandler implements Handler {
-  
+
   @Override
   public void doHandler(MemberEntity member) {
     log.info("{}", this.getClass().getName());

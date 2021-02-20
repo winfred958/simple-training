@@ -15,11 +15,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * -- 层序遍历 levelOrder
  */
 public class BinaryTreeTraversal {
-  
-  
+
+
   static class Solution {
-    
-    
+
+
     /**
      * 中序遍历
      *
@@ -31,9 +31,9 @@ public class BinaryTreeTraversal {
       inorderTraversal(root, result);
       return result;
     }
-    
+
     private void inorderTraversal(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
-      
+
       if (null == node) {
         return;
       }
@@ -45,8 +45,8 @@ public class BinaryTreeTraversal {
         inorderTraversal(node.getRight(), result);
       }
     }
-    
-    
+
+
     /**
      * 前序遍历
      *
@@ -58,7 +58,7 @@ public class BinaryTreeTraversal {
       preorderTraversal(root, result);
       return result;
     }
-    
+
     private void preorderTraversal(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
       if (null == node) {
         return;
@@ -71,7 +71,7 @@ public class BinaryTreeTraversal {
         preorderTraversal(node.getRight(), result);
       }
     }
-    
+
     /**
      * 后序遍历
      *
@@ -83,7 +83,7 @@ public class BinaryTreeTraversal {
       postorderTraversal(root, result);
       return result;
     }
-    
+
     private void postorderTraversal(BinaryTreeNode<Integer> node, List<BinaryTreeNode<Integer>> result) {
       if (null == node) {
         return;
@@ -96,7 +96,7 @@ public class BinaryTreeTraversal {
       }
       result.add(node);
     }
-    
+
     /**
      * BFS 广度搜索优先, 层序遍历
      * <p>
@@ -108,15 +108,15 @@ public class BinaryTreeTraversal {
     public List<BinaryTreeNode<Integer>> levelOrderTraversal(BinaryTreeNode<Integer> root) {
       List<List<BinaryTreeNode<Integer>>> tmpResult = new CopyOnWriteArrayList<>();
       levelOrderTraversal(root, tmpResult, 0);
-      
+
       List<BinaryTreeNode<Integer>> result = new ArrayList<>();
       tmpResult
-              .forEach(e -> {
-                result.addAll(e);
-              });
+          .forEach(e -> {
+            result.addAll(e);
+          });
       return result;
     }
-    
+
     private void levelOrderTraversal(BinaryTreeNode<Integer> node, List<List<BinaryTreeNode<Integer>>> result, int level) {
       if (null == node) {
         return;

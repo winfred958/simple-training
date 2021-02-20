@@ -25,13 +25,13 @@ public class SimpleHttpServerV2 {
 
       socket.setSoTimeout(3000);
       ThreadPoolUtil
-              .doExecutor(() -> {
-                try {
-                  handler(socket);
-                } catch (IOException e) {
-                  log.error("", e);
-                }
-              });
+          .doExecutor(() -> {
+            try {
+              handler(socket);
+            } catch (IOException e) {
+              log.error("", e);
+            }
+          });
 
     }
   }
@@ -49,9 +49,9 @@ public class SimpleHttpServerV2 {
 
 
     try (
-            PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), false);
-            InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), false);
+        InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
     ) {
 
       String str = null;

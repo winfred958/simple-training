@@ -14,15 +14,15 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j(topic = "ReadCompletionHandler")
 public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuffer> {
-  
+
   private AsynchronousSocketChannel asynchronousSocketChannel;
-  
+
   private int sendCount = 0;
-  
+
   public ReadCompletionHandler(AsynchronousSocketChannel asynchronousSocketChannel) {
     this.asynchronousSocketChannel = asynchronousSocketChannel;
   }
-  
+
   @Override
   public void completed(Integer result, ByteBuffer attachment) {
     attachment.flip();
@@ -30,7 +30,7 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
     attachment.get(bytes);
     // 客户端请求转码
     String requestStr = new String(bytes, StandardCharsets.UTF_8);
-    
+
     String remoteHost = "";
     try {
       remoteHost = asynchronousSocketChannel.getRemoteAddress().toString();
@@ -41,12 +41,12 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
     String response = "";
     doWrite(response);
   }
-  
+
   @Override
   public void failed(Throwable exc, ByteBuffer attachment) {
-  
+
   }
-  
+
   private void doWrite(String response) {
     if (StringUtils.isNotBlank(response)) {
       byte[] bytes = response.getBytes();
@@ -61,7 +61,7 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
             sendCount++;
           }
         }
-        
+
         @Override
         public void failed(Throwable exc, ByteBuffer attachment) {
           log.error("", exc);
@@ -70,7 +70,7 @@ public class ReadCompletionHandler implements CompletionHandler<Integer, ByteBuf
           } catch (IOException e) {
             log.error("", e);
           }
-          
+
         }
       });
     }

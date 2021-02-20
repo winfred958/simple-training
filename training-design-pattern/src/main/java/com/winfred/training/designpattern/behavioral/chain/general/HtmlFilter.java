@@ -5,17 +5,17 @@ import com.winfred.training.designpattern.behavioral.chain.general.entity.Reques
 import com.winfred.training.designpattern.behavioral.chain.general.entity.Response;
 
 public class HtmlFilter implements Filter {
-  
+
   @Override
   public void requestHandler(Request request) {
     request.setBody(request.getBody() + " HTML-filter ->");
-    
+
   }
-  
+
   @Override
   public void responseHandeler(Response response) {
     response.setBody(response.getBody() + " HTML-filter ->");
-    
+
   }
-  
+
 }
