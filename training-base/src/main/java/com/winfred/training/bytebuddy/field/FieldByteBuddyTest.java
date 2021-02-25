@@ -5,9 +5,6 @@ import com.winfred.training.bytebuddy.base.TestService;
 import com.winfred.training.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.dynamic.scaffold.InstrumentedType;
-import net.bytebuddy.implementation.Implementation;
-import net.bytebuddy.implementation.bytecode.ByteCodeAppender;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -18,22 +15,20 @@ import java.lang.reflect.Modifier;
 @Slf4j
 public class FieldByteBuddyTest {
 
-  private static final String fieldName = "key";
+  private static final String FIELD_NAME = "key";
 
   public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
     final TestService testService = new ByteBuddy()
         .subclass(TestService.class)
-        .defineField(fieldName, String.class, Modifier.PRIVATE)
+        .defineField(FIELD_NAME, String.class, Modifier.PRIVATE)
         .make()
         .load(ClassLoader.getSystemClassLoader())
         .getLoaded()
         .newInstance();
 
-    ReflectUtils.setFieldValue(testService, fieldName, testService.getUuid());
-    final Object value = ReflectUtils.getFieldValue(testService, fieldName);
-    log.info("{} = {}", fieldName, value);
+    ReflectUtils.setFieldValue(testService, FIELD_NAME, testService.getUuid());
+    final Object value = ReflectUtils.getFieldValue(testService, FIELD_NAME);
+    log.info("{} = {}", FIELD_NAME, value);
     log.info("{}", JSON.toJSONString(testService));
   }
-
-
 }

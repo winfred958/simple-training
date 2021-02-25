@@ -27,14 +27,14 @@ import java.util.UUID;
 @Slf4j
 public class MethodByteBuddyTest {
 
-  private static final String fieldName = "key";
-  private static final String methodName = "getKey";
+  private static final String FIELD_NAME = "key";
+  private static final String METHOD_NAME = "getKey";
 
   public static void main(String[] args) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException, NoSuchFieldException {
     final TestService testService = new ByteBuddy()
         .subclass(TestService.class)
-        .defineField(fieldName, String.class, Modifier.PRIVATE)
-        .defineMethod(methodName, String.class, Modifier.PUBLIC)
+        .defineField(FIELD_NAME, String.class, Modifier.PRIVATE)
+        .defineMethod(METHOD_NAME, String.class, Modifier.PUBLIC)
         .intercept(
             MethodDelegation.to(KeyDelegation.class)
         )
@@ -45,7 +45,7 @@ public class MethodByteBuddyTest {
     String uuid = UUID.randomUUID().toString();
     testService.setUuid(uuid);
 
-    final Object key = ReflectUtils.invoke(testService, methodName);
+    final Object key = ReflectUtils.invoke(testService, METHOD_NAME);
     log.info("{}", JSON.toJSONString(testService));
   }
 
@@ -73,7 +73,7 @@ public class MethodByteBuddyTest {
         // 反射获取不到父类字段, 所以调用get方法
         String methodName = "get" + StringUtils.capitalize(key);
         result = ReflectUtils.invoke(obj, methodName);
-        ReflectUtils.setFieldValue(obj, fieldName, result);
+        ReflectUtils.setFieldValue(obj, FIELD_NAME, result);
       }
       return String.valueOf(result);
     }
