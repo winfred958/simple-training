@@ -64,7 +64,7 @@
 
     <!-- logging -->
     <slf4j.version>1.7.30</slf4j.version>
-    <log4j.version>2.11.2</log4j.version>
+    <log4j.version>2.13.2</log4j.version>
 
     <!-- Elasticsearch -->
     <elasticsearch.client.version>7.8.0</elasticsearch.client.version>
